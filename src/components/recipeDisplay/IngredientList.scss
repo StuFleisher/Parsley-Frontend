@@ -1,0 +1,5 @@
+@import '../../css/_recipe-mixins.scss';
+
+.IngredientList {
+    @include IngredientList;
+}

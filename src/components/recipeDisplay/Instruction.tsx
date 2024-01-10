@@ -1,8 +1,10 @@
+import './Instruction.scss';
+
 function Instruction({instruction}:{instruction:string}){
 
 
     return (
-        <p>{instruction}</p>
+        <p className="Instruction">{instruction}</p>
     )
 }
 

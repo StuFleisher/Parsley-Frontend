@@ -1,0 +1,13 @@
+@import '../../css/_recipe-mixins.scss';
+
+.Step-number {
+    @include Step-number;
+}
+
+.Step-ingredients {
+    @include Step-ingredients;
+}
+
+.Step-instructions {
+    @include Step-instructions;
+}

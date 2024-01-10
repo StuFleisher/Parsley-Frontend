@@ -1,0 +1,15 @@
+.AutoResizeInput {
+    position: relative;
+    width:fit-content;
+    display: inline-block;
+}
+
+.AutoResizeInput > span {
+    position: absolute;
+    top: -1000em;
+    left:-1000em;
+}
+
+.AutoResizeInput > input {
+    padding: 5px;
+}

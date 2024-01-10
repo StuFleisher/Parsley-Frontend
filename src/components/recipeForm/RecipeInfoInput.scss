@@ -1,0 +1,17 @@
+@import '../../css/_recipe-mixins.scss';
+
+.RecipeInfo {
+    @include RecipeInfo;
+}
+
+.RecipeInfo-name {
+    textarea {
+        min-height: fit-content;
+    }
+}
+
+.RecipeInfo-description {
+    textarea {
+        min-height: fit-content;
+    }
+}

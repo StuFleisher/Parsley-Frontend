@@ -1,0 +1,7 @@
+@import '../../css/_recipe-mixins.scss';
+
+
+.InstructionInput {
+    @include Instruction;
+}
+

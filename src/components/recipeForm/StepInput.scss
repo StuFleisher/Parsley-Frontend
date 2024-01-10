@@ -1,0 +1,50 @@
+@import '../../css/_recipe-mixins.scss';
+
+
+.StepInput {
+    @include Step;
+
+    // .Step-add {
+    //     grid-area: add;
+    //     align-self: center;
+    //     padding: .5rem;
+    //     border-radius: 10px;
+    //     margin: .5rem;
+    //     width: 2rem;
+    //     height: 2rem;
+    //     text-align: center;
+
+
+    //     * {
+    //         padding: .5rem;
+    //     }
+    // }
+    // .Step-delete {
+    //     position:absolute;
+    //     top:1rem;
+    //     right: 1rem;
+    // }
+}
+
+.Step-number {
+    @include Step-number;
+}
+
+.Step-ingredients {
+    @include Step-ingredients;
+}
+
+.Step-instructions {
+    @include Step-instructions;
+}
+
+@media (min-width: 600px){
+
+
+.StepInput {
+    grid-template-columns: .5fr 4fr 4fr .5fr;
+    grid-template-areas:
+        "number ingredients instructions add";
+}
+}
+

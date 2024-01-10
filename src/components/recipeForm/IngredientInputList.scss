@@ -1,0 +1,12 @@
+@import '../../css/_recipe-mixins.scss';
+
+.IngredientList {
+    @include IngredientList;
+
+    .IngredientList-icon {
+        color:$butternut;
+        font-size: 2rem;
+        line-height: 0;
+        padding: 0rem .5rem;
+    }
+}

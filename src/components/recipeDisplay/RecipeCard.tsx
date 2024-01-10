@@ -1,10 +1,16 @@
 import RecipeInfo from "./RecipeInfo";
-import StepsTable from "./StepsTable";
+import StepsTable from "./StepsList";
+import './RecipeCard.scss';
 
-function RecipeCard({recipe}:{recipe:IRecipe}) {
+type Props = {
+  recipe:IRecipe
+}
+
+
+function RecipeCard({recipe}:Props) {
 
   return (
-    <div>
+    <div className="RecipeCard">
       <RecipeInfo recipe={recipe}/>
       <StepsTable steps={recipe.steps}/>
     </div>

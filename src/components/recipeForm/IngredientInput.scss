@@ -1,0 +1,46 @@
+// @import "../css/colors";
+@import '../../css/_recipe-mixins.scss';
+
+.IngredientInput {
+    @include ingredient
+    // display:inline-block;
+    // position:relative;
+    // width:100%;
+    // margin:2px;
+
+    // > .AutoResizeInput > input {
+    //     border: none;
+    //     padding:.5rem;
+    //     color:white;
+    //     font-size:1rem;
+    //     font-weight: 900;
+    // }
+
+    // > .AutoResizeInput:nth-child(odd) > input {
+    //     background: linear-gradient(90deg, $butternut, mix(white, $butternut, 20));
+    //     border-radius: 2rem 0 0 2rem;
+    //     padding-left: 1rem;
+    // }
+
+    // > .AutoResizeInput:nth-child(even) > input {
+    //     background-color: mix(white, $butternut, 0);
+    //     border-radius: 0 2rem 2rem 0;
+    //     padding-right:1rem;
+    // }
+}
+
+
+.IngredientInput-delete {
+    //positioning
+    position:absolute;
+    line-height: 0px;
+    font-size: .75rem;
+    right: 0rem;
+    top:0rem;
+
+    //appearance
+    color: $butternut;
+    background-color: white;
+    border: 1px solid white;
+    border-radius:50%;
+}

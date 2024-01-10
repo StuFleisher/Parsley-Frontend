@@ -1,15 +1,16 @@
 import Ingredient from "./Ingredient";
+import './IngredientList.scss';
 
 function IngredientList({ ingredients }: IIngredientList) {
     return (
         <ul>
-            {ingredients.map((i)=>{
+            {ingredients.map((ingredient,idx)=>{
                 return (
-                <li>
+                <div key={idx}>
                     <Ingredient
-                        ingredient={i}
-                        key={i.ingredientId} />
-                </li>)
+                        ingredient={ingredient}
+                    />
+                </div>)
             })}
         </ul>
     )
