@@ -42,6 +42,7 @@ class ParsleyAPI {
   static async userLogin(data:UserLoginData){
     const response = await this.request('auth/token', data,'post');
     ParsleyAPI.token = response.token;
+    console.log("logging in with token", response.token)
     return response.token;
   }
 

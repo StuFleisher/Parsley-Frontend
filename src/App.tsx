@@ -4,6 +4,7 @@ import userContext from './helpers/userContext';
 import RoutesList from './pages/RoutesList';
 import { BrowserRouter } from 'react-router-dom';
 import ParsleyAPI from './helpers/api';
+import NavBar from './components/ui/NavBar';
 
 const ANON_USER:IUser = {
   username: null,
@@ -24,15 +25,15 @@ function App() {
      * -Makes an api call and updates the user state
      */
   useEffect(function fetchUserOnMountOrChange() {
-
+    console.log("running fetchUserOnMountOrChange")
     async function fetchUser() {
       if (token) {
+        console.log("running fetchUser")
         const username = ParsleyAPI.getUsernameFromToken(token);
         const userData = await ParsleyAPI.getUser(username);
         setUser(userData);
       }
     }
-
     fetchUser();
   }, [token]);
 
@@ -76,6 +77,7 @@ function App() {
           <p>Loading</p>
         :
           <userContext.Provider value={user}>
+            <NavBar/>
             <BrowserRouter>
               <RoutesList login={login} register={register}/>
             </BrowserRouter>
