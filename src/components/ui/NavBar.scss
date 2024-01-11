@@ -1,0 +1,42 @@
+@import "../../css/colors";
+
+.Nav {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    background-color: $paprika;
+    color: $lightest;
+}
+
+.Nav-icon {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+
+    svg {
+        margin:.5rem;
+    }
+}
+
+.Nav-linkArea {
+
+    ul{
+        display:flex;
+        flex-direction: row;
+    }
+
+    li{
+        list-style-type: none;
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+        margin: .5rem;
+    }
+
+    svg{
+        margin:.5rem;
+    }
+
+}
