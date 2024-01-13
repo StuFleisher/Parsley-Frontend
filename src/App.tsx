@@ -5,6 +5,8 @@ import RoutesList from './pages/RoutesList';
 import { BrowserRouter } from 'react-router-dom';
 import ParsleyAPI from './helpers/api';
 import NavBar from './components/ui/NavBar';
+import { ThemeProvider } from '@mui/material';
+import parsleyTheme from './styles/theme';
 
 const ANON_USER:IUser = {
   username: null,
@@ -70,20 +72,22 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {
-        (token && !user.username)
-        ?
+    <ThemeProvider theme={parsleyTheme}>
+      <div className="App">
+        {
+          (token && !user.username)
+          ?
           <p>Loading</p>
-        :
+          :
           <userContext.Provider value={user}>
-            <NavBar/>
-            <BrowserRouter>
-              <RoutesList login={login} register={register}/>
-            </BrowserRouter>
-          </userContext.Provider>
-      }
-    </div>
+              <NavBar/>
+              <BrowserRouter>
+                <RoutesList login={login} register={register}/>
+              </BrowserRouter>
+            </userContext.Provider>
+        }
+      </div>
+    </ThemeProvider>
   );
 }
 
