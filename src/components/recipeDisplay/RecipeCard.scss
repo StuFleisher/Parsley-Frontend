@@ -3,3 +3,7 @@
 .RecipeCard {
     @include Recipe;
 }
+
+.RecipeBanner{
+    @include RecipeBanner;
+}

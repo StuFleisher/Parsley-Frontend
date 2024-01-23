@@ -4,8 +4,9 @@ import userContext from './helpers/userContext';
 import RoutesList from './pages/RoutesList';
 import { BrowserRouter } from 'react-router-dom';
 import ParsleyAPI from './helpers/api';
-import NavBar from './components/ui/NavBar';
+import NavBarMUI from './components/ui/NavBarMUI';
 import { ThemeProvider } from '@mui/material';
+import {Container} from '@mui/material';
 import parsleyTheme from './styles/theme';
 
 const ANON_USER:IUser = {
@@ -80,9 +81,12 @@ function App() {
           <p>Loading</p>
           :
           <userContext.Provider value={user}>
-              <NavBar/>
+              {/* <NavBar/> */}
               <BrowserRouter>
-                <RoutesList login={login} register={register}/>
+                <NavBarMUI/>
+                <Container className="App-page">
+                  <RoutesList login={login} register={register}/>
+                </Container>
               </BrowserRouter>
             </userContext.Provider>
         }

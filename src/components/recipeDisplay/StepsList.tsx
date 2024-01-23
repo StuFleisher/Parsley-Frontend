@@ -1,19 +1,21 @@
 import Step from "./Step";
 import './StepsList.scss';
 
+import Box from "@mui/material/Box";
+
 function StepsList ({steps}:{steps:IStep[]}){
-    console.log("steps",steps)
+
 
     return (
-        <div>
+        <Box>
             {steps.map((step)=>{
                 return (
-                    <div className='Step' key={step.stepId}>
+                    <Box className='Step' key={"displayStep" + step.stepId}>
                         <Step step={step}/>
-                    </div>
+                    </Box>
                 )
             })}
-        </div>
+        </Box>
     )
 }
 

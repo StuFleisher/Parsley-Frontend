@@ -3,3 +3,10 @@
 .IngredientList {
     @include IngredientList;
 }
+
+.Ingredient-empty {
+    font-size:6rem;
+    color: $muted;
+    opacity:50%;
+    margin-left: 2rem;
+}

@@ -4,71 +4,105 @@
 
 @mixin Recipe {
     margin: 1rem;
+    margin-top: 200px;
+    position: relative;
+
+}
+
+@mixin RecipeBanner {
+    z-index: 0;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:350px;
+    object-fit: cover;
 }
 
 @mixin RecipeInfo {
-    .RecipeInfo-name {
-        font-weight:900;
-        font-size:2rem;
+    color: $bright-white;
+    width: 100%;
+
+    .RecipeInfo-nameContainer {
+        width:100%;
+        display:flex;
+
+        svg {
+            font-size: 2rem;
+            align-self: flex-start;
+            flex-basis:2rem;
+            flex-grow:0;
+            flex-shrink:0;
+            min-width: 2rem;
+        }
+
+        .RecipeInfo-name {
+            color: $bright-white;
+            display: inline-block;
+        }
+        .RecipeInfo-name:hover, .RecipeInfo-name:focus {
+            color:$secondary;
+        }
     }
 
     .RecipeInfo-description {
+        margin: 2rem 0;
         font-style: italic;
     }
 
     .RecipeInfo-sourceName{
         @content;
     }
+
+    a {
+        color: $secondary;
+        text-decoration: none;
+    }
+
+    @media (max-width:600px){
+        .RecipeInfo-description{
+            display:none;
+        }
+    }
 }
 /************************** STEPS ******************/
 
 @mixin Step {
-    display:grid;
-    margin: 1rem;
     padding:1rem;
     width: 100%;
     position: relative;
 
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-        "number ingredients add"
-        "instructions instructions add";
-
-    border-bottom: 1px $butternut solid;
-
-    @media (min-width: 600px){
-        grid-template-columns: .5fr 4fr 4fr .5fr;
-        grid-template-areas:
-        "number ingredients instructions";
+    .Step-vdivider {
+        background-color: $primary;
+        width:3px;
     }
-
-    .Step-number {
-        grid-area: number;
-    }
-
-    .Step-ingredients {
-        grid-area: ingredients;
-        max-width: 400px;
-    }
-
-    .Step-instructions {
-        grid-area: instructions;
+    .Step-hdivider {
+        background-color: $primary;
+        height:2px;
     }
 }
+
 
 @mixin Step-number {
         align-self: center;
         font-size: 4rem;
         font-weight: 900;
         font-style: italic;
-        color:mix(white, $plum,50%);
+        color:$primary;
         margin-right: 1rem;
+        margin-bottom: 1rem;
 }
 
 @mixin Step-ingredients {
         display: flex;
         align-items: center;
+        width:300px;
+        flex-shrink:0;
+
+        @media (max-width:600px){
+            width:100%
+        }
+
 }
 
 @mixin Step-instructions {
@@ -99,16 +133,27 @@
     .ingredientList-item {
         display:flex;
         flex-wrap: nowrap;
-        width:max-content;
+        // width:max-content;
     }
+
+    
 }
 
 // Ingredient rules
-@mixin ingredient {
-    display:inline-block;
-    position:relative;
+@mixin Ingredient {
     width:100%;
-    margin:2px;
+    text-transform: uppercase;
+
+    & svg {
+        color:$primary;
+        display:inline-block;
+        align-self:start;
+    }
+
+    div {
+        display:inline-block;
+    }
+
 
     .capsule-left, .capsule-right {
         border: none;

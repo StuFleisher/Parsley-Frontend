@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"
 import RecipeForm from "../components/recipeForm/RecipeForm"
 import testRecipe from "../tempData";
@@ -29,10 +29,9 @@ function EditRecipePage () {
 
     }, [id, navigate]);
 
-    function updateRecipe(formData:IRecipe){
-        //TODO: write backend for updates
+    async function updateRecipe(formData:IRecipe){
         //TODO: validate inputs
-        console.log('updating recipe')
+        await ParsleyAPI.UpdateRecipe(formData)
         navigate(`/recipes/${recipe.recipeId}`);
     }
 

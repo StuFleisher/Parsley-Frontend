@@ -1,19 +1,29 @@
 import RecipeInfo from "./RecipeInfo";
-import StepsTable from "./StepsList";
+import StepsList from "./StepsList";
 import './RecipeCard.scss';
+
+import Card from "@mui/material/Card";
+import Box from "@mui/material/Box";
+
+const DEFAULT_IMG_URL = "/images/chicken_curry.jpg"
 
 type Props = {
   recipe:IRecipe
 }
 
-
 function RecipeCard({recipe}:Props) {
 
   return (
-    <div className="RecipeCard">
-      <RecipeInfo recipe={recipe}/>
-      <StepsTable steps={recipe.steps}/>
-    </div>
+    <>
+    <Box component="img" src={DEFAULT_IMG_URL} className="RecipeBanner"/>
+
+    <Box className="RecipeCard">
+      <Card className="SimpleRecipeCard">
+        <RecipeInfo recipe={recipe}/>
+      </Card>
+      <StepsList steps={recipe.steps}/>
+    </Box>
+    </>
   );
 }
 

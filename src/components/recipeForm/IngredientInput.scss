@@ -1,7 +1,7 @@
 @import '../../styles/_recipe-mixins.scss';
 
 .IngredientInput {
-    @include ingredient
+    @include Ingredient
     // display:inline-block;
     // position:relative;
     // width:100%;

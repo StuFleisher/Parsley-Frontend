@@ -2,8 +2,6 @@ import RecipeInfoInput from "./RecipeInfoInput";
 import StepsInputs from "./StepsInputs";
 import "./RecipeForm.scss";
 import { FormEvent, useState, useEffect } from "react";
-import ParsleyAPI from "../../helpers/api";
-import { useNavigate } from "react-router-dom";
 
 type recipeInfo = {
   name: string;
@@ -20,7 +18,6 @@ type Props = {
 function RecipeForm({recipe, onSubmitCallback}:Props) {
 
   const [formData,setFormData] = useState(recipe);
-  const navigate = useNavigate();
 
   useEffect(function updateFormDataOnRecipeChange(){
     setFormData(recipe);

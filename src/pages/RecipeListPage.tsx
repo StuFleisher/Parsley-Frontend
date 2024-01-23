@@ -1,8 +1,11 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ParsleyAPI from "../helpers/api";
-import RecipeInfo from "../components/recipeDisplay/RecipeInfo";
 
+import ParsleyAPI from "../helpers/api";
+import SimpleRecipeCard from "../components/recipeDisplay/SimpleRecipeCard";
+
+import { Container } from "@mui/material";
 
 function RecipeListPage() {
 
@@ -30,7 +33,7 @@ function RecipeListPage() {
     return (
         <div>
                 {recipes.map((recipe, i)=>{
-                    return <RecipeInfo recipe={recipe} key={i}/>
+                    return <SimpleRecipeCard recipe={recipe} key={i}/>
                 })}
 
         </div>

@@ -20,6 +20,7 @@ interface IIngredient {
   ingredientId?:number
   amount: string,
   description:string,
+  instructionRef:string,
 }
 
 interface IIngredientList {

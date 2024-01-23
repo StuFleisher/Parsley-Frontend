@@ -1,18 +1,54 @@
 
+//delete these later
 $wine: #390f14;
 $plum: #944c6d;
 $lavendar: #8b7da6;
 $berry: #1e6a81;
 $ice: #7bacc0;
-$mint: #9ec7ac;
 $kale: #006557;
 $pumpkin: #d26500;
 $butternut: #ffa32a;
-$peach: #feb48d;
 $chili: #ec5600;
 
-$paprika: #CF3E23;
-$lightest: #F9EFE0;
+$primary: #CF3E23;
+$secondary: #F4C251;
+$info:#E09A66;
+
+$charcoal: #4F4F51;
+
+$bright-white:#FFFAF3;
+
+$muted:#E2CEAB;
+$muted-light:#F9EFE0;
+$muted-dark:#DAB9AA;
+
+$almond:#E2CEAB;
+$almond-light:#FDE4BB;
+$almond-dark:#F9EFE0;
+
+$olive:#FFFAF3;
+$olive-light:#C9B96E;
+$olive-dark:#A28124;
+
+$mint-light:#C6CCBE;
+$mint:#ABB2A2;
+$mint-dark:#819E80;
+
+$salmon:#FF6B5F;
+$salmon-light:#FF6B5F;
+$salmon-dark:#D04A3C;
+
+$tangerine:#FE9635;
+$tangerine-light:#FE9635;
+$tangerine-dark:#D86306;
+
+$gold:#FFAA01;
+$gold-light:#FFC654;
+$gold-dark:#FB963C;
+
+$peach:#F9864F;
+$peach-light:#F9B577;
+$peach-dark:#D86306;
 
 $colors:(
     wine: $wine,
@@ -20,12 +56,47 @@ $colors:(
     lavendar: $lavendar,
     berry: $berry,
     ice: $ice,
-    mint: $mint,
     kale: $kale,
     pumpkin: $pumpkin,
     butternut: $butternut,
-    peach: $peach,
     chili: $chili,
-    paprika: $paprika,
-    lightest: $lightest,
+    primary:$primary,
+
+    bright-white:$bright-white,
+    secondary:$secondary,
+    info:$info,
+
+    charcoal:$charcoal,
+
+    muted:$muted,
+    muted-light:$muted-light,
+    muted-dark:$muted-dark,
+
+    almond:$almond,
+    almond-light:$almond-light,
+    almond-dark:$almond-dark,
+
+    olive:$olive,
+    olive-light:$olive-light,
+    olive-dark:$olive-dark,
+
+    mint:$mint,
+    mint-light:$mint-light,
+    mint-dark:$mint-dark,
+
+    salmon:$salmon,
+    salmon-light:$salmon-light,
+    salmon-dark:$salmon-dark,
+
+    tangerine: $tangerine,
+    tangerine-light:$tangerine-light,
+    tangerine-dark:$tangerine-dark,
+
+    gold: $gold,
+    gold-light:$gold-light,
+    golde-dark:$gold-dark,
+
+    peach:$peach,
+    peach-light: $peach-light,
+    peach-dark: $peach-dark,
 )

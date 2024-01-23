@@ -2,6 +2,25 @@ import { createTheme } from "@mui/material";
 
 
 const parsleyTheme = createTheme({
+    typography:{
+        fontFamily: ['Josefin Sans', 'sans-serif'].join(','),
+        button:{textTransform:'none'},
+        h1:{fontFamily:`'Shrikhand', Georgia`},
+        h2:{fontFamily:`'Shrikhand', Georgia`},
+        h3:{
+            fontFamily:`'Shrikhand', Georgia`,
+            fontSize:'1rem',
+            '@media (min-width:600px)': {
+                fontSize: '2rem',
+              },
+        },
+        subtitle1:{fontWeight:300, fontStyle:'italic' }
+    },
+    components:{
+        MuiMenu:{
+            defaultProps:{elevation:0},
+        }
+    },
     palette: {
         primary: {
             main:'#CF3E23'
@@ -51,6 +70,12 @@ const parsleyTheme = createTheme({
             light:'#F9B577',
             main:'#F9864F',
             dark:'#D86306',
+        },
+        brightWhite:{
+            main:'#FFFAF3',
+        },
+        charcoal:{
+            main:'#4F4F51',
         },
     }
 })
