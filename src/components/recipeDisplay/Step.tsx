@@ -10,33 +10,14 @@ import Typography from "@mui/material/Typography";
 import parsleyTheme from "../../styles/theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
+import {getIngredientColorMaps} from "../../helpers/colorPicker";
 
-type IngredientColorRelationship = {
-    listRef: String;
-    instructionRef: String;
-    color: String;
-}
 
 function Step({step}:{step:IStep}){
 
     const {stepNumber, instructions, ingredients} = step;
 
-    function createColorMap(step:IStep){
-        let instructionRefs=new Set();
-        for (let ingredient of step.ingredients){
-            instructionRefs.add(ingredient.instructionRef);
-        }
-
-        let colorMap:IngredientColorRelationship[] = [];
-        for (let ingredient of step.ingredients){
-            colorMap.push({
-                listRef:ingredient.description,
-                instructionRef:ingredient.instructionRef,
-                color:"mint",
-            })
-        }
-        return colorMap;
-    }
+    const {instructionsColors, ingredientsColors} = getIngredientColorMaps(step.ingredients);
 
     return (
         <>
@@ -56,10 +37,10 @@ function Step({step}:{step:IStep}){
                 }
             >
                 <Box className="Step-ingredients">
-                    <IngredientList ingredients={ingredients}/>
+                    <IngredientList ingredients={ingredients} colorMap={ingredientsColors}/>
                 </Box>
                 <Box className="Step-instructions">
-                    <Instruction instruction={instructions}/>
+                    <Instruction instruction={instructions} colorMap={instructionsColors}/>
                 </Box>
             </Stack>
         </>

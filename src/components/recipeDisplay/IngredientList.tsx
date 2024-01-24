@@ -7,7 +7,12 @@ import Stack from "@mui/material/Stack";
 import { useMediaQuery } from "@mui/material";
 import parsleyTheme from "../../styles/theme";
 
-function IngredientList({ ingredients }: IIngredientList) {
+type props = {
+    ingredients:IIngredient[];
+    colorMap:Map<IIngredient, string>
+}
+
+function IngredientList({ ingredients, colorMap }: props) {
 
     const emptyIngredientDisplay = useMediaQuery(parsleyTheme.breakpoints.up("md"))
     ?
@@ -24,7 +29,7 @@ function IngredientList({ ingredients }: IIngredientList) {
                 return (
                 <div key={idx}>
                     <Ingredient
-                        color="mint"
+                        color={colorMap.get(ingredient)}
                         ingredient={ingredient}
                     />
                 </div>)

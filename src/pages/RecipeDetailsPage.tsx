@@ -2,7 +2,7 @@ import ParsleyAPI from "../helpers/api";
 import RecipeCard from "../components/recipeDisplay/RecipeCard";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import testRecipe from "../tempData";
+// import testRecipe from "../tempData";
 
 
 
@@ -10,7 +10,7 @@ function RecipeDetailsPage() {
 
     const { id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
-    const [recipe, setRecipe] = useState<IRecipe>(testRecipe);
+    const [recipe, setRecipe] = useState<IRecipe | null >(null);
     const navigate = useNavigate();
 
     useEffect(function fetchRecipeOnMount() {
@@ -36,7 +36,7 @@ function RecipeDetailsPage() {
 
     return (
 
-        isLoading
+        !recipe
         ?
             <p>Loading...</p>
         :

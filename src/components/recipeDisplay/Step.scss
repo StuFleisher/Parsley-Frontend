@@ -16,5 +16,15 @@
 @each $color,$code in $colors {
     .highlight-#{$color} {
         background-color: $code;
+        color:$bright-white;
+        padding: 0 .25rem;
+    }
+}
+
+//create highlight styles for each color
+@each $color,$code in $colors {
+    .color-#{$color} {
+        color:$code;
+        font-weight: 600;
     }
 }

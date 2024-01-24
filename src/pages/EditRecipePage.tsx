@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"
 import RecipeForm from "../components/recipeForm/RecipeForm"
-import testRecipe from "../tempData";
+// import testRecipe from "../tempData";
 import ParsleyAPI from "../helpers/api";
 
 
 function EditRecipePage () {
 
     const { id } = useParams();
-    const [recipe, setRecipe] = useState<IRecipe>(testRecipe);
+    const [recipe, setRecipe] = useState<IRecipe | null>(null);
     const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate();
 
@@ -31,12 +31,14 @@ function EditRecipePage () {
 
     async function updateRecipe(formData:IRecipe){
         //TODO: validate inputs
-        await ParsleyAPI.UpdateRecipe(formData)
-        navigate(`/recipes/${recipe.recipeId}`);
+        if (recipe){
+            await ParsleyAPI.UpdateRecipe(formData)
+            navigate(`/recipes/${recipe.recipeId}`);
+        }
     }
 
     return (
-        isLoading
+        !recipe
         ?
             <p> Loading...</p>
         :

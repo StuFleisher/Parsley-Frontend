@@ -9,7 +9,7 @@ import { Typography } from '@mui/material';
 
 type props = {
     ingredient: IIngredient;
-    color: String;
+    color: String | undefined;
 }
 
 function Ingredient({ingredient, color}:props) {
@@ -23,9 +23,9 @@ function Ingredient({ingredient, color}:props) {
             alignItems='start'
         >
                 <FontAwesomeIcon icon={faCheck}/>
-        <Box className={`highlight-${color}`}>
-                <Typography>{amount} {description}</Typography>
-        </Box>
+                <Box className={`color-${color}`}>
+                    <Typography className="Ingredient-name">{amount} {description}</Typography>
+                </Box>
         </Stack>
     )
 }

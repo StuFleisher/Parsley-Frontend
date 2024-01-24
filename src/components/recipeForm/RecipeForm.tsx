@@ -132,6 +132,7 @@ function RecipeForm({recipe, onSubmitCallback}:Props) {
     const emptyIngredient:IIngredient = {
       amount:"",
       description:"",
+      instructionRef:"",
     }
 
     setFormData((currentFormData)=>{
