@@ -24,7 +24,7 @@ function SimpleRecipeCard({recipe}:props){
             <Link to={`/recipes/${recipe.recipeId}`}>
                 <Box
                     component="img"
-                    src={DEFAULT_IMG_URL}
+                    src={recipe.imageUrl}
                     alt={recipe.name}
                     sx={{
                         height:{sm:'100px', md:"200px"},

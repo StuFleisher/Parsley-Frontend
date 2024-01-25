@@ -3,6 +3,7 @@ interface IRecipe {
   description: string;
   sourceUrl?: string|undefined;
   sourceName: string;
+  imageUrl?: string;
   recipeId?:number;
   steps:IStep[];
 }
@@ -14,6 +15,7 @@ type SimpleRecipeData = {
   description: string;
   sourceUrl: string|undefined;
   sourceName: string;
+  imageUrl:string;
 }
 
 interface IIngredient {
