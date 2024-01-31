@@ -4,7 +4,7 @@ import userContext from './helpers/userContext';
 import RoutesList from './pages/RoutesList';
 import { BrowserRouter } from 'react-router-dom';
 import ParsleyAPI from './helpers/api';
-import NavBarMUI from './components/ui/NavBarMUI';
+import NavBar from './components/ui/NavBar';
 import { ThemeProvider } from '@mui/material';
 import {Container} from '@mui/material';
 import parsleyTheme from './styles/theme';
@@ -83,7 +83,7 @@ function App() {
           <userContext.Provider value={user}>
               {/* <NavBar/> */}
               <BrowserRouter>
-                <NavBarMUI/>
+                <NavBar/>
                 <Container className="App-page">
                   <RoutesList login={login} register={register}/>
                 </Container>

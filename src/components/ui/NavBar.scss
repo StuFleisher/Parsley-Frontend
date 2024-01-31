@@ -1,85 +1,111 @@
 @import "../../styles/colors";
 
-._NavBar {
+.NavBar {
     display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
+    padding:0 1rem 0 1rem;
 
     background-color: $primary;
     height: 50px;
     width:100%;
 
     color:$almond-light;
-
-    & > * {
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-        margin: 1rem;
-    }
 }
 
-._NavBar-home {
-    font-weight: 700;
-    font-size:large;
+.NavBar-home {
+    a {
+        font-weight: 700;
+        font-size:large;
+        text-decoration: none;
+        color:$muted;
+        display: flex;
+        align-items: center;
+    }
+
     svg {
         margin-right: .5rem;
         transform: translateY(-.15rem);
-        color: $brightwhite;
+        color: $bright-white;
     }
 }
 
-._NavBar-search {
-    display:flex;
-    flex-direction: row;
-    align-items: center;
+.NavBar-search {
 
-    background-color: $brightwhite;
-    color:$muted;
+    background-color: $bright-white;
 
-    width: 30%;
-    min-width:250px;
     height:60%;
-    padding:.5rem;
-
-
     border-radius: 1rem;
+    box-shadow: none;
 
-    & input, input:focus {
-        margin:1rem;
-        flex-grow: 1;
-        flex-basis: .9fr;
+    border:none;
 
-        background-color: $brightwhite;
-        color:$charcoal;
+    & .MuiInputBase-root {
+        height:100%;
 
-        font-size: large;
-
-        outline:none;
-        border:none;
+        & .MuiOutlinedInput-root {
+            border:none;
+        }
     }
+
+    & svg {
+        color:$muted;
+    }
+
+    &  * {
+        border-radius: 1rem;
+        border:none;
+        outline:none;
+        box-shadow:none;
+    }
+
+    & input {
+        color:$charcoal;
+    }
+
 }
 
-._NavBar-links {
-    font-size: larger;
-    color: $brightwhite;
 
-    & li {
+.NavBar-links {
+    font-size: larger;
+    color: $bright-white;
+
+    & > button {
         display: flex;
         align-items: center;
+        font-size: 1rem;
 
         font-weight: 400;
         list-style-type: none ;
-        margin: 1rem;
 
         & svg {
-            margin:10px;
             color:$almond-light;
         }
     }
 }
 
-._NavBar-dropdown {
-    position:relative;
+.NavBar-dropdown {
+
+    & a {
+        text-decoration: none;
+        color:$charcoal;
+    }
+
+    & ul {
+        background-color:$bright-white;
+
+
+        & li {
+            // margin:10px;
+            // border: solid 1px $primary;
+            font-weight: 300;
+        }
+    }
+
+    & .NavBar-dropdownItems {
+        border: solid 1px charcoal;
+        padding: .5rem 1rem;
+    }
 }
