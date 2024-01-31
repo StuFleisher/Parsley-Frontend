@@ -2,7 +2,7 @@ import "./NavBarMUI.scss";
 
 import { useState,useContext } from "react";
 import userContext from "../../helpers/userContext";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faUtensils, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -19,6 +19,7 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
+import Link from "@mui/material/Link";
 
 
 const PARSLEY_ICON = (
@@ -44,33 +45,38 @@ function NavBarMUI() {
     const anonLinkSection = (
     <>
         <Stack direction="row" spacing={0} className="NavBar-links">
-            <Link to="/auth/login">
+            <Link component={RouterLink} to="/auth/login">
                 <Button color={'brightWhite'}>
                     Log In
                 </Button>
             </Link>
-            <Link to="/auth/register">
+            <Link component={RouterLink} to="/auth/register">
                 <Button color={'brightWhite'}>
                     Sign Up
                 </Button>
             </Link>
         </Stack>
     </>);
+
     const userLinkSection = (
         <>
             <Stack direction="row" spacing={2} className="NavBar-links">
-                <Button
-                    color={'brightWhite'}
-                    startIcon={<FontAwesomeIcon icon={faUtensils} />}
-                >
-                    recipes
-                </Button>
-                <IconButton
-                    color={'brightWhite'}
-                    onClick={handleClick}
-                >
-                    <FontAwesomeIcon icon={faUser} />
-                </IconButton>
+                <Link component={RouterLink} to="/recipes">
+                    <Button
+                        color={'brightWhite'}
+                        startIcon={<FontAwesomeIcon icon={faUtensils} />}
+                        >
+                        recipes
+                    </Button>
+                </Link>
+                <Link component={RouterLink} to={`/users/${username}`}>
+                    <IconButton
+                        color={'brightWhite'}
+                        onClick={handleClick}
+                        >
+                        <FontAwesomeIcon icon={faUser} />
+                    </IconButton>
+                </Link>
             </Stack>
             <Menu
                 className="NavBar-dropdown"
@@ -79,7 +85,7 @@ function NavBarMUI() {
                 onClose={handleClose}
             >
                 <Box className='NavBar-dropdownItems'>
-                    <Link to={`/users/${username}/cookbook`}>
+                    <Link component={RouterLink} to={`/users/${username}/cookbook`}>
                         <MenuItem>
                             <Typography>
                                 My Cookbook
@@ -87,7 +93,7 @@ function NavBarMUI() {
                         </MenuItem>
                     </Link>
 
-                    <Link to={`/users/${username}`}>
+                    <Link component={RouterLink} to={`/users/${username}`}>
                         <MenuItem>
                             <Typography>
                                 Profile
@@ -95,7 +101,7 @@ function NavBarMUI() {
                         </MenuItem>
                     </Link>
                     <Divider/>
-                    <Link to={`auth/logout`}>
+                    <Link component={RouterLink} to={`auth/logout`}>
                         <MenuItem>
                             <Typography>
                                 Log Out
@@ -111,7 +117,7 @@ function NavBarMUI() {
         <AppBar position="static" elevation={0}>
             <Stack className="NavBar">
                 <Stack direction="row" className="NavBar-home">
-                    <Link to="/">
+                    <Link component={RouterLink} to="/">
                         {PARSLEY_ICON} <span>Parsley</span>
                     </Link>
                 </Stack>
@@ -146,22 +152,6 @@ function NavBarMUI() {
 
 
             </Stack>
-            {/* <Menu
-                className="NavBar-dropdown"
-                open={isOpen}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-            >
-                <MenuItem>
-                    test
-                </MenuItem>
-                <MenuItem>
-                    my profile
-                </MenuItem>
-                <MenuItem>
-                    log out
-                </MenuItem>
-            </Menu> */}
         </AppBar>
     );
 
