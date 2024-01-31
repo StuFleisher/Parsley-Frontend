@@ -5,6 +5,7 @@ import NotFound from "./NotFound";
 import RecipeListPage from "./RecipeListPage";
 import EditRecipePage from "./EditRecipePage";
 import AddRecipePage from './AddRecipePage';
+import UserDetailPage from './UserDetailPage';
 import {useContext} from "react";
 import userContext from "../helpers/userContext";
 
@@ -39,7 +40,7 @@ function RoutesList({login, register}:props) {
                 <Route path='/recipes/:id' element={<RecipeDetailsPage />} />
                 <Route path='/recipes/:id/edit' element={<EditRecipePage />} />
 
-
+                <Route path='/users/:username' element={<UserDetailPage/> }/>
                 </>
             }
 
