@@ -1,7 +1,9 @@
 import { ChangeEvent } from "react";
-import TextareaAutosize from 'react-textarea-autosize';
-import AutoResizeInput from "../ui/AutoResizeInput";
+
 import "./RecipeInfoInput.scss"
+
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 type props = {
     recipe: IRecipe;
@@ -19,33 +21,32 @@ function RecipeInfoInput({ recipe, updateRecipeInfo }: props) {
     }
 
     return (
-        <div className="RecipeInfo">
-            <TextareaAutosize
+        <Box className="RecipeInfo">
+            <TextField
                 value={recipe.name}
                 placeholder="Name your recipe"
                 className="RecipeInfo-name"
-                onChange={(e)=>handleChange(e)}
+                onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
                 name="name"
             />
 
-            <TextareaAutosize
+            <TextField
                 value={recipe.description}
                 placeholder='Add a description for your recipe'
                 className="RecipeInfo-description"
-                onChange = {(e)=> handleChange(e)}
+                onChange = {(e:ChangeEvent<HTMLInputElement>)=> handleChange(e)}
                 name="description"
                 />
 
-            <div className="RecipeInfo-sourceName">
-                {/* <label htmlFor="sourceName">Source</label> */}
-                <AutoResizeInput
+            <Box className="RecipeInfo-sourceName">
+                <TextField
                     name="sourceName"
                     placeholder='Where did you find this recipe?'
                     value={recipe.sourceName}
-                    updateValue={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
+                    onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
                     />
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 }
 
