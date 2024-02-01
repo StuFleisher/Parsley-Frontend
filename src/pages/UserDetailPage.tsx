@@ -4,10 +4,9 @@ import ParsleyAPI from "../helpers/api"
 import { useNavigate, useParams } from "react-router-dom"
 import { Typography } from "@mui/material";
 
-type Props = {
-}
 
-function UserDetailPage({}:Props){
+
+function UserDetailPage(){
 
     const { username } = useParams();
     const [user,setUser]=useState<IUser | "loading">("loading")

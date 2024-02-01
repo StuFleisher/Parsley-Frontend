@@ -94,19 +94,16 @@
 }
 
 @mixin Step-ingredients {
-        display: flex;
-        align-items: center;
-        width:300px;
-        flex-shrink:0;
+        width:100%;
 
-        @media (max-width:600px){
-            width:100%
+        @media (min-width:900px){
+            width:300px;
         }
 
 }
 
 @mixin Step-instructions {
-        @content;
+        width:100%;
 }
 
 
@@ -126,60 +123,71 @@
 // Ingredient-list rules
 @mixin IngredientList {
     list-style: none;
-    display:flex;
     flex-wrap: wrap;
     align-items: center;
+    width:100%;
+    // padding:0px;
 
-    .ingredientList-item {
-        display:flex;
-        flex-wrap: nowrap;
-        // width:max-content;
+    .IngredientList-item {
+        width:100%;
+        display:inline-block;
+        position:relative;
+        padding-left:0px;
+        padding-right: 0px;
+
+        // @media (min-width:600px){
+        //     width: 220px;
+        //     margin-right:1rem;
+        // }
+        @media (min-width:900px){
+            width: 100%;
+            margin-right:0;
+        }
     }
-
 
 }
 
 // Ingredient rules
 @mixin Ingredient {
     width:100%;
-    text-transform: uppercase;
     font-weight:900;
 
-    & svg {
-        color:$primary;
+    .IngredientInput-delete {
+        color:$secondary;
         display:inline-block;
         align-self:start;
+        font-size: 1rem;
+
+        position:absolute;
+        top:0px;
+        right:-6px;
+    }
+
+    .IngredientInput-delete:hover, .IngredientInput-delete:focus {
+        cursor: pointer;
+        color:$primary;
+    }
+
+    .MuiFormGroup-root {
+        width:100%;
     }
 
     div {
         display:inline-block;
     }
 
-    .Ingredient-name {
+    .Ingredient-text, .Ingredient-text textarea {
         font-weight: 900;
+        text-transform: uppercase;
+        width:100%;
     }
 
-    .capsule-left, .capsule-right {
-        border: none;
-        padding:.5rem;
-        color:white;
-        font-size:1rem;
-        font-weight: 900;
+    .Ingredient-text textarea {
+        display:inline-block;
     }
 
-    .capsule-left {
-        background: linear-gradient(90deg, $butternut, mix(white, $butternut, 20));
-        border-radius: 2rem 0 0 2rem;
-        padding-left: 1rem;
+    .MuiFormLabel-root {
+        font-size: .5rem;
     }
-
-    .capsule-right {
-        background-color: $butternut;
-        border-radius: 0 2rem 2rem 0;
-        padding-right:1rem;
-    }
-}
-
-@mixin ingredient-list {
 
 }

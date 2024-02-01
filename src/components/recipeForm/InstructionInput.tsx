@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
 import "./InstructionInput.scss";
-import TextareaAutosize from 'react-textarea-autosize';
+
+import TextField from "@mui/material/TextField";
 
 type props = {
     instruction:string,
@@ -18,14 +19,17 @@ type props = {
 function InstructionInput({instruction, stepIndex, updateInstruction}:props){
 
 
-    function handleChange(e:ChangeEvent<HTMLTextAreaElement>){
+    function handleChange(e:ChangeEvent<HTMLTextAreaElement | HTMLInputElement>){
         console.log("running handleChange from InstructionInput")
         console.log("intended new value:", e.target.value)
         updateInstruction(stepIndex,e.currentTarget.value)
     }
 
     return (
-        <TextareaAutosize
+        <TextField
+            multiline
+            minRows={5}
+            maxRows={20}
             className="InstructionInput"
             value={instruction}
             onChange={e=>{handleChange(e)}}

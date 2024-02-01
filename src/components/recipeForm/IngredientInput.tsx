@@ -1,7 +1,9 @@
 import { ChangeEvent, MouseEvent } from "react";
 import "./IngredientInput.scss";
-import { XCircleFill } from "react-bootstrap-icons";
-import AutoResizeInput from "../ui/AutoResizeInput";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { Box, FormGroup, TextField, Button } from "@mui/material";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 type props = {
     ingredient: IIngredient;
@@ -40,34 +42,47 @@ function IngredientInput({
         updateIngredients(stepIndex, index, newIngredient.amount, newIngredient.description)
     }
 
-    function handleDelete(e: MouseEvent<HTMLDivElement>){
+    function handleDelete(e: MouseEvent<HTMLButtonElement>){
+        e.preventDefault();
         deleteIngredient(stepIndex, index)
     }
 
     return (
-        <div className="IngredientInput">
-            <AutoResizeInput
-                className="capsule-left"
-                value={amount}
-                name="amount"
-                updateValue={handleChange}
+        <Box className="Ingredient">
+            <FormGroup row={true}>
+                <TextField
+                    className="Ingredient-text"
+                    value={amount}
+                    variant="filled"
+                    size="small"
+                    name="amount"
+                    label="amount"
+                    multiline
+                    fullWidth
+                    onChange={handleChange}
 
-            />
-            <AutoResizeInput
-                className="capsule-right"
-                value={description}
-                name="description"
-                updateValue={handleChange}
-                extraWidth={20}
+                    />
+                <TextField
+                    className="Ingredient-text"
+                    value={description}
+                    variant="filled"
+                    size="small"
+                    name="description"
+                    label="ingredient"
+                    onChange={handleChange}
+                    multiline
+                    fullWidth
+                    />
+            </FormGroup>
 
-            />
-            <div
+            <Box
                 className="IngredientInput-delete"
+                component="button"
                 onClick={handleDelete}
             >
-                <XCircleFill/>
-            </div>
-        </div>
+                <FontAwesomeIcon icon={faCircleXmark}/>
+            </Box>
+        </Box>
     )
 }
 

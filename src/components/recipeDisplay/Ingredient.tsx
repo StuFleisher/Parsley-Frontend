@@ -24,7 +24,7 @@ function Ingredient({ingredient, color}:props) {
         >
                 <FontAwesomeIcon icon={faCheck}/>
                 <Box className={`color-${color}`}>
-                    <Typography className="Ingredient-name">{amount} {description}</Typography>
+                    <Typography className="Ingredient-text">{amount} {description}</Typography>
                 </Box>
         </Stack>
     )

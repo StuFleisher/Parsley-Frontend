@@ -2,6 +2,14 @@ import IngredientInputList from "./IngredientInputList";
 import InstructionInput from "./InstructionInput";
 import "./StepInput.scss";
 
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+
+import parsleyTheme from "../../styles/theme";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 type props = {
     step:IStep,
     index:number,
@@ -31,23 +39,40 @@ function StepInput({step,
 
     return (
         <>
-            <div className="Step-number">{stepNumber}</div>
-            <div className="Step-ingredients">
+            <Box className="Step-number">
+                <Typography component="h3" variant="h2">
+                    Step {stepNumber}
+                </Typography>
+            </Box>
+            <Stack
+                direction = {{xs:"column", md:"row"}}
+                spacing={2}
+                divider={
+                   <Divider
+                        orientation={useMediaQuery(parsleyTheme.breakpoints.down("md")) ? "horizontal" : "vertical"}
+                        flexItem
+                    />
+                }
+            >
+            {/* <Box className="Step-ingredients"> */}
+                <Box className="Step-ingredients">
+
                 <IngredientInputList
                     ingredients={ingredients}
                     stepIndex={index}
                     updateIngredients={updateIngredients}
                     createIngredient={createIngredient}
                     deleteIngredient={deleteIngredient}
-                />
-            </div>
-            <div className="Step-instructions">
-                <InstructionInput
-                    instruction={instructions}
-                    stepIndex={index}
-                    updateInstruction={updateInstruction}
-                />
-            </div>
+                    />
+                </Box>
+                <Box className="Step-instructions">
+                    <InstructionInput
+                        instruction={instructions}
+                        stepIndex={index}
+                        updateInstruction={updateInstruction}
+                        />
+                </Box>
+            </Stack>
         </>
     )
 }

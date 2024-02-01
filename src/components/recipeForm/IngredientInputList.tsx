@@ -1,7 +1,14 @@
 import IngredientInput from "./IngredientInput";
 import "./IngredientInputList.scss"
 import { MouseEvent } from "react";
-import { PlusCircleFill } from "react-bootstrap-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import ListItem from "@mui/material/ListItem";
+import Button from "@mui/material/Button";
 
 type props = {
     ingredients: IIngredient[];
@@ -23,24 +30,34 @@ function IngredientInputList({
     }
 
     return (
-        <ul className="IngredientList">
-            {ingredients.map((ingredient, i)=>{
-                return (
-                <li className="IngredientList-item" key={i}>
-                    <IngredientInput
-                        ingredient={ingredient}
-                        index={i}
-                        stepIndex = {stepIndex}
-                        updateIngredients={updateIngredients}
-                        deleteIngredient={deleteIngredient}
-                    />
-                </li>)
-            })}
-            <li
-                className="IngredientList-icon"
+        <>
+
+            <Stack className="IngredientList"
+                direction = {{xs:"column", sm:"row", md:"column"}}
+            >
+                {ingredients.map((ingredient, i)=>{
+                    return (
+                    <ListItem className="IngredientList-item" key={i}>
+                        <IngredientInput
+                            ingredient={ingredient}
+                            index={i}
+                            stepIndex = {stepIndex}
+                            updateIngredients={updateIngredients}
+                            deleteIngredient={deleteIngredient}
+                        />
+                    </ListItem>)
+                })}
+            </Stack>
+
+            <Box>
+            <Button
+                startIcon={<FontAwesomeIcon icon={faCirclePlus}/>}
+                variant="outlined"
+                color="primary"
                 onClick={handleCreate}
-            > <PlusCircleFill/> </li>
-        </ul>
+            >Add an Ingredient
+            </Button></Box>
+        </>
     )
 }
 

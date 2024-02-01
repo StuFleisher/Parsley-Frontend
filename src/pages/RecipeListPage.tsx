@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 import ParsleyAPI from "../helpers/api";
 import SimpleRecipeCard from "../components/recipeDisplay/SimpleRecipeCard";
 
-import { Container } from "@mui/material";
-
 function RecipeListPage() {
 
     const [recipes, setRecipes] = useState<SimpleRecipeData[]>([]);

@@ -1,11 +1,5 @@
 
 
-type IngredientColorMap = {
-  listRef: String;
-  instructionRef: String;
-  color: String;
-};
-
 const COLORS = ["mint", "peach", "gold", "olive", "salmon","tangerine"];
 
 
@@ -17,8 +11,6 @@ function* nextColorGenerator(n: number) {
     n++;
   }
 }
-const getNextColor = nextColorGenerator(1);
-
 
 /** Accepts a list of ingredients and generates a mapping of unique
  * instructionRefs and color names.

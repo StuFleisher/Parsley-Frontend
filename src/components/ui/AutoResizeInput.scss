@@ -2,6 +2,20 @@
     position: relative;
     width:fit-content;
     display: inline-block;
+
+    .AutoResizeInput-clone {
+        //Position out of window
+        position: absolute;
+        top: -1000em;
+        left:-1000em;
+
+        //
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        padding: inherit;
+    }
+
 }
 
 .AutoResizeInput > span {
@@ -13,3 +27,4 @@
 .AutoResizeInput > input {
     padding: 5px;
 }
+

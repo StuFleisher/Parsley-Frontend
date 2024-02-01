@@ -69,14 +69,13 @@ function NavBarMUI() {
                         recipes
                     </Button>
                 </Link>
-                <Link component={RouterLink} to={`/users/${username}`}>
-                    <IconButton
-                        color={'brightWhite'}
-                        onClick={handleClick}
-                        >
-                        <FontAwesomeIcon icon={faUser} />
-                    </IconButton>
-                </Link>
+
+                <IconButton
+                    color={'brightWhite'}
+                    onClick={handleClick}
+                    >
+                    <FontAwesomeIcon icon={faUser} />
+                </IconButton>
             </Stack>
             <Menu
                 className="NavBar-dropdown"

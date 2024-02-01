@@ -1,10 +1,11 @@
 import { useRef, useEffect, useState, ChangeEvent } from "react";
 import "./AutoResizeInput.scss";
+import { TextField,Box } from "@mui/material";
 
 type Props = {
     value: string,
     name: string,
-    updateValue: Function,
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void,
     extraWidth?:number,
     className?:string,
     placeholder?:string
@@ -14,18 +15,18 @@ type Props = {
 function AutoResizeInput({
     value,
     name,
-    updateValue,
+    onChange,
     extraWidth=10,
     className="",
     placeholder="",
 }: Props) {
     const spanRef = useRef<HTMLSpanElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const [inputWidth, setInputWidth] = useState<number>(30);
+    const [inputWidth, setInputWidth] = useState<number>(80);
 
 
     function handleChange(e:ChangeEvent<HTMLInputElement>){
-        updateValue(e)
+        onChange(e)
     }
 
     //Update the width to match an invisible span
@@ -38,35 +39,27 @@ function AutoResizeInput({
         }
     }, [value, extraWidth]);
 
-    useEffect(function matchStyles() {
-        if (inputRef.current && spanRef.current) {
-            const sourceStyles = window.getComputedStyle(inputRef.current);
-
-            spanRef.current.style.fontFamily = sourceStyles.fontFamily;
-            spanRef.current.style.fontSize = sourceStyles.fontSize;
-            spanRef.current.style.fontWeight = sourceStyles.fontWeight;
-            spanRef.current.style.padding = sourceStyles.padding;
-        }
-    }, [inputRef]);
-
     return (
-        <div className="AutoResizeInput">
+        <Box className="AutoResizeInput">
             <span
-                className={className}
+                className={`className AutoResizeInput-clone`}
                 ref={spanRef}
             >{value==="" ? placeholder : value}
             </span>
-            <input
+            <TextField
                 className={className}
                 placeholder={placeholder}
+                size="small"
+                variant="filled"
+                label="description"
                 ref={inputRef}
                 value={value}
                 name={name}
                 onChange={handleChange}
-                style={{ width: inputWidth ? `${inputWidth}px` : 'auto' }}
+                sx={{ width: inputWidth ? `${inputWidth}px` : 'auto' }}
             >
-            </input>
-        </div>
+            </TextField>
+        </Box>
     );
 }
 

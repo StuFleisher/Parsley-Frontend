@@ -1,6 +1,6 @@
 import StepInput from "./StepInput";
 import { MouseEvent } from "react";
-import { XCircleFill, PlusCircleFill } from "react-bootstrap-icons";
+import { XCircleFill } from "react-bootstrap-icons";
 import './StepsInputs.scss';
 
 type props = {
