@@ -21,9 +21,7 @@ type Props = {
 
 
 function RecipeForm({recipe, onSubmitCallback}:Props) {
-  console.log("rendering recipeForm")
   const [formData,setFormData] = useState(recipe);
-  console.log(formData.steps)
   useEffect(function updateFormDataOnRecipeChange(){
     setFormData(recipe);
   },[recipe])
@@ -77,8 +75,7 @@ function RecipeForm({recipe, onSubmitCallback}:Props) {
 
   /** Callback function to update the instruction fields */
   function updateInstruction(stepIndex:number, value:string){
-    console.log("sent data", value)
-    console.log(stepIndex)
+
     setFormData((currentFormData)=>{
       const updatedSteps = currentFormData.steps.map((step, i)=>{
         if (i===stepIndex){
@@ -100,7 +97,6 @@ function RecipeForm({recipe, onSubmitCallback}:Props) {
 
   /** Callback function to update the recipeInfo fields */
   function updateRecipeInfo(recipeInfo:recipeInfo){
-    console.log("updating recipeInfo")
     setFormData(()=>{
       return {
         ...formData,

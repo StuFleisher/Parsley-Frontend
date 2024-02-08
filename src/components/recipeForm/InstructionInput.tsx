@@ -17,7 +17,6 @@ type props = {
  * StepInput > InstructionInput
  */
 function InstructionInput({instruction, stepIndex, updateInstruction}:props){
-    console.log("rendering InstructionInput", stepIndex)
 
     function handleChange(e:ChangeEvent<HTMLTextAreaElement | HTMLInputElement>){
         // console.log("running handleChange from InstructionInput")

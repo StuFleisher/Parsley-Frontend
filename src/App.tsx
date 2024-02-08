@@ -28,10 +28,8 @@ function App() {
      * -Makes an api call and updates the user state
      */
   useEffect(function fetchUserOnMountOrChange() {
-    console.log("running fetchUserOnMountOrChange")
     async function fetchUser() {
       if (token) {
-        console.log("running fetchUser")
         const username = ParsleyAPI.getUsernameFromToken(token);
         const userData = await ParsleyAPI.getUser(username);
         setUser(userData);
