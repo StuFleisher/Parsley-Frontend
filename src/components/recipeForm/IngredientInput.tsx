@@ -1,8 +1,8 @@
-import { ChangeEvent, MouseEvent } from "react";
+import React, { ChangeEvent, MouseEvent } from "react";
 import "./IngredientInput.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Box, FormGroup, TextField, Button } from "@mui/material";
+import { Box, FormGroup, TextField } from "@mui/material";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 type props = {
@@ -25,7 +25,7 @@ type props = {
  *
  * @hierarchy IngredientInputList -> IngredientInput
 */
-function IngredientInput({
+const IngredientInput = React.memo(function IngredientInput({
     ingredient,
     stepIndex,
     index,
@@ -60,7 +60,6 @@ function IngredientInput({
                     multiline
                     fullWidth
                     onChange={handleChange}
-
                     />
                 <TextField
                     className="Ingredient-text"
@@ -84,6 +83,6 @@ function IngredientInput({
             </Box>
         </Box>
     )
-}
+})
 
 export default IngredientInput;

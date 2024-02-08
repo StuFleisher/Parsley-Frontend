@@ -1,3 +1,5 @@
+import React from "react";
+
 import IngredientInputList from "./IngredientInputList";
 import InstructionInput from "./InstructionInput";
 import "./StepInput.scss";
@@ -27,7 +29,7 @@ type props = {
  * StepsInputs > StepInput > {IngredientInputList, InstructionInput}
  */
 
-function StepInput({step,
+const StepInput = React.memo(function StepInput({step,
     index,
     updateInstruction,
     updateIngredients,
@@ -35,7 +37,6 @@ function StepInput({step,
     createIngredient}:props){
 
     const {stepNumber, instructions, ingredients} = step;
-
 
     return (
         <>
@@ -45,7 +46,7 @@ function StepInput({step,
                 </Typography>
             </Box>
             <Stack
-                direction = {{xs:"column", md:"row"}}
+                direction = "column" //{{xs:"column", md:"row"}}
                 spacing={2}
                 divider={
                    <Divider
@@ -54,8 +55,7 @@ function StepInput({step,
                     />
                 }
             >
-            {/* <Box className="Step-ingredients"> */}
-                <Box className="Step-ingredients">
+                <Box className="Step-ingredientsForm">
 
                 <IngredientInputList
                     ingredients={ingredients}
@@ -75,6 +75,6 @@ function StepInput({step,
             </Stack>
         </>
     )
-}
+})
 
 export default StepInput

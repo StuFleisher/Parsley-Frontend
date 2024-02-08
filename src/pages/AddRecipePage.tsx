@@ -22,7 +22,7 @@ const emptyRecipe: IRecipe = {
 
 function AddRecipePage ({initialRecipe=emptyRecipe}:Props){
 
-    const [mode,setMode] = useState("input") //one of "input", "generate", "display"
+    const [mode,setMode] = useState<"input"|"generate"|"display">("input") 
 
     const [recipe, setRecipe] = useState<IRecipe>(initialRecipe);
     const navigate = useNavigate();
@@ -68,7 +68,7 @@ function AddRecipePage ({initialRecipe=emptyRecipe}:Props){
     }
 
     return ( //mode === "input"
-        <GenerateRecipeFromTextForm onSubmitCallback={generateRecipe}/>
+        <GenerateRecipeFromTextForm onSubmit={generateRecipe}/>
     )
 
 }

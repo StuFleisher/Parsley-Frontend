@@ -7,6 +7,11 @@
     margin-top: 200px;
     position: relative;
 
+    .Recipe-submitButton {
+        width:300px;
+        margin:1rem auto;
+        font-size: 1.25rem;
+    }
 }
 
 @mixin RecipeBanner {
@@ -20,6 +25,9 @@
 }
 
 @mixin RecipeInfo {
+    background-color: $primary;
+    padding: 1rem;
+    border-radius: 5px;
     color: $bright-white;
     width: 100%;
 
@@ -45,6 +53,20 @@
         }
     }
 
+    .RecipeInfo-name {
+        input, textArea {
+            font-size: 4rem;
+            color: $primary;
+            font-family:'Shrikhand', Georgia;
+            line-height: 4rem;
+        }
+    }
+
+    .MuiTextField-root {
+        display:block;
+
+    }
+
     .RecipeInfo-description {
         margin: 2rem 0;
         font-style: italic;
@@ -67,10 +89,14 @@
 }
 /************************** STEPS ******************/
 
+@mixin StepList {
+    @content
+}
+
 @mixin Step {
-    padding:1rem;
     width: 100%;
     position: relative;
+    padding:1rem;
 
     .Step-vdivider {
         background-color: $primary;
@@ -79,6 +105,30 @@
     .Step-hdivider {
         background-color: $primary;
         height:2px;
+    }
+
+
+}
+
+@mixin StepInput {
+    padding:1rem;
+    border: solid 1px #afafaf;
+    border-radius:5px;
+    margin: 2rem 0;
+    position:relative;
+
+    .StepInput-delete {
+        margin:.5rem .5rem 1rem .5rem;
+        position:absolute;
+        top:0;
+        right:0;
+        font-size: 1.5rem;
+        color:$primary;
+        border:none;
+    }
+    .StepInput-delete:hover, .StepInput-delete:focus {
+        cursor: pointer;
+        color:$salmon;
     }
 }
 
@@ -99,7 +149,10 @@
         @media (min-width:900px){
             width:300px;
         }
+    }
 
+Step-ingredientsForm {
+    width:100%
 }
 
 @mixin Step-instructions {
@@ -126,8 +179,8 @@
     flex-wrap: wrap;
     align-items: center;
     width:100%;
-    // padding:0px;
 
+    //handle the form elements slightly differently for this section
     .IngredientList-item {
         width:100%;
         display:inline-block;
@@ -135,14 +188,17 @@
         padding-left:0px;
         padding-right: 0px;
 
-        // @media (min-width:600px){
-        //     width: 220px;
-        //     margin-right:1rem;
-        // }
         @media (min-width:900px){
-            width: 100%;
-            margin-right:0;
+                width: 50%;
+                flex-shrink: 0;
+            }
         }
+
+        > :nth-child(even){
+            @media (min-width:900px){
+                padding-left:.5rem;
+            }
+
     }
 
 }
@@ -154,8 +210,6 @@
 
     .IngredientInput-delete {
         color:$secondary;
-        display:inline-block;
-        align-self:start;
         font-size: 1rem;
 
         position:absolute;
@@ -176,10 +230,13 @@
         display:inline-block;
     }
 
-    .Ingredient-text, .Ingredient-text textarea {
+    .Ingredient-text,
+    .Ingredient-text textarea,
+    .Ingredient-text input {
         font-weight: 900;
         text-transform: uppercase;
         width:100%;
+        overflow:hidden;
     }
 
     .Ingredient-text textarea {

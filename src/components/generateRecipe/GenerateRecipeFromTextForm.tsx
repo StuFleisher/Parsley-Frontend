@@ -1,20 +1,29 @@
-import TextareaAutosize from 'react-textarea-autosize';
+// import TextareaAutosize from 'react-textarea-autosize';
 import { ChangeEvent, FormEvent, useState } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCutlery } from "@fortawesome/free-solid-svg-icons";
+
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+import "./GenerateRecipeFromTextForm.scss";
+
 type Props = {
-    onSubmitCallback:Function,
+    onSubmit:Function,
 }
 
-function GenerateRecipeFromTextForm ({onSubmitCallback}:Props){
+function GenerateRecipeFromTextForm ({onSubmit}:Props){
 
     const [formData, setFormData] = useState({});
 
     function handleSubmit(evt:FormEvent<HTMLFormElement>){
         evt.preventDefault();
-        onSubmitCallback(formData);
+        onSubmit(formData);
     }
 
-    function handleChange(evt:ChangeEvent<HTMLTextAreaElement>){
+    function handleChange(evt:ChangeEvent<HTMLTextAreaElement | HTMLInputElement>){
         setFormData((fdata)=>{
             return {
                 ...fdata,
@@ -24,12 +33,23 @@ function GenerateRecipeFromTextForm ({onSubmitCallback}:Props){
     }
 
     return (
-        <form onSubmit={e=>handleSubmit(e)}>
-            <TextareaAutosize
+        <form onSubmit={e=>handleSubmit(e)} className="RecipeFromText">
+            <Typography variant="h2" color="$primary" className="RecipeFromText-title">
+                Create a new recipe
+            </Typography>
+            <TextField
                 name='recipeText'
+                multiline
+                minRows={10}
                 onChange={evt=>handleChange(evt)}
+                label="Copy/Paste your recipe here"
             />
-            <input type="submit" value='Generate' />
+            <Button
+                type="submit"
+                value='Generate'
+                variant="contained"
+                startIcon={<FontAwesomeIcon icon={faCutlery}/>}
+            >Generate</Button>
         </form>
     )
 }

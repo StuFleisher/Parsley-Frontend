@@ -2,7 +2,7 @@
 
 
 .StepInput {
-    @include Step;
+    @include StepInput;
 
     // .Step-add {
     //     grid-area: add;
@@ -38,13 +38,4 @@
     @include Step-instructions;
 }
 
-@media (min-width: 600px){
-
-
-.StepInput {
-    grid-template-columns: .5fr 4fr 4fr .5fr;
-    grid-template-areas:
-        "number ingredients instructions add";
-}
-}
 

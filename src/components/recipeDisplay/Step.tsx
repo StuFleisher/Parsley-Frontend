@@ -1,3 +1,5 @@
+import React from "react";
+
 import IngredientList from "./IngredientList";
 import Instruction from "./Instruction";
 import './Step.scss';
@@ -13,7 +15,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import {getIngredientColorMaps} from "../../helpers/colorPicker";
 
 
-function Step({step}:{step:IStep}){
+const Step = React.memo(function Step({step}:{step:IStep}){
 
     const {stepNumber, instructions, ingredients} = step;
 
@@ -45,6 +47,6 @@ function Step({step}:{step:IStep}){
             </Stack>
         </>
     )
-}
+})
 
 export default Step

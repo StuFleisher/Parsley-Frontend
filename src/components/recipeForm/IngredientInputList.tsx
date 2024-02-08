@@ -1,6 +1,6 @@
 import IngredientInput from "./IngredientInput";
 import "./IngredientInputList.scss"
-import { MouseEvent } from "react";
+import React, { MouseEvent } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +18,7 @@ type props = {
     stepIndex:number;
 }
 
+const IngredientInputList = React.memo(
 function IngredientInputList({
     ingredients,
     updateIngredients,
@@ -33,7 +34,7 @@ function IngredientInputList({
         <>
 
             <Stack className="IngredientList"
-                direction = {{xs:"column", sm:"row", md:"column"}}
+                direction = {{xs:"column", md:"row"}}
             >
                 {ingredients.map((ingredient, i)=>{
                     return (
@@ -59,6 +60,7 @@ function IngredientInputList({
             </Button></Box>
         </>
     )
-}
+})
+
 
 export default IngredientInputList;

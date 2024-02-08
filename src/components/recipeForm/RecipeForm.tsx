@@ -3,6 +3,8 @@ import StepsInputs from "./StepsInputs";
 import "./RecipeForm.scss";
 import { FormEvent, useState, useEffect } from "react";
 
+import { Box, Button } from "@mui/material";
+
 type recipeInfo = {
   name: string;
   description: string;
@@ -15,10 +17,13 @@ type Props = {
   onSubmitCallback:Function,
 }
 
+
+
+
 function RecipeForm({recipe, onSubmitCallback}:Props) {
-
+  console.log("rendering recipeForm")
   const [formData,setFormData] = useState(recipe);
-
+  console.log(formData.steps)
   useEffect(function updateFormDataOnRecipeChange(){
     setFormData(recipe);
   },[recipe])
@@ -37,7 +42,8 @@ function RecipeForm({recipe, onSubmitCallback}:Props) {
     amount:string,
     description:string){
 
-    setFormData((currentFormData)=>{
+      setFormData((currentFormData)=>{
+
       const updatedIngredients = currentFormData.steps[stepIndex].ingredients.map(
         (ingredient, i )=>{
           if (ingredientIndex === i){
@@ -71,7 +77,8 @@ function RecipeForm({recipe, onSubmitCallback}:Props) {
 
   /** Callback function to update the instruction fields */
   function updateInstruction(stepIndex:number, value:string){
-
+    console.log("sent data", value)
+    console.log(stepIndex)
     setFormData((currentFormData)=>{
       const updatedSteps = currentFormData.steps.map((step, i)=>{
         if (i===stepIndex){
@@ -82,6 +89,7 @@ function RecipeForm({recipe, onSubmitCallback}:Props) {
         }
         return step;
       });
+      console.log("updated steps",updatedSteps)
 
       return {
         ...currentFormData,
@@ -92,6 +100,7 @@ function RecipeForm({recipe, onSubmitCallback}:Props) {
 
   /** Callback function to update the recipeInfo fields */
   function updateRecipeInfo(recipeInfo:recipeInfo){
+    console.log("updating recipeInfo")
     setFormData(()=>{
       return {
         ...formData,
@@ -166,7 +175,7 @@ function RecipeForm({recipe, onSubmitCallback}:Props) {
 
   function deleteStep(index:number){
     setFormData((currentFormData)=>{
-
+      console.log("removing at", index);
       const updatedSteps = [
         ...currentFormData.steps.slice(0, index),
         ...currentFormData.steps.slice(index+1)
@@ -211,7 +220,7 @@ function RecipeForm({recipe, onSubmitCallback}:Props) {
 /************************************************************************ */
 
   return (
-    <div className="RecipeForm">
+    <Box className="RecipeForm">
       <form onSubmit={handleSubmit}>
         <RecipeInfoInput
           recipe={formData}
@@ -226,9 +235,15 @@ function RecipeForm({recipe, onSubmitCallback}:Props) {
           createStep={createStep}
           deleteStep={deleteStep}
           />
-        <input type='submit' />
+        <Button
+          type='submit'
+          variant="contained"
+          className="Recipe-submitButton"
+        >
+          Update Recipe
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 }
 

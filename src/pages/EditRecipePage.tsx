@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"
 import RecipeForm from "../components/recipeForm/RecipeForm"
-// import testRecipe from "../tempData";
 import ParsleyAPI from "../helpers/api";
+
+import Box from "@mui/material/Box";
 
 
 function EditRecipePage () {
@@ -42,7 +43,10 @@ function EditRecipePage () {
         ?
             <p> Loading...</p>
         :
+        <>
+            <Box component="img" src={recipe.imageUrl} className="RecipeBanner"/>
             <RecipeForm recipe={recipe} onSubmitCallback={updateRecipe} />
+        </>
     )
 }
 

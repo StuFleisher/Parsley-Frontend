@@ -15,7 +15,6 @@ function RecipeCard({recipe}:Props) {
 
   return (
     <>
-    <Box component="img" src={recipe.imageUrl} className="RecipeBanner"/>
 
     <Box className="RecipeCard">
       <Card className="SimpleRecipeCard">

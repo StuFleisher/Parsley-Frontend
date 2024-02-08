@@ -27,7 +27,7 @@ function SimpleRecipeCard({recipe}:props){
                     src={recipe.imageUrl}
                     alt={recipe.name}
                     sx={{
-                        height:{sm:'100px', md:"200px"},
+                        width:{sm:'100px', md:"200px"},
                     }}
                 />
             </Link>

@@ -1,17 +1,29 @@
 @import '../../styles/_recipe-mixins.scss';
 
-.RecipeInfo {
+.RecipeInfoInput {
     @include RecipeInfo;
-}
+    background-color: #fcf7f0;
+    padding: 1rem;
+    border-radius: 5px;
 
-.RecipeInfo-name {
-    textarea {
-        min-height: fit-content;
-    }
-}
+    .RecipeInfo-editImage {
+        color:$bright-white;
+        font-size: 1rem;
+        background-color: $primary;
+        border-radius: 5px;
+        font-size: .75rem;
 
-.RecipeInfo-description {
-    textarea {
-        min-height: fit-content;
+
+        border:none;
+
+        position:absolute;
+        top:-3rem;
+        right:0px;
     }
+
+    .RecipeInfo-editImage:hover, .RecipeInfo-editImage:focus {
+        cursor: pointer;
+        background-color: $salmon;
+    }
+
 }

@@ -7,7 +7,6 @@ const COLORS = ["mint", "peach", "gold", "olive", "salmon","tangerine"];
 function* nextColorGenerator(n: number) {
   while (true) {
     yield COLORS[n %COLORS.length];
-    console.log("generating next color")
     n++;
   }
 }
@@ -66,9 +65,7 @@ function mapIngredientsToColors(
 
 function getIngredientColorMaps(ingredients: IIngredient[]) {
   const instructionsColors = mapInstructionRefsToColors(ingredients);
-  console.log ("instructionsColors", instructionsColors);
   const ingredientsColors = mapIngredientsToColors(ingredients,instructionsColors)
-  console.log ("ingredientsColors", ingredientsColors)
   return { instructionsColors, ingredientsColors };
 }
 

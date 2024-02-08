@@ -12,7 +12,6 @@ function Instruction({ instruction, colorMap }: props) {
     function highlightText(text = instruction, map = colorMap) {
         for (let entry of map) {
             if (entry[0]!==""){
-                console.log("replacing",entry[0])
                 text = text.replaceAll(entry[0], `*${entry[0]}*`);
             }
         }
@@ -35,7 +34,6 @@ function Instruction({ instruction, colorMap }: props) {
         }, null);
     }
 
-    console.log("instruction",highlightText(instruction))
 
 
     return highlightText(instruction);

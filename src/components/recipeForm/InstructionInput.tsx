@@ -17,10 +17,10 @@ type props = {
  * StepInput > InstructionInput
  */
 function InstructionInput({instruction, stepIndex, updateInstruction}:props){
-
+    console.log("rendering InstructionInput", stepIndex)
 
     function handleChange(e:ChangeEvent<HTMLTextAreaElement | HTMLInputElement>){
-        console.log("running handleChange from InstructionInput")
+        // console.log("running handleChange from InstructionInput")
         console.log("intended new value:", e.target.value)
         updateInstruction(stepIndex,e.currentTarget.value)
     }
@@ -30,6 +30,7 @@ function InstructionInput({instruction, stepIndex, updateInstruction}:props){
             multiline
             minRows={5}
             maxRows={20}
+            fullWidth
             className="InstructionInput"
             value={instruction}
             onChange={e=>{handleChange(e)}}
