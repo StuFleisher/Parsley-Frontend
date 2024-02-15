@@ -2,4 +2,25 @@
 
 .RecipeInfo {
     @include RecipeInfo;
+
+    .RecipeInfo-owner {
+        color:$bright-white;
+    }
+
+    .CookbookIcon-add {
+        color:$bright-white;
+
+        & :hover {
+            color:$secondary
+        }
+    }
+
+    .CookbookIcon-remove {
+        color:$secondary;
+
+        & :hover {
+            color:$bright-white
+        }
+    }
 }
+

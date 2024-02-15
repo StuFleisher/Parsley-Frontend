@@ -1,10 +1,26 @@
-interface IRecipe {
+interface IRecipe { //full recipe record from database
+  recipeId:number;
   name:string;
+  description: string;
+  owner:string;
+  sourceUrl?: string|undefined;
+  sourceName: string;
+  imageUrl?: string;
+  steps:IStep[];
+}
+
+type GeneratedRecipe = {
+  name: string;
+  steps: IStep[];
+}
+
+type RecipeForCreate = {
+  name:string;
+  owner: string;
   description: string;
   sourceUrl?: string|undefined;
   sourceName: string;
   imageUrl?: string;
-  recipeId?:number;
   steps:IStep[];
 }
 
@@ -12,6 +28,7 @@ interface IRecipe {
 type SimpleRecipeData = {
   recipeId:number;
   name:string;
+  owner: string;
   description: string;
   sourceUrl: string|undefined;
   sourceName: string;
@@ -19,10 +36,14 @@ type SimpleRecipeData = {
 }
 
 interface IIngredient {
-  ingredientId?:number
-  amount: string,
-  description:string,
-  instructionRef:string,
+  amount: string;
+  description:string;
+  instructionRef:string;
+}
+
+type IngredientForCreate = IIngredient
+type Ingredient= IIngredient & {
+  ingredientId:number;
 }
 
 interface IIngredientList {
@@ -30,9 +51,16 @@ interface IIngredientList {
 }
 
 interface IStep {
-  stepNumber:number,
-  instructions: string
-  stepId?:number,
-  ingredients:IIngredient[]
+  stepNumber:number;
+  instructions: string;
+  stepId?:number;
+  ingredients:IIngredient[];
 }
+
+type StepForCreate = {
+  stepNumber:number;
+  instructions: string;
+  ingredients:IngredientForCreate[];
+}
+
 

@@ -40,6 +40,19 @@ declare module '@mui/material/Button' {
     brightWhite: true;
     peach: true;  }
 }
+declare module '@mui/material/Typography' {
+  interface TypographyPropsColorOverrides {
+    muted: true;
+    almond: true;
+    olive: true;
+    mint: true;
+    salmon: true;
+    orange: true;
+    gold: true;
+    charcoal: true;
+    brightWhite: true;
+    peach: true;  }
+}
 declare module '@mui/material/TextField' {
   interface TextFieldPropsColorOverrides {
     muted: true;

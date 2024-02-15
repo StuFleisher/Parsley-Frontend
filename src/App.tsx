@@ -1,21 +1,24 @@
 import { useState, useEffect } from 'react';
-import './App.scss';
-import userContext from './helpers/userContext';
-import RoutesList from './pages/RoutesList';
 import { BrowserRouter } from 'react-router-dom';
+import './App.scss';
+
+import userContext from './helpers/userContext';
+
+import RoutesList from './pages/RoutesList';
 import ParsleyAPI from './helpers/api';
 import NavBar from './components/ui/NavBar';
-import { ThemeProvider } from '@mui/material';
-import {Container} from '@mui/material';
-import parsleyTheme from './styles/theme';
 
-const ANON_USER:IUser = {
+import { ThemeProvider } from '@mui/material';
+import parsleyTheme from './styles/theme';
+import { Container } from '@mui/material';
+
+const ANON_USER: IUser = {
   username: null,
   firstName: null,
   lastName: null,
-  email:null,
+  email: null,
   isAdmin: null,
-}
+};
 
 function App() {
 
@@ -43,10 +46,15 @@ function App() {
    * credentials: {username, password}
    */
 
-  async function login(credentials:UserLoginData) {
-    const token = await ParsleyAPI.userLogin(credentials);
-    localStorage.setItem("token", token);
-    setToken(token);
+  async function login(credentials: UserLoginData) {
+    try {
+      const token = await ParsleyAPI.userLogin(credentials);
+      localStorage.setItem("token", token);
+      setToken(token);
+    } catch (err) {
+      //TODO: give user feedback
+      console.log("invalid credentials");
+    }
   }
 
   /** Logs the user out
@@ -64,7 +72,7 @@ function App() {
    *
    * userInfo:{username, password, firstName, lastName, email}
    */
-  async function register(userInfo:User) {
+  async function register(userInfo: User) {
     const token = await ParsleyAPI.userSignup(userInfo);
     localStorage.setItem("token", token);
     setToken(token);
@@ -75,15 +83,18 @@ function App() {
       <div className="App">
         {
           (token && !user.username)
-          ?
-          <p>Loading</p>
-          :
-          <userContext.Provider value={user}>
-              {/* <NavBar/> */}
+            ?
+            <p>Loading</p>
+            :
+            <userContext.Provider value={user}>
               <BrowserRouter>
-                <NavBar/>
+                <NavBar login={login} />
                 <Container className="App-page">
-                  <RoutesList login={login} register={register}/>
+                  <RoutesList
+                    login={login}
+                    register={register}
+                    logout={logout}
+                  />
                 </Container>
               </BrowserRouter>
             </userContext.Provider>

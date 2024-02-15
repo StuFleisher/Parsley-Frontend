@@ -20,6 +20,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
+import Modal from "@mui/material/Modal";
+import LoginForm from "../user/loginForm";
 
 
 const PARSLEY_ICON = (
@@ -28,28 +30,42 @@ const PARSLEY_ICON = (
     </svg>
 );
 
+type props = {
+    login:(credentials:UserLoginData)=>void
+}
 
-function NavBarMUI() {
+function NavBar({login}:props) {
 
     const {username} = useContext(userContext);
     const [anchorEl, setAnchorEl] = useState<null|HTMLElement>(null);
     let isOpen = Boolean(anchorEl);
 
-    function handleClick(event: React.MouseEvent<HTMLElement>){
+    const [showLoginModal, setShowLoginModal] = useState(false);
+
+
+    //Dropdown Menu functions
+    function handleClickMenu(event: React.MouseEvent<HTMLElement>){
         setAnchorEl(event.currentTarget)
     }
-    function handleClose(){
+    function handleCloseMenu(){
         setAnchorEl(null);
     }
+
+    //Login modal
+    function closeModal(){
+        setShowLoginModal(false);
+    }
+
 
     const anonLinkSection = (
     <>
         <Stack direction="row" spacing={0} className="NavBar-links">
-            <Link component={RouterLink} to="/auth/login">
-                <Button color={'brightWhite'}>
-                    Log In
-                </Button>
-            </Link>
+            <Button
+                color={'brightWhite'}
+                onClick={()=>{setShowLoginModal(true)}}
+                >
+                Log In
+            </Button>
             <Link component={RouterLink} to="/auth/register">
                 <Button color={'brightWhite'}>
                     Sign Up
@@ -72,7 +88,7 @@ function NavBarMUI() {
 
                 <IconButton
                     color={'brightWhite'}
-                    onClick={handleClick}
+                    onClick={handleClickMenu}
                     >
                     <FontAwesomeIcon icon={faUser} />
                 </IconButton>
@@ -81,9 +97,16 @@ function NavBarMUI() {
                 className="NavBar-dropdown"
                 open={isOpen}
                 anchorEl={anchorEl}
-                onClose={handleClose}
+                onClose={handleCloseMenu}
             >
                 <Box className='NavBar-dropdownItems'>
+                    <Link component={RouterLink} to={`/users/${username}/recipes`}>
+                        <MenuItem>
+                            <Typography>
+                                My Recipes
+                            </Typography>
+                        </MenuItem>
+                    </Link>
                     <Link component={RouterLink} to={`/users/${username}/cookbook`}>
                         <MenuItem>
                             <Typography>
@@ -113,6 +136,15 @@ function NavBarMUI() {
     );
 
     return (
+        <>
+        <Modal
+            open={showLoginModal}
+            onClose={closeModal}
+            className="loginModal"
+        >
+                {<LoginForm login={login}></LoginForm>}
+        </Modal>
+
         <AppBar position="static" elevation={0}>
             <Stack className="NavBar">
                 <Stack direction="row" className="NavBar-home">
@@ -152,9 +184,10 @@ function NavBarMUI() {
 
             </Stack>
         </AppBar>
+        </>
     );
 
 }
 
 
-export default NavBarMUI;
+export default NavBar;

@@ -1,6 +1,6 @@
-import { TextField, Stack, Button, Box, Card } from "@mui/material"
+import { TextField, Stack, Button, Card } from "@mui/material"
 import React, { useState } from "react";
-import ParsleyAPI from "../../helpers/api";
+import './loginForm.scss'
 
 const DEFAULT_FORM_DATA:UserLoginData = {
     username:"",
@@ -11,10 +11,11 @@ type props = {
     login:Function,
 }
 
-function LoginForm ({login}:props){
+const LoginForm = React.forwardRef( (
+    {login}:props,
+    ref:React.ForwardedRef<HTMLDivElement>)=>{
 
     const [formData,setFormData] = useState<UserLoginData>(DEFAULT_FORM_DATA)
-    console.log(formData);
 
     function handleChange(evt:React.ChangeEvent<HTMLInputElement>){
         const {name, value} = evt.target;
@@ -27,15 +28,17 @@ function LoginForm ({login}:props){
     }
 
     return (
-        <Card>
+        <Card className="LoginForm" ref={ref} tabIndex={-1}>
         <Stack spacing={2} >
-            <Stack direction="row" spacing={1}>
+            <Stack direction={{xs:"column", sm:"row"}} spacing={1}>
                 <TextField
+                    sx={{flexGrow:1}}
                     variant="outlined"
                     name="username"
                     label="Username"
                     onChange={handleChange}/>
                 <TextField
+                    sx={{flexGrow:1}}
                     variant="outlined"
                     type="password"
                     name="password"
@@ -50,6 +53,6 @@ function LoginForm ({login}:props){
         </Stack>
         </Card>
     )
-}
+})
 
 export default LoginForm

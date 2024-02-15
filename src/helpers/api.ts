@@ -7,9 +7,13 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 class ParsleyAPI {
 
   //This token will be changed dynamically on login
-  static token="";
+  static token = "";
 
-  static async request(endpoint: string, data = {}, method = "get") {
+  static async request(
+    endpoint: string,
+    data = {},
+    method = "get",
+  ) {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
@@ -21,7 +25,31 @@ class ParsleyAPI {
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err: any) {
-      console.error("API Error:", err.response);
+      // console.error("API Error:", err.response);
+      let message = err.response.data.error.message;
+      throw Array.isArray(message) ? message : [message];
+    }
+  }
+
+  static async multipartRequest(
+    endpoint: string,
+    data: FormData,
+    method = "put",
+  ) {
+
+    const url = `${BASE_URL}/${endpoint}`;
+    const headers = {
+      "Content-Type": "multipart/form-data",
+      "Authorization": `Bearer ${ParsleyAPI.token}`
+    };
+    const params = (method === "get")
+      ? data
+      : {};
+
+    try {
+      return (await axios({ url, method, data, params, headers })).data;
+    } catch (err: any) {
+      // console.error("API Error:", err.response);
       let message = err.response.data.error.message;
       throw Array.isArray(message) ? message : [message];
     }
@@ -32,22 +60,22 @@ class ParsleyAPI {
   /** AUTH */
 
   /** Register and sign-in a new user*/
-  static async userSignup(data:User){
-    const response = await this.request('auth/register', data,'post');
+  static async userSignup(data: User) {
+    const response = await this.request('auth/register', data, 'post');
     ParsleyAPI.token = response.token;
     return response.token;
   }
 
   /** Log in a user*/
-  static async userLogin(data:UserLoginData){
-    const response = await this.request('auth/token', data,'post');
+  static async userLogin(data: UserLoginData) {
+    const response = await this.request('auth/token', data, 'post');
     ParsleyAPI.token = response.token;
-    console.log("logging in with token", response.token)
+    console.log("logging in with token", response.token);
     return response.token;
   }
 
   /** Log out current user*/
-  static async userLogout(){
+  static async userLogout() {
     ParsleyAPI.token = "";
   }
 
@@ -55,7 +83,7 @@ class ParsleyAPI {
    * token is a jwt with a username key.
   */
 
-  static getUsernameFromToken(token:string){
+  static getUsernameFromToken(token: string) {
     const { username } = jwtDecode<TokenPayload>(token);
     ParsleyAPI.token = token;
     return username;
@@ -63,27 +91,27 @@ class ParsleyAPI {
 
   /** GET */
 
-  static async getUser(username:string){
+  static async getUser(username: string) {
     const response = await this.request(`users/${username}`);
     return response.user;
   }
 
   /** UPDATE */
 
-  static async updateUser(data:User, username:string){
-    const responseData = await this.request(`users/${username}`, data, 'patch')
+  static async updateUser(data: User, username: string) {
+    const responseData = await this.request(`users/${username}`, data, 'patch');
     return responseData.user;
   }
 
   /************************ RECIPES ********************************/
   /**  CREATE  */
 
-  static async generateRecipe(formData:{recipeText:string}): Promise<IRecipe>{
-    const response = await this.request('recipes/generate', formData,'post');
+  static async generateRecipe(formData: { recipeText: string; }): Promise<IRecipe> {
+    const response = await this.request('recipes/generate', formData, 'post');
     return response.recipe;
   }
 
-  static async createRecipe(recipe:IRecipe): Promise<IRecipe> {
+  static async createRecipe(recipe: IRecipe): Promise<IRecipe> {
     const response = await this.request('recipes', recipe, 'post');
     return response.recipe;
   }
@@ -110,6 +138,20 @@ class ParsleyAPI {
     return response.recipe;
   }
 
+  static async updateRecipeImage(image:Blob, recipeId:number) {
+    const formData = new FormData();
+    formData.set('image', image);
+
+    const response = await this.multipartRequest(
+      `recipes/${recipeId}/image`,
+      formData,
+      'put'
+    );
+    console.log("API response:", response)
+    console.log("updated recipe:", await ParsleyAPI.getRecipeById(recipeId))
+    return response.imageUrl;
+  }
+
   /**  DELETE  */
   static async DeleteRecipe(id: number): Promise<IRecipe> {
     const response = await this.request(
@@ -120,6 +162,35 @@ class ParsleyAPI {
     return response.recipe;
   }
 
+
+    /************************ COOKBOOK ********************************/
+  static async getCookbook(username:string){
+    const response = await this.request(
+      `users/${username}/cookbook`
+    )
+    return response.cookbook;
+  }
+
+
+  static async addToCookbook(recipeId:number,username:string){
+    const response = await this.request(
+      `recipes/${recipeId}/addToCookbook`,
+      {recipeId, username},
+      'post'
+    )
+    if (response.statusCode === 201) {return true}
+    return false; //is this what we want to return here?
+  }
+
+  static async removeFromCookbook(recipeId:number,username:string){
+    const response = await this.request(
+      `recipes/${recipeId}/removeFromCookbook`,
+      {recipeId, username},
+      'post'
+    )
+    if (response.statusCode === 200) {return true}
+    return false;
+  }
 
 
 }

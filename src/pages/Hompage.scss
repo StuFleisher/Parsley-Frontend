@@ -1,0 +1,28 @@
+@import '../styles/_recipe-mixins.scss';
+
+.Homepage-backgroundImage {
+    height:100vh;
+    top:5rem;
+    left:50%;
+    transform:translate(-50%,0px);
+
+    position:absolute;
+    opacity:10%;
+    text-align: center;
+
+}
+
+.Homepage-copy {
+    max-width:800px;
+    padding:1rem;
+    margin-top:5rem;
+    z-index: 100;
+
+    @media(max-width:600px){
+        // p, h1 {
+            text-align: center;
+        // }
+    }
+
+
+}

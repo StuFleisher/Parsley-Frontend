@@ -10,11 +10,12 @@
 
 type User = IUser & {
   username:string,
-  password?: string,
   firstName: string,
   lastName: string,
   email:string,
   isAdmin:boolean,
+  recipes:SimpleRecipeData[],
+  cookbook:SimpleRecipeData[],
 }
 
 type UserLoginData = {
@@ -25,4 +26,10 @@ type UserLoginData = {
 type TokenPayload = {
   username:string,
   isAdmin:boolean,
+}
+
+type CookbookContextObject = {
+  cookbook:SimpleRecipeData[];
+  addToCookbook: Function | null;
+  removeFromCookbook: Function | null;
 }

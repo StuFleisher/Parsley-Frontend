@@ -1,7 +1,10 @@
 import ParsleyAPI from "../helpers/api";
 import RecipeCard from "../components/recipeDisplay/RecipeCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import userContext from "../helpers/userContext";
+
+import { CookbookProvider } from "../helpers/cookbookContext";
 
 import Box from "@mui/material/Box";
 // import testRecipe from "../tempData";
@@ -11,6 +14,8 @@ import Box from "@mui/material/Box";
 function RecipeDetailsPage() {
 
     const { id } = useParams();
+    const {username} = useContext(userContext);
+
     const [isLoading, setIsLoading] = useState(true);
     const [recipe, setRecipe] = useState<IRecipe | null >(null);
     const navigate = useNavigate();
@@ -36,18 +41,21 @@ function RecipeDetailsPage() {
     }, [id, navigate]);
 
 
+
     return (
 
-        !recipe
+        <CookbookProvider username={username!}>
+
+        {!recipe
         ?
             <p>Loading...</p>
         :
             <>
-                <Box component="img" src={recipe.imageUrl} className="RecipeBanner"/>
                 <RecipeCard recipe={recipe} />
-                <Link to={`/recipes/${recipe.recipeId}/edit`}> Edit this Recipe</Link>
-            </>
+                {username!==recipe.owner ? "" :<Link to={`/recipes/${recipe.recipeId}/edit`}> Edit this Recipe</Link>}
+            </>}
 
+        </CookbookProvider>
     );
 
 }

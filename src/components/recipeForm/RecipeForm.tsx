@@ -1,123 +1,145 @@
 import RecipeInfoInput from "./RecipeInfoInput";
 import StepsInputs from "./StepsInputs";
+import ImageForm from "../ui/ImageForm";
+
 import "./RecipeForm.scss";
 import { FormEvent, useState, useEffect } from "react";
 
-import { Box, Button } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+
+import { Box, Button, Modal, Typography } from "@mui/material";
 
 type recipeInfo = {
   name: string;
   description: string;
   sourceUrl?: string;
   sourceName: string;
-}
+};
 
 type Props = {
-  recipe:IRecipe,
-  onSubmitCallback:Function,
-}
+  recipe: RecipeForCreate | IRecipe,
+  onSubmitCallback: Function,
+};
 
 
+/********************************* COMPONENT *********************************************/
 
+function RecipeForm({ recipe, onSubmitCallback }: Props) {
 
-function RecipeForm({recipe, onSubmitCallback}:Props) {
-  const [formData,setFormData] = useState(recipe);
-  useEffect(function updateFormDataOnRecipeChange(){
+  const [formData, setFormData] = useState(recipe);
+
+  const [showModal, setShowModal] = useState(false);
+  const [image, setImage] = useState<Blob | undefined>();
+
+  useEffect(function updateFormDataOnRecipeChange() {
     setFormData(recipe);
-  },[recipe])
+  }, [recipe]);
 
-  function handleSubmit(evt:FormEvent<HTMLFormElement>){
+
+  async function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
-    onSubmitCallback(formData);
+    console.log("handling form submission");
+    console.log("image in RecipeForm component:", image);
+    await onSubmitCallback(formData, image);
+    //update image
   }
 
-  /**************************** UPDATE METHODS ************************************************/
+
+
+  /**************************** UPDATE METHODS */
 
   /** Callback function to update Ingredients field */
   function updateIngredients(
-    stepIndex:number,
-    ingredientIndex:number,
-    amount:string,
-    description:string){
+    stepIndex: number,
+    ingredientIndex: number,
+    amount: string,
+    description: string) {
 
-      setFormData((currentFormData)=>{
+    setFormData((currentFormData) => {
 
       const updatedIngredients = currentFormData.steps[stepIndex].ingredients.map(
-        (ingredient, i )=>{
-          if (ingredientIndex === i){
+        (ingredient, i) => {
+          if (ingredientIndex === i) {
             return {
               ...ingredient,
               amount,
               description,
-            }
+            };
           }
           return ingredient;
         }
-      )
+      );
 
-      const updatedSteps = currentFormData.steps.map((step,i)=>{
-        if (i===stepIndex){
+      const updatedSteps = currentFormData.steps.map((step, i) => {
+        if (i === stepIndex) {
           return {
             ...step,
             ingredients: updatedIngredients,
-          }
+          };
         }
         return step;
-      })
+      });
 
       return {
         ...currentFormData,
         steps: updatedSteps,
-      }
+      };
 
-    })
+    });
   }
 
   /** Callback function to update the instruction fields */
-  function updateInstruction(stepIndex:number, value:string){
+  function updateInstruction(stepIndex: number, value: string) {
 
-    setFormData((currentFormData)=>{
-      const updatedSteps = currentFormData.steps.map((step, i)=>{
-        if (i===stepIndex){
+    setFormData((currentFormData) => {
+      const updatedSteps = currentFormData.steps.map((step, i) => {
+        if (i === stepIndex) {
           return {
             ...currentFormData.steps[i],
-            instructions:value,
-          }
+            instructions: value,
+          };
         }
         return step;
       });
-      console.log("updated steps",updatedSteps)
+      console.log("updated steps", updatedSteps);
 
       return {
         ...currentFormData,
-        steps:updatedSteps,
-      }
-    })
+        steps: updatedSteps,
+      };
+    });
   }
 
   /** Callback function to update the recipeInfo fields */
-  function updateRecipeInfo(recipeInfo:recipeInfo){
-    setFormData(()=>{
+  function updateRecipeInfo(recipeInfo: recipeInfo) {
+    setFormData(() => {
       return {
         ...formData,
         ...recipeInfo,
-      }
-    })
+      };
+    });
   }
 
-  /******************************** Create Methods **************************************/
+  /** Callback function to store an image in state*/
+  function updateRecipeImage(file: Blob) {
+    closeModal();
+    setImage(file);
+  }
 
 
+
+  /******************************** Create Methods */
 
   /** Callback function to update a step and its submodels */
-  function createStep(index:number){
+  function createStep(index: number) {
 
-    setFormData((currentFormData)=>{
-      const emptyStep:IStep = {
-        stepNumber:index,
-        instructions:"",
-        ingredients:[]
-      }
+    setFormData((currentFormData) => {
+      const emptyStep: IStep = {
+        stepNumber: index,
+        instructions: "",
+        ingredients: []
+      };
 
       const updatedSteps = [
         ...currentFormData.steps.slice(0, index),
@@ -127,119 +149,160 @@ function RecipeForm({recipe, onSubmitCallback}:Props) {
 
       return {
         ...currentFormData,
-        steps:updatedSteps,
-      }
-    })
+        steps: updatedSteps,
+      };
+    });
   }
 
   /** Callback function to update an ingredient */
-  function createIngredient(stepIndex:number){
-    const emptyIngredient:IIngredient = {
-      amount:"",
-      description:"",
-      instructionRef:"",
-    }
+  function createIngredient(stepIndex: number) {
+    const emptyIngredient: IIngredient = {
+      amount: "",
+      description: "",
+      instructionRef: "",
+    };
 
-    setFormData((currentFormData)=>{
+    setFormData((currentFormData) => {
 
       //insert an empty ingredient
       const updatedIngredients = [
         ...currentFormData.steps[stepIndex].ingredients,
         emptyIngredient,
-      ]
+      ];
 
       //replace the affected step
       const updatedSteps = currentFormData.steps.map((step, i) => {
-        if (stepIndex===i){
+        if (stepIndex === i) {
           return {
             ...step,
-            ingredients:updatedIngredients,
-          }
+            ingredients: updatedIngredients,
+          };
         }
         return step;
-      })
+      });
 
       //update the form data
       return {
-          ...currentFormData,
-          steps:updatedSteps,
-      }
-    })
+        ...currentFormData,
+        steps: updatedSteps,
+      };
+    });
   }
 
-/************************** Delete Methods **************************** */
 
-  function deleteStep(index:number){
-    setFormData((currentFormData)=>{
+
+  /************************** Delete Methods  */
+
+  function deleteStep(index: number) {
+    setFormData((currentFormData) => {
       console.log("removing at", index);
       const updatedSteps = [
         ...currentFormData.steps.slice(0, index),
-        ...currentFormData.steps.slice(index+1)
+        ...currentFormData.steps.slice(index + 1)
       ].map((step, i) => ({ ...step, stepNumber: i + 1 }));
 
       return {
         ...currentFormData,
-        steps:updatedSteps,
-      }
-    })
+        steps: updatedSteps,
+      };
+    });
   }
 
-  function deleteIngredient(stepIndex:number, ingredientIndex:number){
+  function deleteIngredient(stepIndex: number, ingredientIndex: number) {
 
-    setFormData((currentFormData)=>{
-
+    setFormData((currentFormData) => {
       //remove the ingredient
       const updatedIngredients = [
-        ...currentFormData.steps[stepIndex].ingredients.slice(0,ingredientIndex),
-        ...currentFormData.steps[stepIndex].ingredients.slice(ingredientIndex+1),
-      ]
+        ...currentFormData.steps[stepIndex].ingredients.slice(0, ingredientIndex),
+        ...currentFormData.steps[stepIndex].ingredients.slice(ingredientIndex + 1),
+      ];
 
       //replace the affected step
       const updatedSteps = currentFormData.steps.map((step, i) => {
-        if (stepIndex===i){
+        if (stepIndex === i) {
           return {
             ...step,
-            ingredients:updatedIngredients,
-          }
+            ingredients: updatedIngredients,
+          };
         }
         return step;
-      })
+      });
 
       //update the form data
       return {
-          ...currentFormData,
-          steps:updatedSteps,
-      }
-    })
+        ...currentFormData,
+        steps: updatedSteps,
+      };
+    });
   }
 
-/************************************************************************ */
+  /************************** UI Methods  */
+
+  function closeModal(){
+    setShowModal(false)
+  }
+
+  /************************************ JSX ************************************ */
 
   return (
-    <Box className="RecipeForm">
-      <form onSubmit={handleSubmit}>
-        <RecipeInfoInput
-          recipe={formData}
-          updateRecipeInfo={updateRecipeInfo}
+    <>
+      <Modal
+        open={showModal}
+        onClose={closeModal}
+      >
+        <Box className="EditImageModal">
+          <ImageForm
+            imgUrl=""
+            onSubmit={updateRecipeImage}
           />
-        <StepsInputs
-          initialSteps={formData.steps}
-          updateInstruction={updateInstruction}
-          updateIngredients={updateIngredients}
-          deleteIngredient={deleteIngredient}
-          createIngredient={createIngredient}
-          createStep={createStep}
-          deleteStep={deleteStep}
+        </Box>
+      </Modal>
+
+      <Box component="img"
+        src={image ? URL.createObjectURL(image) : recipe.imageUrl}
+        className="RecipeBanner"
+      />
+      
+      <Button
+        className="RecipeInfo-editImage"
+        onClick={() => { setShowModal(true); }}
+        startIcon={<FontAwesomeIcon icon={faPencilAlt} />}
+        variant="contained"
+        color="brightWhite"
+      >
+        Image
+      </Button>
+      <Box className="RecipeForm">
+
+        <form onSubmit={handleSubmit} >
+          <RecipeInfoInput
+            recipe={formData}
+            updateRecipeInfo={updateRecipeInfo}
+            updateRecipeImage={updateRecipeImage}
           />
-        <Button
-          type='submit'
-          variant="contained"
-          className="Recipe-submitButton"
-        >
-          Update Recipe
-        </Button>
-      </form>
-    </Box>
+          <StepsInputs
+            initialSteps={formData.steps}
+            updateInstruction={updateInstruction}
+            updateIngredients={updateIngredients}
+            deleteIngredient={deleteIngredient}
+            createIngredient={createIngredient}
+            createStep={createStep}
+            deleteStep={deleteStep}
+          />
+          <Box className="Recipe-submitButton">
+            <Button
+              type='submit'
+              variant="contained"
+              color="primary"
+              >
+              <Typography variant="h5">
+                Save Changes
+              </Typography>
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </>
   );
 }
 

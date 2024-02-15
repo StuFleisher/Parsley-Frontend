@@ -30,6 +30,8 @@ function InstructionInput({instruction, stepIndex, updateInstruction}:props){
             minRows={5}
             maxRows={20}
             fullWidth
+            name="instruction"
+            id = {`Step${stepIndex}-instruction`}
             className="InstructionInput"
             value={instruction}
             onChange={e=>{handleChange(e)}}

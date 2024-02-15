@@ -3,29 +3,35 @@ import { useNavigate } from "react-router-dom"
 import RecipeForm from "../components/recipeForm/RecipeForm"
 import ParsleyAPI from "../helpers/api";
 import GenerateRecipeFromTextForm from "../components/generateRecipe/GenerateRecipeFromTextForm";
+import {useContext} from "react";
+import userContext from "../helpers/userContext";
+
 
 type Props = {
-    initialRecipe?: IRecipe;
+    initialRecipe?: RecipeForCreate;
 }
 
-const emptyRecipe: IRecipe = {
+const emptyRecipe: RecipeForCreate = {
     name: "",
     description: "",
+    owner: "",
     sourceName:"",
     steps: [{
         stepNumber:1,
         instructions:"",
         ingredients:[],
     }
-    ], // Initialize steps as an empty array
+    ],
   };
 
 function AddRecipePage ({initialRecipe=emptyRecipe}:Props){
 
-    const [mode,setMode] = useState<"input"|"generate"|"display">("input") 
+    const [mode,setMode] = useState<"input"|"generate"|"display">("input")
+    const {username} = useContext(userContext);
 
-    const [recipe, setRecipe] = useState<IRecipe>(initialRecipe);
+    const [recipe, setRecipe] = useState<RecipeForCreate>(initialRecipe);
     const navigate = useNavigate();
+    // const owner= useContext;
 
     useEffect(function rerenderOnRecipeChange() {
         setRecipe(initialRecipe);
@@ -40,18 +46,36 @@ function AddRecipePage ({initialRecipe=emptyRecipe}:Props){
      */
     async function generateRecipe(formData:{recipeText:string}){
         setMode("generate");
-        const generatedRecipe = await ParsleyAPI.generateRecipe(formData);
+        try {
+            const generatedRecipe:GeneratedRecipe = await ParsleyAPI.generateRecipe(formData);
+
+            let recipeForCreate = {
+                ...generatedRecipe,
+                owner: username!,
+                description: "",
+                sourceName: "",
+                sourceUrl:"",
+            }
+
+            setRecipe(recipeForCreate);
+            setMode("display");
+        } catch(err:any){
+            console.error(err.message)
+        }
         //TODO: handle generation errors
-        setRecipe(generatedRecipe);
-        setMode("display");
     }
 
     /** Sends an API request to store a recipe based on the current form values
      * Navigates to the record view upon success.
      */
-    async function saveRecipe(formData:IRecipe){
+    async function saveRecipe(formData:IRecipe, image?:Blob){
         //TODO: validate inputs
         const recipe = await ParsleyAPI.createRecipe(formData);
+        //update recipeImage
+        console.log(image)
+        if (image){
+            await ParsleyAPI.updateRecipeImage(image,recipe.recipeId)
+        }
         navigate(`/recipes/${recipe.recipeId}`)
     }
 

@@ -72,7 +72,7 @@
     font-size: larger;
     color: $bright-white;
 
-    & > button {
+    & button {
         display: flex;
         align-items: center;
         font-size: 1rem;
@@ -108,4 +108,14 @@
         border: solid 1px charcoal;
         padding: .5rem 1rem;
     }
+}
+
+.loginModal {
+    height:100%;
+    width:100%;
+
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }

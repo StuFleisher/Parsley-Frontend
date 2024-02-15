@@ -26,4 +26,29 @@
         background-color: $salmon;
     }
 
+    .RecipeInfo-name {
+        input, textArea {
+            font-size: 4rem;
+            color: $primary;
+            font-family:'Shrikhand', Georgia;
+            line-height: 4rem;
+        }
+    }
+
+    .MuiTextField-root {
+        display:block;
+
+    }
+
+
+}
+
+.EditImageModal {
+    background-color: $bright-white;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding:1rem;
 }

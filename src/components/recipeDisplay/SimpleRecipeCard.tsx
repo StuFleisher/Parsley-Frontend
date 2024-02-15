@@ -7,8 +7,6 @@ import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 
-const DEFAULT_IMG_URL = "/images/chicken_curry.jpg"
-
 type props = {
     recipe:SimpleRecipeData|IRecipe;
 }

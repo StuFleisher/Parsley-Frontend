@@ -1,7 +1,7 @@
-import { createTheme } from "@mui/material";
+import { createTheme, responsiveFontSizes } from "@mui/material";
 
 
-const parsleyTheme = createTheme({
+const theme = createTheme({
     typography:{
         fontFamily: ['Josefin Sans', 'sans-serif'].join(','),
         button:{textTransform:'none'},
@@ -79,6 +79,8 @@ const parsleyTheme = createTheme({
         },
     }
 })
+
+const parsleyTheme = responsiveFontSizes(theme)
 
 
 export default parsleyTheme;

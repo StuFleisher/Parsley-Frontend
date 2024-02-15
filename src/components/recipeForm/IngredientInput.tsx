@@ -56,6 +56,7 @@ const IngredientInput = React.memo(function IngredientInput({
                     variant="filled"
                     size="small"
                     name="amount"
+                    id={`S${stepIndex}I${index}-amount`}
                     label="amount"
                     multiline
                     fullWidth
@@ -67,6 +68,7 @@ const IngredientInput = React.memo(function IngredientInput({
                     variant="filled"
                     size="small"
                     name="description"
+                    id={`S${stepIndex}I${index}-description`}
                     label="ingredient"
                     onChange={handleChange}
                     multiline

@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom"
-import RecipeForm from "../components/recipeForm/RecipeForm"
+import { useParams, useNavigate } from "react-router-dom";
+
+import RecipeForm from "../components/recipeForm/RecipeForm";
 import ParsleyAPI from "../helpers/api";
 
 import Box from "@mui/material/Box";
 
 
-function EditRecipePage () {
+function EditRecipePage() {
 
     const { id } = useParams();
     const [recipe, setRecipe] = useState<IRecipe | null>(null);
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(function fetchRecipeOnMount() {
@@ -30,24 +31,28 @@ function EditRecipePage () {
 
     }, [id, navigate]);
 
-    async function updateRecipe(formData:IRecipe){
+    async function updateRecipe(formData: IRecipe, image?: Blob) {
         //TODO: validate inputs
-        if (recipe){
-            await ParsleyAPI.UpdateRecipe(formData)
+
+        await ParsleyAPI.UpdateRecipe(formData);
+        if (recipe) {
+            if (image) {
+                await ParsleyAPI.updateRecipeImage(image, recipe.recipeId);
+            }
             navigate(`/recipes/${recipe.recipeId}`);
         }
     }
 
     return (
         !recipe
-        ?
+            ?
             <p> Loading...</p>
-        :
-        <>
-            <Box component="img" src={recipe.imageUrl} className="RecipeBanner"/>
-            <RecipeForm recipe={recipe} onSubmitCallback={updateRecipe} />
-        </>
-    )
+            :
+            <>
+                {/* <Box component="img" src={recipe.imageUrl} className="RecipeBanner" /> */}
+                <RecipeForm recipe={recipe} onSubmitCallback={updateRecipe} />
+            </>
+    );
 }
 
-export default EditRecipePage
+export default EditRecipePage;

@@ -1,0 +1,11 @@
+@import "../styles/colors";
+
+a {
+    text-decoration: none;
+    color: $primary;
+}
+
+.UserDetail-header{
+    background-color: $muted;
+    Padding:1rem;
+}

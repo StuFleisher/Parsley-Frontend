@@ -1,10 +1,10 @@
-import React, { ChangeEvent } from "react";
+import React, { useState,ChangeEvent } from "react";
 
 import "./RecipeInfoInput.scss"
-import ImageForm from "../ImageForm"
+import ImageForm from "../ui/ImageForm"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faImage } from "@fortawesome/free-solid-svg-icons";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -13,12 +13,19 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
 type props = {
-    recipe: IRecipe;
+    recipe: IRecipe | RecipeForCreate;
     updateRecipeInfo: Function;
+    updateRecipeImage: Function;
 }
 
 const RecipeInfoInput = React.memo(
-function RecipeInfoInput({ recipe, updateRecipeInfo }: props) {
+function RecipeInfoInput({
+    recipe,
+    updateRecipeInfo,
+    updateRecipeImage,
+}: props) {
+
+    // const [showModal, setShowModal] = useState(false);
 
     function handleChange(e:ChangeEvent<HTMLTextAreaElement>|ChangeEvent<HTMLInputElement>){
         const newRecipeInfo = {
@@ -37,6 +44,7 @@ function RecipeInfoInput({ recipe, updateRecipeInfo }: props) {
                     className="RecipeInfo-name MuiTypography-h2"
                     onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
                     name="name"
+                    id="recipe-name"
                     label="recipe name"
                     fullWidth
                     multiline
@@ -51,6 +59,7 @@ function RecipeInfoInput({ recipe, updateRecipeInfo }: props) {
                     className="RecipeInfo-description"
                     onChange = {(e:ChangeEvent<HTMLInputElement>)=> handleChange(e)}
                     name="description"
+                    id="recipe-Description"
                     label="recipe description"
                     fullWidth
                     multiline
@@ -66,6 +75,7 @@ function RecipeInfoInput({ recipe, updateRecipeInfo }: props) {
                 >
                     <TextField
                         name="sourceName"
+                        id="Recipe-sourceName"
                         placeholder='Where did you find this recipe?'
                         value={recipe.sourceName}
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
@@ -74,6 +84,7 @@ function RecipeInfoInput({ recipe, updateRecipeInfo }: props) {
                     />
                     <TextField
                         name="sourceUrl"
+                        id="Recipe-sourceUrl"
                         placeholder='Where did you find this recipe?'
                         value={recipe.sourceUrl}
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
@@ -81,14 +92,6 @@ function RecipeInfoInput({ recipe, updateRecipeInfo }: props) {
                         fullWidth
                     />
                 </Stack>
-
-                <Button
-                    className="RecipeInfo-editImage"
-                    onClick={()=>{}}
-                    startIcon = {<FontAwesomeIcon icon={faImage}/>}
-                >
-                    Image
-                </Button>
         </Box>
     );
 })

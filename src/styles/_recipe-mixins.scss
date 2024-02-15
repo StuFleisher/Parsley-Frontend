@@ -5,7 +5,7 @@
 @mixin Recipe {
     margin: 1rem;
     margin-top: 200px;
-    position: relative;
+    // position: relative;
 
     .Recipe-submitButton {
         width:300px;
@@ -21,6 +21,7 @@
     left:0;
     width:100%;
     height:350px;
+    border: red solid 2px;
     object-fit: cover;
 }
 
@@ -51,20 +52,6 @@
         .RecipeInfo-name:hover, .RecipeInfo-name:focus {
             color:$secondary;
         }
-    }
-
-    .RecipeInfo-name {
-        input, textArea {
-            font-size: 4rem;
-            color: $primary;
-            font-family:'Shrikhand', Georgia;
-            line-height: 4rem;
-        }
-    }
-
-    .MuiTextField-root {
-        display:block;
-
     }
 
     .RecipeInfo-description {

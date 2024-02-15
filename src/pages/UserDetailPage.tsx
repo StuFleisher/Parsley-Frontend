@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom";
 
 import ParsleyAPI from "../helpers/api"
+import RecipeList from "../components/recipeDisplay/RecipeList";
 import { useNavigate, useParams } from "react-router-dom"
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
 
-
+import './UserDetailPage.scss'
 
 function UserDetailPage(){
 
     const { username } = useParams();
-    const [user,setUser]=useState<IUser | "loading">("loading")
+    const [user,setUser]=useState<User | "loading">("loading")
     // const [isLoading,setIsLoading]=useState(true)
     const navigate = useNavigate();
 
@@ -34,9 +37,20 @@ function UserDetailPage(){
         {user !== "loading"
         ?
             <>
-                <Typography>{user.username}</Typography>
-                <Typography>{user.firstName} {user.lastName}</Typography>
-                <Typography>{user.email}</Typography>
+            <Card className="UserDetail-header">
+                <Typography variant="h2" color="primary">
+                    {user.username}
+                </Typography>
+                <Typography variant="subtitle2">
+                    <Link to={`/users/${user.username}/cookbook`}>
+                        View Cookbook
+                    </Link>
+                </Typography>
+                <Typography variant="subtitle2">
+                    Recipes: {user.recipes.length}
+                </Typography>
+            </Card>
+            <RecipeList recipes={user.recipes}/>
             </>
         :
             <Typography>Loading</Typography>
@@ -47,9 +61,3 @@ function UserDetailPage(){
 }
 
 export default UserDetailPage
-
-// username:string | null,
-//   password?: string | null,
-//   firstName: string | null,
-//   lastName: string | null,
-//   email:string | null,
