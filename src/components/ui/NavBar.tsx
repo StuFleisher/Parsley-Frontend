@@ -161,18 +161,6 @@ function NavBar({login}:props) {
                     }}
                 >
                     <SearchBar/>
-                    {/* <TextField
-                        id="NavBar-search-box"
-                        className="NavBar-search"
-                        color="primary"
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <FontAwesomeIcon icon={faSearch} />
-                                </InputAdornment>
-                            ),
-                        }}
-                    /> */}
                 </Box>
 
                 {username

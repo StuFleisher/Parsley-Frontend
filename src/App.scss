@@ -13,3 +13,14 @@
   min-height: 100vh;
 }
 
+.App-errors {
+  margin-top:3rem;
+  text-align: center;
+
+   > * {
+    margin-top:3rem;
+    color:$charcoal;
+   }
+
+}
+

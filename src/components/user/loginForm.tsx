@@ -1,4 +1,4 @@
-import { TextField, Stack, Button, Card } from "@mui/material"
+import { TextField, Stack, Button, Card, Typography } from "@mui/material"
 import React, { useState } from "react";
 import './loginForm.scss'
 
@@ -16,6 +16,7 @@ const LoginForm = React.forwardRef( (
     ref:React.ForwardedRef<HTMLDivElement>)=>{
 
     const [formData,setFormData] = useState<UserLoginData>(DEFAULT_FORM_DATA)
+    const [error, setError] = useState<string|null>(null)
 
     function handleChange(evt:React.ChangeEvent<HTMLInputElement>){
         const {name, value} = evt.target;
@@ -27,9 +28,18 @@ const LoginForm = React.forwardRef( (
         });
     }
 
+    async function handleSubmit(e:React.MouseEvent<HTMLButtonElement, MouseEvent>){
+        e.preventDefault();
+        try{
+            await login(formData)
+        } catch (err:any) {
+            setError("Invalid username/password");
+        }
+    }
+
     return (
         <Card className="LoginForm" ref={ref} tabIndex={-1}>
-        <Stack spacing={2} >
+        <Stack spacing={2} component="form">
             <Stack direction={{xs:"column", sm:"row"}} spacing={1}>
                 <TextField
                     sx={{flexGrow:1}}
@@ -45,9 +55,11 @@ const LoginForm = React.forwardRef( (
                     label="Password"
                     onChange={handleChange}/>
             </Stack>
+            {error ? <Typography variant="subtitle1" color="primary">{error}</Typography> : <></>}
             <Button
                 variant="contained"
-                onClick={()=>{login(formData)}}>
+                type="submit"
+                onClick={(e)=>{handleSubmit(e)}}>
                     Log In
             </Button>
         </Stack>

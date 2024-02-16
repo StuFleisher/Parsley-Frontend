@@ -8,6 +8,9 @@ import RoutesList from './pages/RoutesList';
 import ParsleyAPI from './helpers/api';
 import NavBar from './components/ui/NavBar';
 
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
 import { ThemeProvider } from '@mui/material';
 import parsleyTheme from './styles/theme';
 import { Container } from '@mui/material';
@@ -24,6 +27,7 @@ function App() {
 
   const [user, setUser] = useState<IUser>(ANON_USER);
   const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [error, setError] = useState<string | null>(null);
 
   /** Sets state about our current user and token by doing the following:
      * -Stores the users token in local storages
@@ -32,13 +36,18 @@ function App() {
      */
   useEffect(function fetchUserOnMountOrChange() {
     async function fetchUser() {
-      if (token) {
-        const username = ParsleyAPI.getUsernameFromToken(token);
-        const userData = await ParsleyAPI.getUser(username);
-        setUser(userData);
+      try {
+        if (token) {
+          const username = ParsleyAPI.getUsernameFromToken(token);
+          const userData = await ParsleyAPI.getUser(username);
+          setUser(userData);
+        }
+      } catch (e:any) {
+        setError(()=> `Error fetching user: ${e}`);
       }
     }
-    fetchUser();
+
+      fetchUser();
   }, [token]);
 
   /** Calls the api with login credentials and tries to log the user in
@@ -47,14 +56,9 @@ function App() {
    */
 
   async function login(credentials: UserLoginData) {
-    try {
       const token = await ParsleyAPI.userLogin(credentials);
       localStorage.setItem("token", token);
       setToken(token);
-    } catch (err) {
-      //TODO: give user feedback
-      console.log("invalid credentials");
-    }
   }
 
   /** Logs the user out
@@ -78,9 +82,28 @@ function App() {
     setToken(token);
   }
 
+
+  if (error) {
+    return (
+      <ThemeProvider theme={parsleyTheme}>
+      <Box className="App">
+        <BrowserRouter>
+          <NavBar login={login} />
+          <Container className="App-page">
+            <Box className="App-errors">
+              <Typography variant="h2">Sorry, we had trouble loading the page</Typography>
+              <Typography variant="body1" color="charcoal">{error}</Typography>
+            </Box>
+          </Container>
+        </BrowserRouter>
+      </Box>
+      </ThemeProvider>
+    );
+  }
+
   return (
     <ThemeProvider theme={parsleyTheme}>
-      <div className="App">
+      <Box className="App">
         {
           (token && !user.username)
             ?
@@ -99,7 +122,7 @@ function App() {
               </BrowserRouter>
             </userContext.Provider>
         }
-      </div>
+      </Box>
     </ThemeProvider>
   );
 }
