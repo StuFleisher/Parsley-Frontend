@@ -5,8 +5,15 @@ const theme = createTheme({
     typography:{
         fontFamily: ['Josefin Sans', 'sans-serif'].join(','),
         button:{textTransform:'none'},
-        h1:{fontFamily:`'Shrikhand', Georgia`},
-        h2:{fontFamily:`'Shrikhand', Georgia`},
+        h1:{
+            fontFamily:`'Shrikhand', Georgia`,
+            fontSize:`1.5rem`,
+            '@media (min-width:600px)':{fontSize:'3.5rem'},
+        },
+        h2:{fontFamily:`'Shrikhand', Georgia`,
+        fontSize:`1.5rem`,
+        '@media (min-width:600px)':{fontSize:'3.5rem'},
+        },
         h3:{
             fontFamily:`'Shrikhand', Georgia`,
             fontSize:'1rem',
@@ -14,7 +21,19 @@ const theme = createTheme({
                 fontSize: '2rem',
               },
         },
-        subtitle1:{fontWeight:300, fontStyle:'italic' }
+        subtitle1:{fontWeight:300, fontStyle:'italic' },
+        body1:{
+            fontSize:'.75rem',
+            '@media (min-width:600px)': {
+                fontSize: '1rem',
+              },
+        },
+        body2:{
+            fontSize:'1rem',
+            '@media (min-width:600px)': {
+                fontSize: '1.5rem',
+              },
+        }
     },
     components:{
         MuiMenu:{
@@ -80,7 +99,7 @@ const theme = createTheme({
     }
 })
 
-const parsleyTheme = responsiveFontSizes(theme)
+// const parsleyTheme = responsiveFontSizes(theme)
 
 
-export default parsleyTheme;
+export default theme;

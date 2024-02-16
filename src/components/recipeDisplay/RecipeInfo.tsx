@@ -30,7 +30,7 @@ function RecipeInfo({ recipe }: props) {
                 spacing={2}
             >
                 <Link to={`/recipes/${recipe.recipeId}`}>
-                    <Typography className='RecipeInfo-name' variant="h2">
+                    <Typography className='RecipeInfo-name' variant="h1">
                         {recipe.name}
                     </Typography>
                 </Link>

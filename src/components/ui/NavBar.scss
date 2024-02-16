@@ -42,8 +42,16 @@
 
     border:none;
 
-    & .MuiInputBase-root {
+    .MuiFormControl-root{
         height:100%;
+    }
+
+    .MuiInputBase-root {
+        height:100%;
+
+        .MuiInputBase-input{
+            margin:0;
+        }
 
         & .MuiOutlinedInput-root {
             border:none;
@@ -61,7 +69,7 @@
         box-shadow:none;
     }
 
-    & input {
+    input {
         color:$charcoal;
     }
 

@@ -21,6 +21,7 @@ function Instruction({ instruction, colorMap }: props) {
             return (
                 <Typography
                     component="span"
+                    variant="body2"
                     className={
                         map.has(str) ? `Instruction color-${map.get(str)}` : "Instruction"
                     }

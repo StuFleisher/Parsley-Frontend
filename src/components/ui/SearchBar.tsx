@@ -25,13 +25,13 @@ function SearchBar() {
     }
 
     return (
-        <form
+        <form className="NavBar-search"
+
             onSubmit={(e)=>handleSubmit(e)}
         >
 
         <TextField
             id="NavBar-search-box"
-            className="NavBar-search"
             color="primary"
             value={query}
             placeholder="search recipes"
@@ -42,7 +42,7 @@ function SearchBar() {
                     ),
                 }}
         />
-        
+
         </form>
     );
 }
