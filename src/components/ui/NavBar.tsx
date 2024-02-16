@@ -4,13 +4,13 @@ import { useState,useContext } from "react";
 import userContext from "../../helpers/userContext";
 import { Link as RouterLink } from "react-router-dom";
 
+import SearchBar from "./SearchBar";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faUtensils, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUtensils, faUser } from "@fortawesome/free-solid-svg-icons";
 
 //MUI Components
 import AppBar from "@mui/material/AppBar";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -160,7 +160,8 @@ function NavBar({login}:props) {
                         alignItems:"center",
                     }}
                 >
-                    <TextField
+                    <SearchBar/>
+                    {/* <TextField
                         id="NavBar-search-box"
                         className="NavBar-search"
                         color="primary"
@@ -171,7 +172,7 @@ function NavBar({login}:props) {
                                 </InputAdornment>
                             ),
                         }}
-                    />
+                    /> */}
                 </Box>
 
                 {username

@@ -123,8 +123,11 @@ class ParsleyAPI {
     return response.recipe;
   }
 
-  static async getAllRecipes(): Promise<SimpleRecipeData[]> {
-    const response = await this.request('recipes');
+  static async getAllRecipes(query:string | null): Promise<SimpleRecipeData[]> {
+
+    const response = query
+      ? await this.request(`recipes?q=${query}`)
+      : await this.request(`recipes`);
     return response.recipes;
   }
 
