@@ -12,11 +12,18 @@
 
 }
 
+.Homepage-introSection{
+    height: 100vh;
+}
+
 .Homepage-copy {
     max-width:800px;
     padding:1rem;
-    margin-top:5rem;
     z-index: 100;
+
+    align-items: center;
+    justify-content: center;
+
 
     @media(max-width:600px){
         // p, h1 {
@@ -24,5 +31,9 @@
         // }
     }
 
+}
 
+.Homepage-animation {
+    max-height:600px;
+    flex-shrink: 1;
 }

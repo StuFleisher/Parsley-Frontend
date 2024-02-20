@@ -1,6 +1,10 @@
 import LoginForm from "../components/user/loginForm";
 import { useContext } from "react";
 import userContext from "../helpers/userContext";
+
+import Lottie from "lottie-react";
+import testAnimation from "../animations/recipeTransform.json"
+
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -17,15 +21,16 @@ function Homepage({ login, register }: props) {
 
     return (
         <div className="Homepage">
-            <Stack direction="row">
-                <Box
-                component="img"
-                className="Homepage-backgroundImage"
-                src={"/images/parsley_leaf.png"}></Box>
-
+            <Stack
+                direction={{xs:"column", md:"row"}}
+                alignItems="center"
+                className="Homepage-introSection"
+            >
+                <Box className="Homepage-animation">
+                    <Lottie loop animationData={testAnimation}/>
+                </Box>
                 <Stack className="Homepage-copy" spacing={2}>
-                    <Typography variant="body1" color="charcoal"> We've been cooking the same way for over a century</Typography>
-                    <Typography variant="h1" color="secondary"> It's time to rethink recipes</Typography>
+                    <Typography variant="h1" color="secondary"> Recipes should be easy to use</Typography>
                     {username
                         ?
                         <></>
