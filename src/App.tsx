@@ -107,7 +107,9 @@ function App() {
         {
           (token && !user.username)
             ?
-            <p>Loading</p>
+            <Container className="App-page">
+              <p>Loading</p>
+            </Container>
             :
             <userContext.Provider value={user}>
               <BrowserRouter>
