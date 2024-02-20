@@ -63,4 +63,22 @@ type StepForCreate = {
   ingredients:IngredientForCreate[];
 }
 
+//form error types
 
+type IngredientError = {
+  amount: string|null;
+  description: string|null;
+}
+
+type StepError = {
+  instructions:string|null;
+  ingredients:ingredientError[];
+}
+
+type RecipeError = {
+  name:string|null,
+  description: string|null;
+  sourceUrl: string|null;
+  sourceName: string|null;
+  steps:stepError[];
+}

@@ -3,7 +3,7 @@ import StepsInputs from "./StepsInputs";
 import ImageForm from "../ui/ImageForm";
 
 import "./RecipeForm.scss";
-import { FormEvent, useState, useEffect } from "react";
+import { FormEvent, useState, useEffect, useCallback } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
@@ -22,12 +22,20 @@ type Props = {
   onSubmitCallback: Function,
 };
 
+const emptyError:RecipeError = {
+  name: null,
+  description: null,
+  sourceName:null,
+  sourceUrl:null,
+  steps:[],
+}
 
 /********************************* COMPONENT *********************************************/
 
 function RecipeForm({ recipe, onSubmitCallback }: Props) {
 
   const [formData, setFormData] = useState(recipe);
+  const [formErrors, setFormErrors] = useState<RecipeError>(emptyError)
 
   const [showModal, setShowModal] = useState(false);
   const [image, setImage] = useState<Blob | undefined>();
@@ -45,16 +53,14 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
     //update image
   }
 
-
-
   /**************************** UPDATE METHODS */
 
   /** Callback function to update Ingredients field */
-  function updateIngredients(
+  const updateIngredients = useCallback((
     stepIndex: number,
     ingredientIndex: number,
     amount: string,
-    description: string) {
+    description: string) => {
 
     setFormData((currentFormData) => {
 
@@ -87,10 +93,10 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
       };
 
     });
-  }
+  },[])
 
   /** Callback function to update the instruction fields */
-  function updateInstruction(stepIndex: number, value: string) {
+  const updateInstruction = useCallback((stepIndex: number, value: string) => {
 
     setFormData((currentFormData) => {
       const updatedSteps = currentFormData.steps.map((step, i) => {
@@ -109,30 +115,30 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
         steps: updatedSteps,
       };
     });
-  }
+  },[])
 
   /** Callback function to update the recipeInfo fields */
-  function updateRecipeInfo(recipeInfo: recipeInfo) {
+  const updateRecipeInfo = useCallback((recipeInfo: recipeInfo) => {
     setFormData(() => {
       return {
         ...formData,
         ...recipeInfo,
       };
     });
-  }
+  },[])
 
   /** Callback function to store an image in state*/
-  function updateRecipeImage(file: Blob) {
+  const updateRecipeImage= useCallback((file: Blob) => {
     closeModal();
     setImage(file);
-  }
+  },[])
 
 
 
   /******************************** Create Methods */
 
   /** Callback function to update a step and its submodels */
-  function createStep(index: number) {
+  const createStep=useCallback((index: number) => {
 
     setFormData((currentFormData) => {
       const emptyStep: IStep = {
@@ -152,10 +158,10 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
         steps: updatedSteps,
       };
     });
-  }
+  },[])
 
   /** Callback function to update an ingredient */
-  function createIngredient(stepIndex: number) {
+  const createIngredient = useCallback((stepIndex: number) => {
     const emptyIngredient: IIngredient = {
       amount: "",
       description: "",
@@ -187,13 +193,13 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
         steps: updatedSteps,
       };
     });
-  }
+  },[])
 
 
 
   /************************** Delete Methods  */
 
-  function deleteStep(index: number) {
+  const deleteStep= useCallback((index: number)=> {
     setFormData((currentFormData) => {
       console.log("removing at", index);
       const updatedSteps = [
@@ -206,9 +212,9 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
         steps: updatedSteps,
       };
     });
-  }
+  },[])
 
-  function deleteIngredient(stepIndex: number, ingredientIndex: number) {
+  const deleteIngredient=useCallback((stepIndex: number, ingredientIndex: number) => {
 
     setFormData((currentFormData) => {
       //remove the ingredient
@@ -234,7 +240,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
         steps: updatedSteps,
       };
     });
-  }
+  },[])
 
   /************************** UI Methods  */
 
@@ -262,7 +268,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
         src={image ? URL.createObjectURL(image) : recipe.imageUrl}
         className="RecipeBanner"
       />
-      
+
       <Button
         className="RecipeInfo-editImage"
         onClick={() => { setShowModal(true); }}

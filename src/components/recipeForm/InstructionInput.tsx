@@ -27,8 +27,7 @@ function InstructionInput({instruction, stepIndex, updateInstruction}:props){
     return (
         <TextField
             multiline
-            minRows={5}
-            maxRows={20}
+            rows={5}
             fullWidth
             name="instruction"
             id = {`Step${stepIndex}-instruction`}

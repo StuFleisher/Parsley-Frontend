@@ -27,6 +27,7 @@ const emptyRecipe: RecipeForCreate = {
 function AddRecipePage ({initialRecipe=emptyRecipe}:Props){
 
     const [mode,setMode] = useState<"input"|"generate"|"display">("input")
+    const [error,setError] = useState<string|null>(null)
     const {username} = useContext(userContext);
 
     const [recipe, setRecipe] = useState<RecipeForCreate>(initialRecipe);
@@ -45,6 +46,7 @@ function AddRecipePage ({initialRecipe=emptyRecipe}:Props){
      * @param formData: {recipeText:string}
      */
     async function generateRecipe(formData:{recipeText:string}){
+        setError(null)
         setMode("generate");
         try {
             const generatedRecipe:GeneratedRecipe = await ParsleyAPI.generateRecipe(formData);
@@ -60,9 +62,9 @@ function AddRecipePage ({initialRecipe=emptyRecipe}:Props){
             setRecipe(recipeForCreate);
             setMode("display");
         } catch(err:any){
-            console.error(err.message)
+            setError(err.message);
+            setMode("input");
         }
-        //TODO: handle generation errors
     }
 
     /** Sends an API request to store a recipe based on the current form values
@@ -80,20 +82,30 @@ function AddRecipePage ({initialRecipe=emptyRecipe}:Props){
     }
 
     /******************* Conditional rendering *****************************/
+    let pageContent;
 
     if (mode === "generate"){
-        return <p>Generating your recipe. This may take a moment.</p>
+        pageContent = <p>Generating your recipe. This may take a moment.</p>;
     }
 
     if (mode === "display"){
-        return (
+        pageContent = (
             <RecipeForm recipe={recipe} onSubmitCallback={saveRecipe}/>
         )
     }
 
-    return ( //mode === "input"
-        <GenerateRecipeFromTextForm onSubmit={generateRecipe}/>
+    if ( mode === "input"){
+        pageContent=<GenerateRecipeFromTextForm onSubmit={generateRecipe}/>
+    }
+
+
+    return (
+        <>
+        {error ? "Sorry! Our chefs weren't able to prepare that recipe for you." : ""}
+        {pageContent}
+        </>
     )
+
 
 }
 

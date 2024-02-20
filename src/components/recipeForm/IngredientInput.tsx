@@ -58,7 +58,6 @@ const IngredientInput = React.memo(function IngredientInput({
                     name="amount"
                     id={`S${stepIndex}I${index}-amount`}
                     label="amount"
-                    multiline
                     fullWidth
                     onChange={handleChange}
                     />
@@ -71,7 +70,6 @@ const IngredientInput = React.memo(function IngredientInput({
                     id={`S${stepIndex}I${index}-description`}
                     label="ingredient"
                     onChange={handleChange}
-                    multiline
                     fullWidth
                     />
             </FormGroup>

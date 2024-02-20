@@ -1,4 +1,4 @@
-import React, { useState,ChangeEvent } from "react";
+import React, { useState,ChangeEvent, FocusEvent } from "react";
 
 import "./RecipeInfoInput.scss"
 import ImageForm from "../ui/ImageForm"
@@ -11,6 +11,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
+import { isURL } from "../../helpers/utilities";
 
 type props = {
     recipe: IRecipe | RecipeForCreate;
@@ -25,7 +26,19 @@ function RecipeInfoInput({
     updateRecipeImage,
 }: props) {
 
-    // const [showModal, setShowModal] = useState(false);
+    const [blurred,setBlurred] = useState({
+        name:false,
+        description:false,
+        sourceName:false,
+        sourceUrl:false,
+    })
+
+    const validate = {
+        name:()=>{return (recipe.name==="") ? false : true;},
+        description:()=>{return (recipe.description==="") ? false : true;},
+        sourceName: ()=>{return (recipe.sourceName==="") ? false : true;},
+        sourceUrl: ()=>{return ((recipe.sourceUrl==="") || isURL(recipe.sourceUrl))? true : false;},
+    }
 
     function handleChange(e:ChangeEvent<HTMLTextAreaElement>|ChangeEvent<HTMLInputElement>){
         const newRecipeInfo = {
@@ -34,6 +47,12 @@ function RecipeInfoInput({
         }
         updateRecipeInfo(newRecipeInfo)
     }
+
+    function blurField(e:FocusEvent<HTMLInputElement>){
+        const field = e.target.name;
+        setBlurred(()=>{return {...blurred, [field]:true}})
+    }
+
 
     return (
         <Box className="RecipeInfoInput">
@@ -50,7 +69,10 @@ function RecipeInfoInput({
                     multiline
                     minRows={1}
                     maxRows={3}
-
+                    required
+                    error={!validate.name()}
+                    helperText={validate.name() ? "" : "Name is required"}
+                    onBlur = {(e:FocusEvent<HTMLInputElement>)=>{blurField(e)}}
                     />
 
                 <TextField
@@ -65,8 +87,11 @@ function RecipeInfoInput({
                     multiline
                     minRows={3}
                     maxRows={10}
-
-                    />
+                    required
+                    error={!validate.description()}
+                    helperText={validate.description() ? "" : "Description is required"}
+                    onBlur = {(e:FocusEvent<HTMLInputElement>)=>{blurField(e)}}
+                />
 
                 <Stack
                     className="RecipeInfo-sourceName"
@@ -81,6 +106,11 @@ function RecipeInfoInput({
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
                         label="source"
                         fullWidth
+                        required
+                        error={validate.sourceName()}
+                        helperText={validate.sourceName() ? "" : "Source is required"}
+                        onBlur = {(e:FocusEvent<HTMLInputElement>)=>{blurField(e)}}
+
                     />
                     <TextField
                         name="sourceUrl"
@@ -90,6 +120,9 @@ function RecipeInfoInput({
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
                         label="URL"
                         fullWidth
+                        error={validate.sourceUrl()}
+                        helperText={validate.sourceUrl() ? "" : "Invalid URL format"}
+                        onBlur = {(e:FocusEvent<HTMLInputElement>)=>{blurField(e)}}
                     />
                 </Stack>
         </Box>
