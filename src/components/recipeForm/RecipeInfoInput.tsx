@@ -1,4 +1,6 @@
 import React, { useState,ChangeEvent, FocusEvent } from "react";
+import {useFormikContext} from "formik"
+
 
 import "./RecipeInfoInput.scss"
 import ImageForm from "../ui/ImageForm"
@@ -13,55 +15,21 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { isURL } from "../../helpers/utilities";
 
-type props = {
-    recipe: IRecipe | RecipeForCreate;
-    updateRecipeInfo: Function;
-    updateRecipeImage: Function;
-}
+
 
 const RecipeInfoInput = React.memo(
-function RecipeInfoInput({
-    recipe,
-    updateRecipeInfo,
-    updateRecipeImage,
-}: props) {
+function RecipeInfoInput() {
 
-    const [blurred,setBlurred] = useState({
-        name:false,
-        description:false,
-        sourceName:false,
-        sourceUrl:false,
-    })
-
-    const validate = {
-        name:()=>{return (recipe.name==="") ? false : true;},
-        description:()=>{return (recipe.description==="") ? false : true;},
-        sourceName: ()=>{return (recipe.sourceName==="") ? false : true;},
-        sourceUrl: ()=>{return ((recipe.sourceUrl==="") || isURL(recipe.sourceUrl))? true : false;},
-    }
-
-    function handleChange(e:ChangeEvent<HTMLTextAreaElement>|ChangeEvent<HTMLInputElement>){
-        const newRecipeInfo = {
-            ...recipe,
-            [e.target.name]:e.target.value,
-        }
-        updateRecipeInfo(newRecipeInfo)
-    }
-
-    function blurField(e:FocusEvent<HTMLInputElement>){
-        const field = e.target.name;
-        setBlurred(()=>{return {...blurred, [field]:true}})
-    }
-
+    const {values, handleChange, handleBlur, errors, touched} = useFormikContext<IRecipe|RecipeForCreate>();
 
     return (
         <Box className="RecipeInfoInput">
 
                 <TextField
-                    value={recipe.name}
+                    value={values.name}
                     placeholder="Name your recipe"
                     className="RecipeInfo-name MuiTypography-h2"
-                    onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
+                    onChange={handleChange}
                     name="name"
                     id="recipe-name"
                     label="recipe name"
@@ -70,16 +38,13 @@ function RecipeInfoInput({
                     minRows={1}
                     maxRows={3}
                     required
-                    error={!validate.name()}
-                    helperText={validate.name() ? "" : "Name is required"}
-                    onBlur = {(e:FocusEvent<HTMLInputElement>)=>{blurField(e)}}
                     />
 
                 <TextField
-                    value={recipe.description}
+                    value={values.description}
                     placeholder='Add a description for your recipe'
                     className="RecipeInfo-description"
-                    onChange = {(e:ChangeEvent<HTMLInputElement>)=> handleChange(e)}
+                    onChange = {handleChange}
                     name="description"
                     id="recipe-Description"
                     label="recipe description"
@@ -88,9 +53,6 @@ function RecipeInfoInput({
                     minRows={3}
                     maxRows={10}
                     required
-                    error={!validate.description()}
-                    helperText={validate.description() ? "" : "Description is required"}
-                    onBlur = {(e:FocusEvent<HTMLInputElement>)=>{blurField(e)}}
                 />
 
                 <Stack
@@ -102,27 +64,21 @@ function RecipeInfoInput({
                         name="sourceName"
                         id="Recipe-sourceName"
                         placeholder='Where did you find this recipe?'
-                        value={recipe.sourceName}
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
+                        value={values.sourceName}
+                        onChange={handleChange}
                         label="source"
                         fullWidth
                         required
-                        error={validate.sourceName()}
-                        helperText={validate.sourceName() ? "" : "Source is required"}
-                        onBlur = {(e:FocusEvent<HTMLInputElement>)=>{blurField(e)}}
 
                     />
                     <TextField
                         name="sourceUrl"
                         id="Recipe-sourceUrl"
                         placeholder='Where did you find this recipe?'
-                        value={recipe.sourceUrl}
-                        onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
+                        value={values.sourceUrl}
+                        onChange={handleChange}
                         label="URL"
                         fullWidth
-                        error={validate.sourceUrl()}
-                        helperText={validate.sourceUrl() ? "" : "Invalid URL format"}
-                        onBlur = {(e:FocusEvent<HTMLInputElement>)=>{blurField(e)}}
                     />
                 </Stack>
         </Box>

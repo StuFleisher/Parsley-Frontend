@@ -1,16 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import RecipeForm from "../components/recipeForm/RecipeForm";
+import { RecipeFormProvider } from "../helpers/RecipeFormContext";
+import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
+import RecipeImageForm from "../components/recipeForm/RecipeImageForm";
 import ParsleyAPI from "../helpers/api";
 
+import { Button, Modal, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 
 function EditRecipePage() {
 
     const { id } = useParams();
     const [recipe, setRecipe] = useState<IRecipe | null>(null);
+    const [image, setImage] = useState<Blob | undefined>();
+
+    const [showModal, setShowModal] = useState(false);
+    function closeModal() {
+        setShowModal(false);
+    }
+
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -31,7 +44,7 @@ function EditRecipePage() {
 
     }, [id, navigate]);
 
-    async function updateRecipe(formData: IRecipe, image?: Blob) {
+    async function updateRecipe(formData: IRecipe) {
         //TODO: validate inputs
 
         await ParsleyAPI.UpdateRecipe(formData);
@@ -43,14 +56,47 @@ function EditRecipePage() {
         }
     }
 
+    const updateRecipeImage = useCallback((file: Blob) => {
+        closeModal();
+        setImage(file);
+    }, []);
+
     return (
         !recipe
             ?
             <p> Loading...</p>
             :
             <>
+                <Modal
+                    open={showModal}
+                    onClose={closeModal}
+                >
+                    <Box className="EditImageModal">
+                        <RecipeImageForm updateRecipeImage={updateRecipeImage} />
+                    </Box>
+                </Modal>
+
+                <Box component="img"
+                    src={image ? URL.createObjectURL(image) : recipe.imageUrl}
+                    className="RecipeBanner"
+                />
+
+                <Button
+                    className="RecipeInfo-editImage"
+                    onClick={() => { setShowModal(true); }}
+                    startIcon={<FontAwesomeIcon icon={faPencilAlt} />}
+                    variant="contained"
+                    color="brightWhite"
+                >
+                    Image
+                </Button>
+
                 {/* <Box component="img" src={recipe.imageUrl} className="RecipeBanner" /> */}
-                <RecipeForm recipe={recipe} onSubmitCallback={updateRecipe} />
+                <RecipeFormProvider recipe={recipe} onSubmitCallback={updateRecipe}>
+                    {/* <RecipeForm recipe={recipe} onSubmitCallback={updateRecipe} /> */}
+                    <RecipeFormDisplay />
+
+                </RecipeFormProvider>
             </>
     );
 }

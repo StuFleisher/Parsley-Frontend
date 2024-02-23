@@ -1,5 +1,6 @@
 import StepInput from "./StepInput";
-import React, { MouseEvent } from "react";
+import React, { MouseEvent, useCallback } from "react";
+import { useFormikContext, FieldArray, FieldArrayRenderProps } from "formik";
 import './StepsInputs.scss';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,84 +10,91 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
-type props = {
-    initialSteps:IStep[];
-    updateInstruction:Function;
-    updateIngredients:Function;
-    createIngredient:Function;
-    deleteIngredient:Function;
-    createStep:Function;
-    deleteStep:Function;
-}
 
 /** Renders StepInput components for every Step passed to props
- *
- * @prop initialSteps: IStep[] ->
+ *  Handles creation and deletion of steps
  */
 
-const StepsInputs =  React.memo(
-function StepsInputs ({
-    initialSteps,
-    updateInstruction,
-    updateIngredients,
-    createIngredient,
-    deleteIngredient,
-    createStep,
-    deleteStep}:props){
+const StepsInputs = React.memo(
+    function StepsInputs() {
 
-    function handleCreate(e:MouseEvent<HTMLButtonElement>){
-        e.preventDefault();
-        const target = e.currentTarget;
-        createStep(Number(target.getAttribute('data-index'))+1);
-    }
+        const { values, handleChange, handleBlur, errors, touched } = useFormikContext<IRecipe | RecipeForCreate>();
+        const steps = values.steps;
 
-    function handleDelete(e: MouseEvent<HTMLButtonElement>){
-        e.preventDefault();
-        const target = e.currentTarget;
-        console.log(target)
-        deleteStep(Number(target.getAttribute('data-index')));
-    }
+        const createEmptyStep = useCallback((index:number, arrayHelpers:FieldArrayRenderProps)=>{
+            const emptyStep = {
+                stepNumber: index+1,
+                instructions: "",
+                ingredients: []
+            };
 
-    return (
-        <Box className="StepList">
-            {initialSteps.map((step,i)=>{
-                return (
-                    <React.Fragment key={step.stepNumber}>
-                    <Box  className="StepInput">
+            const updatedSteps = [
+                ...values.steps.slice(0, index),
+                emptyStep,
+                ...values.steps.slice(index)
+              ].map((step, i) => ({ ...step, stepNumber: i + 1 }));
+
+            arrayHelpers.form.setFieldValue('steps',updatedSteps)
+        },[values.steps])
+
+        const deleteStep = useCallback((index: number, arrayHelpers:FieldArrayRenderProps)=>{
+
+            const updatedSteps = [
+            ...values.steps.slice(0, index),
+            ...values.steps.slice(index + 1)
+            ].map((step, i) => ({ ...step, stepNumber: i + 1 }));
+
+            arrayHelpers.form.setFieldValue('steps',updatedSteps)
+          },[values.steps])
+
+        const renderStep= useCallback((step: IStep, index: number, arrayHelpers: FieldArrayRenderProps)=> {
+            return (
+                <React.Fragment key={step.stepNumber}>
+                    <Box className="StepInput">
                         <StepInput
-                            step={step}
-                            index={step.stepNumber-1}
-                            updateInstruction={updateInstruction}
-                            updateIngredients={updateIngredients}
-                            deleteIngredient={deleteIngredient}
-                            createIngredient={createIngredient}
+                            index={index}
                         />
                         <Box
                             className="StepInput-delete"
                             component="button"
-                            data-index={i}
-                            onClick={handleDelete}
+                            data-index={index}
+                            type="button"
+                            onClick={()=>deleteStep(index, arrayHelpers)}
                         >
-                            <FontAwesomeIcon icon={faCircleXmark}/>
+                            <FontAwesomeIcon icon={faCircleXmark} />
                         </Box>
                     </Box>
                     <Stack direction="row">
                         <Button
                             className="Step-create"
-                            onClick={handleCreate}
-                            data-index={i}
-                            variant = "outlined"
-                            startIcon = {<FontAwesomeIcon icon={faPlusCircle}/>}
+                            onClick={()=>createEmptyStep(index + 1, arrayHelpers)}
+                            data-index={index}
+                            variant="outlined"
+                            type="button"
+                            startIcon={<FontAwesomeIcon icon={faPlusCircle} />}
                         >
                             New Step
                         </Button>
                     </Stack>
-                    </React.Fragment>
-            )
-            })}
-        </Box>
-    )
-})
+                </React.Fragment>
+            );
+        },[createEmptyStep,deleteStep])
+
+        return (
+            <Box className="StepList">
+                <FieldArray
+                    name="steps"
+                    render={(arrayHelpers) => (
+                        steps.map((step, i) => {
+                            return (
+                                renderStep(step, i, arrayHelpers)
+                            );
+                        })
+                    )}
+                />
+            </Box>
+        );
+    });
 
 export default StepsInputs
 

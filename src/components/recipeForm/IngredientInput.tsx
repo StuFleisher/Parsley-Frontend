@@ -1,86 +1,63 @@
-import React, { ChangeEvent, MouseEvent } from "react";
+import React, { ChangeEvent, MouseEvent, useEffect } from "react";
+import { useFormikContext, FieldArray, FieldArrayRenderProps, useField } from "formik";
+
 import "./IngredientInput.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Box, FormGroup, TextField } from "@mui/material";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+
 
 type props = {
-    ingredient: IIngredient;
     stepIndex: number;
     index: number;
-    updateIngredients:Function;
-    deleteIngredient:Function;
+    // description: string;
+    // amount: string;
 }
 
 
 /** Renders form inputs for a single ingredient.
- * @prop ingredient: IIngredient -> {amount:string, description:string}
  * @prop stepIndex: Number -> The step this ingredient is rendered from
  * @prop index: Number -> The position of this ingredient among its siblings
- * @prop updateIngredients:Function -> The callback that updates this ingredient
- *       in state for the recipe
- * @prop deleteIngredient:Function -> The callback that removes this ingredient
- *       from the recipe in state.
  *
  * @hierarchy IngredientInputList -> IngredientInput
 */
 const IngredientInput = React.memo(function IngredientInput({
-    ingredient,
     stepIndex,
     index,
-    updateIngredients,
-    deleteIngredient}:props) {
-    const {amount, description} = ingredient;
+}:props){
 
-    function handleChange(e: ChangeEvent<HTMLInputElement>){
-        const newIngredient = {
-            ...ingredient,
-            [e.target.name]:e.target.value
-        }
+    const [amountField, amountMeta] = useField(`steps[${stepIndex}].ingredients[${index}].amount`)
+    const [descriptionField, descriptionMeta] = useField(`steps[${stepIndex}].ingredients[${index}].description`)
 
-        updateIngredients(stepIndex, index, newIngredient.amount, newIngredient.description)
-    }
-
-    function handleDelete(e: MouseEvent<HTMLButtonElement>){
-        e.preventDefault();
-        deleteIngredient(stepIndex, index)
-    }
+    // useEffect(()=>{
+    //     console.log(amountField.name)
+    // },[amountField])
 
     return (
         <Box className="Ingredient">
             <FormGroup row={true}>
                 <TextField
                     className="Ingredient-text"
-                    value={amount}
+                    value={amountField.value}
                     variant="filled"
                     size="small"
-                    name="amount"
+                    name={amountField.name}
                     id={`S${stepIndex}I${index}-amount`}
                     label="amount"
                     fullWidth
-                    onChange={handleChange}
+                    onChange={amountField.onChange}
                     />
                 <TextField
                     className="Ingredient-text"
-                    value={description}
+                    value={descriptionField.value}
                     variant="filled"
                     size="small"
-                    name="description"
+                    name={descriptionField.name}
                     id={`S${stepIndex}I${index}-description`}
                     label="ingredient"
-                    onChange={handleChange}
+                    onChange={descriptionField.onChange}
                     fullWidth
                     />
             </FormGroup>
-
-            <Box
-                className="IngredientInput-delete"
-                component="button"
-                onClick={handleDelete}
-            >
-                <FontAwesomeIcon icon={faCircleXmark}/>
-            </Box>
         </Box>
     )
 })
