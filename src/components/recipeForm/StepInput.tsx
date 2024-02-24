@@ -15,10 +15,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 type props = {
     step:IStep,
     index:number,
-    updateInstruction:Function,
-    updateIngredients:Function,
-    deleteIngredient:Function,
-    createIngredient:Function,
 }
 
 /** Renders components for updating a step
@@ -29,12 +25,7 @@ type props = {
  * StepsInputs > StepInput > {IngredientInputList, InstructionInput}
  */
 
-const StepInput = React.memo(function StepInput({step,
-    index,
-    updateInstruction,
-    updateIngredients,
-    deleteIngredient,
-    createIngredient}:props){
+const StepInput = React.memo(function StepInput({step,index}:props){
 
     const {stepNumber, instructions, ingredients} = step;
 
@@ -60,16 +51,12 @@ const StepInput = React.memo(function StepInput({step,
                 <IngredientInputList
                     ingredients={ingredients}
                     stepIndex={index}
-                    updateIngredients={updateIngredients}
-                    createIngredient={createIngredient}
-                    deleteIngredient={deleteIngredient}
                     />
                 </Box>
                 <Box className="Step-instructions">
                     <InstructionInput
                         instruction={instructions}
                         stepIndex={index}
-                        updateInstruction={updateInstruction}
                         />
                 </Box>
             </Stack>

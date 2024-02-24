@@ -8,15 +8,10 @@ import { faCircleXmark, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import { useRecipeFormCallbacks } from "./RecipeFormControl";
 
 type props = {
     initialSteps:IStep[];
-    updateInstruction:Function;
-    updateIngredients:Function;
-    createIngredient:Function;
-    deleteIngredient:Function;
-    createStep:Function;
-    deleteStep:Function;
 }
 
 /** Renders StepInput components for every Step passed to props
@@ -25,14 +20,12 @@ type props = {
  */
 
 const StepsInputs =  React.memo(
-function StepsInputs ({
-    initialSteps,
-    updateInstruction,
-    updateIngredients,
-    createIngredient,
-    deleteIngredient,
-    createStep,
-    deleteStep}:props){
+function StepsInputs ({initialSteps}:props){
+
+    const {
+        createStep,
+        deleteStep,
+    } = useRecipeFormCallbacks();
 
     function handleCreate(e:MouseEvent<HTMLButtonElement>){
         e.preventDefault();
@@ -56,10 +49,6 @@ function StepsInputs ({
                         <StepInput
                             step={step}
                             index={step.stepNumber-1}
-                            updateInstruction={updateInstruction}
-                            updateIngredients={updateIngredients}
-                            deleteIngredient={deleteIngredient}
-                            createIngredient={createIngredient}
                         />
                         <Box
                             className="StepInput-delete"

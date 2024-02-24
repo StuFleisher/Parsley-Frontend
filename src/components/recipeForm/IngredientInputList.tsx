@@ -9,26 +9,23 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import ListItem from "@mui/material/ListItem";
 import Button from "@mui/material/Button";
+import { useRecipeFormCallbacks } from "./RecipeFormControl";
 
 type props = {
     ingredients: IIngredient[];
-    updateIngredients:Function;
-    createIngredient:Function;
-    deleteIngredient:Function;
     stepIndex:number;
 }
 
 const IngredientInputList = React.memo(
 function IngredientInputList({
     ingredients,
-    updateIngredients,
-    createIngredient,
-    deleteIngredient,
     stepIndex }: props) {
 
     function handleCreate(e:MouseEvent<HTMLElement>){
         createIngredient(stepIndex)
     }
+
+    const {createIngredient} = useRecipeFormCallbacks();
 
     return (
         <>
@@ -43,8 +40,6 @@ function IngredientInputList({
                             ingredient={ingredient}
                             index={i}
                             stepIndex = {stepIndex}
-                            updateIngredients={updateIngredients}
-                            deleteIngredient={deleteIngredient}
                         />
                     </ListItem>)
                 })}

@@ -1,55 +1,76 @@
-import RecipeInfoInput from "./RecipeInfoInput";
-import StepsInputs from "./StepsInputs";
-import ImageForm from "../ui/ImageForm";
 
 import "./RecipeForm.scss";
-import { FormEvent, useState, useEffect, useCallback } from "react";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-
-import { Box, Button, Modal, Typography } from "@mui/material";
-
-type recipeInfo = {
-  name: string;
-  description: string;
-  sourceUrl?: string;
-  sourceName: string;
-};
+import React, { FormEvent, useState, useEffect, useCallback, useMemo, useContext } from "react";
 
 type Props = {
   recipe: RecipeForCreate | IRecipe,
   onSubmitCallback: Function,
+  children: any,
 };
 
-const emptyError:RecipeError = {
-  name: null,
-  description: null,
-  sourceName:null,
-  sourceUrl:null,
-  steps:[],
+type tRecipeFormCallbacks = {
+    updateRecipeInfo:(recipeInfo: recipeInfo)=>void;
+    createStep:(index: number)=>void,
+    deleteStep:(index: number)=>void,
+    updateInstruction:(stepIndex: number, value: string) =>void,
+    updateIngredients:(
+      stepIndex: number,
+      ingredientIndex: number,
+      amount: string,
+      description: string)=>void,
+    createIngredient:(stepIndex: number) => void,
+    deleteIngredient:(stepIndex: number, ingredientIndex: number)=>void,
 }
+
+type tRecipeFormData = {
+  formData:IRecipe|RecipeForCreate;
+  handleSubmit:(evt: FormEvent<HTMLFormElement>)=>Promise<void>;
+  errors:Object;
+}
+
+const RecipeFormCallbackContext = React.createContext<tRecipeFormCallbacks | null>(null);
+function useRecipeFormCallbacks():tRecipeFormCallbacks {
+  const context = useContext(RecipeFormCallbackContext);
+  if (!context) throw new Error ("useRecipeFormCallbacks must be used inside of a RecipeFormControl Component")
+  return context;
+};
+
+const RecipeFormDataContext = React.createContext<tRecipeFormData|null>(null);
+function useRecipeFormData():tRecipeFormData {
+  const context = useContext(RecipeFormDataContext);
+  if (!context) throw new Error ("useRecipeData must be used inside of a RecipeFormControl Component")
+  return context;
+};
+
+// function recipeToFormData(recipe:RecipeForCreate | IRecipe){
+//   let convertedRecipe:any = {}
+//   for (let key in recipe){
+//     convertedRecipe[key]={
+//       id:crypto.randomUUID(),
+//       name:key,
+//       value:recipe[key],
+//     }
+//   }
+// }
+
 
 /********************************* COMPONENT *********************************************/
 
-function RecipeForm({ recipe, onSubmitCallback }: Props) {
+function RecipeFormControl({ recipe, onSubmitCallback, children }: Props) {
 
   const [formData, setFormData] = useState(recipe);
-  const [formErrors, setFormErrors] = useState<RecipeError>(emptyError)
-
-  const [showModal, setShowModal] = useState(false);
-  const [image, setImage] = useState<Blob | undefined>();
+  const [errors, setErrors] = useState({})
 
   useEffect(function updateFormDataOnRecipeChange() {
     setFormData(recipe);
   }, [recipe]);
 
 
-  async function handleSubmit(evt: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(evt: FormEvent<HTMLFormElement>):Promise<void> {
     evt.preventDefault();
     console.log("handling form submission");
-    console.log("image in RecipeForm component:", image);
-    await onSubmitCallback(formData, image);
+
+    await onSubmitCallback(formData);
     //update image
   }
 
@@ -60,7 +81,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
     stepIndex: number,
     ingredientIndex: number,
     amount: string,
-    description: string) => {
+    description: string):void => {
 
     setFormData((currentFormData) => {
 
@@ -96,7 +117,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
   },[])
 
   /** Callback function to update the instruction fields */
-  const updateInstruction = useCallback((stepIndex: number, value: string) => {
+  const updateInstruction = useCallback((stepIndex: number, value: string):void => {
 
     setFormData((currentFormData) => {
       const updatedSteps = currentFormData.steps.map((step, i) => {
@@ -108,7 +129,6 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
         }
         return step;
       });
-      console.log("updated steps", updatedSteps);
 
       return {
         ...currentFormData,
@@ -118,7 +138,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
   },[])
 
   /** Callback function to update the recipeInfo fields */
-  const updateRecipeInfo = useCallback((recipeInfo: recipeInfo) => {
+  const updateRecipeInfo = useCallback((recipeInfo: recipeInfo):void => {
     setFormData(() => {
       return {
         ...formData,
@@ -127,18 +147,11 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
     });
   },[])
 
-  /** Callback function to store an image in state*/
-  const updateRecipeImage= useCallback((file: Blob) => {
-    closeModal();
-    setImage(file);
-  },[])
-
-
 
   /******************************** Create Methods */
 
   /** Callback function to update a step and its submodels */
-  const createStep=useCallback((index: number) => {
+  const createStep=useCallback((index: number):void => {
 
     setFormData((currentFormData) => {
       const emptyStep: IStep = {
@@ -161,7 +174,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
   },[])
 
   /** Callback function to update an ingredient */
-  const createIngredient = useCallback((stepIndex: number) => {
+  const createIngredient = useCallback((stepIndex: number):void => {
     const emptyIngredient: IIngredient = {
       amount: "",
       description: "",
@@ -199,7 +212,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
 
   /************************** Delete Methods  */
 
-  const deleteStep= useCallback((index: number)=> {
+  const deleteStep= useCallback((index: number):void=> {
     setFormData((currentFormData) => {
       console.log("removing at", index);
       const updatedSteps = [
@@ -214,7 +227,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
     });
   },[])
 
-  const deleteIngredient=useCallback((stepIndex: number, ingredientIndex: number) => {
+  const deleteIngredient=useCallback((stepIndex: number, ingredientIndex: number):void => {
 
     setFormData((currentFormData) => {
       //remove the ingredient
@@ -242,74 +255,37 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
     });
   },[])
 
-  /************************** UI Methods  */
+  const RecipeFormCallbacks:tRecipeFormCallbacks = useMemo(()=>({
+    updateRecipeInfo,
+    createStep,
+    deleteStep,
+    updateInstruction,
+    updateIngredients,
+    createIngredient,
+    deleteIngredient,
+  }),[
+    updateRecipeInfo,
+    createStep,
+    deleteStep,
+    updateInstruction,
+    updateIngredients,
+    createIngredient,
+    deleteIngredient,])
 
-  function closeModal(){
-    setShowModal(false)
+
+  const RecipeFormData = {
+    handleSubmit,
+    formData,
+    errors,
   }
 
-  /************************************ JSX ************************************ */
-
-  return (
-    <>
-      <Modal
-        open={showModal}
-        onClose={closeModal}
-      >
-        <Box className="EditImageModal">
-          <ImageForm
-            imgUrl=""
-            onSubmit={updateRecipeImage}
-          />
-        </Box>
-      </Modal>
-
-      <Box component="img"
-        src={image ? URL.createObjectURL(image) : recipe.imageUrl}
-        className="RecipeBanner"
-      />
-
-      <Button
-        className="RecipeInfo-editImage"
-        onClick={() => { setShowModal(true); }}
-        startIcon={<FontAwesomeIcon icon={faPencilAlt} />}
-        variant="contained"
-        color="brightWhite"
-      >
-        Image
-      </Button>
-      <Box className="RecipeForm">
-
-        <form onSubmit={handleSubmit} >
-          <RecipeInfoInput
-            recipe={formData}
-            updateRecipeInfo={updateRecipeInfo}
-            updateRecipeImage={updateRecipeImage}
-          />
-          <StepsInputs
-            initialSteps={formData.steps}
-            updateInstruction={updateInstruction}
-            updateIngredients={updateIngredients}
-            deleteIngredient={deleteIngredient}
-            createIngredient={createIngredient}
-            createStep={createStep}
-            deleteStep={deleteStep}
-          />
-          <Box className="Recipe-submitButton">
-            <Button
-              type='submit'
-              variant="contained"
-              color="primary"
-              >
-              <Typography variant="h5">
-                Save Changes
-              </Typography>
-            </Button>
-          </Box>
-        </form>
-      </Box>
-    </>
-  );
+    return (
+      <RecipeFormCallbackContext.Provider value={RecipeFormCallbacks}>
+        <RecipeFormDataContext.Provider value = {RecipeFormData}>
+        {children}
+        </RecipeFormDataContext.Provider>
+      </RecipeFormCallbackContext.Provider>
+    )
 }
 
-export default RecipeForm;
+export {useRecipeFormCallbacks, useRecipeFormData, RecipeFormControl}

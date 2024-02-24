@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
-import RecipeForm from "../components/recipeForm/RecipeForm"
+import { RecipeFormControl } from "../components/recipeForm/RecipeFormControl";
+import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
 import ParsleyAPI from "../helpers/api";
 import GenerateRecipeFromTextForm from "../components/generateRecipe/GenerateRecipeFromTextForm";
 import {useContext} from "react";
@@ -29,7 +30,7 @@ function AddRecipePage ({initialRecipe=emptyRecipe}:Props){
     const [mode,setMode] = useState<"input"|"generate"|"display">("input")
     const [error,setError] = useState<string|null>(null)
     const {username} = useContext(userContext);
-
+    const [image, setImage] = useState<Blob | undefined>();
     const [recipe, setRecipe] = useState<RecipeForCreate>(initialRecipe);
     const navigate = useNavigate();
     // const owner= useContext;
@@ -70,7 +71,7 @@ function AddRecipePage ({initialRecipe=emptyRecipe}:Props){
     /** Sends an API request to store a recipe based on the current form values
      * Navigates to the record view upon success.
      */
-    async function saveRecipe(formData:IRecipe, image?:Blob){
+    async function saveRecipe(formData:IRecipe){
         //TODO: validate inputs
         const recipe = await ParsleyAPI.createRecipe(formData);
         //update recipeImage
@@ -90,7 +91,9 @@ function AddRecipePage ({initialRecipe=emptyRecipe}:Props){
 
     if (mode === "display"){
         pageContent = (
-            <RecipeForm recipe={recipe} onSubmitCallback={saveRecipe}/>
+            <RecipeFormControl recipe={recipe} onSubmitCallback={saveRecipe}>
+                <RecipeFormDisplay/>
+            </RecipeFormControl>
         )
     }
 

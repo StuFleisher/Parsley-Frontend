@@ -4,13 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Box, FormGroup, TextField } from "@mui/material";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { useRecipeFormCallbacks } from "./RecipeFormControl";
 
 type props = {
     ingredient: IIngredient;
     stepIndex: number;
     index: number;
-    updateIngredients:Function;
-    deleteIngredient:Function;
 }
 
 
@@ -28,10 +27,11 @@ type props = {
 const IngredientInput = React.memo(function IngredientInput({
     ingredient,
     stepIndex,
-    index,
-    updateIngredients,
-    deleteIngredient}:props) {
+    index
+}:props) {
     const {amount, description} = ingredient;
+
+    const {updateIngredients, deleteIngredient} = useRecipeFormCallbacks();
 
     function handleChange(e: ChangeEvent<HTMLInputElement>){
         const newIngredient = {

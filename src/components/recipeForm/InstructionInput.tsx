@@ -2,11 +2,11 @@ import { ChangeEvent } from "react";
 import "./InstructionInput.scss";
 
 import TextField from "@mui/material/TextField";
+import { useRecipeFormCallbacks } from "./RecipeFormControl";
 
 type props = {
     instruction:string,
     stepIndex:number,
-    updateInstruction:Function,
 }
 
 /** Input to change the instructions for a recipe step
@@ -16,11 +16,12 @@ type props = {
  *
  * StepInput > InstructionInput
  */
-function InstructionInput({instruction, stepIndex, updateInstruction}:props){
+function InstructionInput({instruction, stepIndex}:props){
+
+    const {updateInstruction} = useRecipeFormCallbacks();
 
     function handleChange(e:ChangeEvent<HTMLTextAreaElement | HTMLInputElement>){
         // console.log("running handleChange from InstructionInput")
-        console.log("intended new value:", e.target.value)
         updateInstruction(stepIndex,e.currentTarget.value)
     }
 

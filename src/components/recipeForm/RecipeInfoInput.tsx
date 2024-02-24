@@ -12,19 +12,25 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { isURL } from "../../helpers/utilities";
+import { useRecipeFormCallbacks } from "./RecipeFormControl";
+
+type RecipeInfo={
+    name:string;
+    description:string;
+    sourceName:string;
+    sourceUrl?:string;
+}
 
 type props = {
-    recipe: IRecipe | RecipeForCreate;
-    updateRecipeInfo: Function;
-    updateRecipeImage: Function;
+    recipeInfo: RecipeInfo;
 }
 
 const RecipeInfoInput = React.memo(
 function RecipeInfoInput({
-    recipe,
-    updateRecipeInfo,
-    updateRecipeImage,
+    recipeInfo,
 }: props) {
+
+    const {updateRecipeInfo} = useRecipeFormCallbacks();
 
     const [blurred,setBlurred] = useState({
         name:false,
@@ -34,15 +40,15 @@ function RecipeInfoInput({
     })
 
     const validate = {
-        name:()=>{return (recipe.name==="") ? false : true;},
-        description:()=>{return (recipe.description==="") ? false : true;},
-        sourceName: ()=>{return (recipe.sourceName==="") ? false : true;},
-        sourceUrl: ()=>{return ((recipe.sourceUrl==="") || isURL(recipe.sourceUrl))? true : false;},
+        name:()=>{return (recipeInfo.name==="") ? false : true;},
+        description:()=>{return (recipeInfo.description==="") ? false : true;},
+        sourceName: ()=>{return (recipeInfo.sourceName==="") ? false : true;},
+        sourceUrl: ()=>{return ((recipeInfo.sourceUrl==="") || isURL(recipeInfo.sourceUrl))? true : false;},
     }
 
     function handleChange(e:ChangeEvent<HTMLTextAreaElement>|ChangeEvent<HTMLInputElement>){
         const newRecipeInfo = {
-            ...recipe,
+            ...recipeInfo,
             [e.target.name]:e.target.value,
         }
         updateRecipeInfo(newRecipeInfo)
@@ -58,7 +64,7 @@ function RecipeInfoInput({
         <Box className="RecipeInfoInput">
 
                 <TextField
-                    value={recipe.name}
+                    value={recipeInfo.name}
                     placeholder="Name your recipe"
                     className="RecipeInfo-name MuiTypography-h2"
                     onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
@@ -76,7 +82,7 @@ function RecipeInfoInput({
                     />
 
                 <TextField
-                    value={recipe.description}
+                    value={recipeInfo.description}
                     placeholder='Add a description for your recipe'
                     className="RecipeInfo-description"
                     onChange = {(e:ChangeEvent<HTMLInputElement>)=> handleChange(e)}
@@ -102,7 +108,7 @@ function RecipeInfoInput({
                         name="sourceName"
                         id="Recipe-sourceName"
                         placeholder='Where did you find this recipe?'
-                        value={recipe.sourceName}
+                        value={recipeInfo.sourceName}
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
                         label="source"
                         fullWidth
@@ -116,7 +122,7 @@ function RecipeInfoInput({
                         name="sourceUrl"
                         id="Recipe-sourceUrl"
                         placeholder='Where did you find this recipe?'
-                        value={recipe.sourceUrl}
+                        value={recipeInfo.sourceUrl}
                         onChange={(e:ChangeEvent<HTMLInputElement>)=>handleChange(e)}
                         label="URL"
                         fullWidth
