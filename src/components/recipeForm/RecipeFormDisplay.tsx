@@ -1,48 +1,50 @@
-import {useState} from "react";
 
 import RecipeInfoInput from "./RecipeInfoInput";
 import StepsInputs from "./StepsInputs";
-import RecipeImageForm from "./RecipeImageForm";
 
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
-import {useFormikContext} from "formik";
+import { useFormikContext, Form } from "formik";
 
-type Props = {
-    recipe: RecipeForCreate | IRecipe,
-    onSubmitCallback: Function,
-  };
+
 
 function RecipeFormDisplay() {
 
-    const {values, handleSubmit} = useFormikContext();
+    const { values, isValid, errors } = useFormikContext();
+
+    function logErrors(){
+            console.log(errors);
+            return(
+            <Typography variant="h5">
+                "Please fix all form errors to continue"
+            </Typography>)
+    }
 
     return (
         <>
-
-        <Box className="RecipeForm">
-
-            <form onSubmit={async (values)=>{
-              handleSubmit(values)
-            }} >
-            <RecipeInfoInput/>
-            <StepsInputs steps={(values as IRecipe).steps}/>
-            <Box className="Recipe-submitButton">
-                <Button
-                type='submit'
-                variant="contained"
-                color="primary"
-                >
-                <Typography variant="h5">
-                    Save Changes
-                </Typography>
-                </Button>
+            <Box className="RecipeForm">
+                <Form>
+                    <RecipeInfoInput />
+                    <StepsInputs steps={(values as IRecipe).steps} />
+                    <Box className="Recipe-submitButton">
+                        {isValid
+                        ?
+                            <Button
+                                type='submit'
+                                variant="contained"
+                                color="primary"
+                            >
+                                <Typography variant="h5">
+                                    Save Changes
+                                </Typography>
+                            </Button>
+                        :
+                                logErrors()
+                        }
+                    </Box>
+                </Form>
             </Box>
-            </form>
-        </Box>
         </>
     );
 }

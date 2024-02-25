@@ -1,11 +1,11 @@
-import RecipeInfoInput from "./RecipeInfoInput";
-import StepsInputs from "./StepsInputs";
+
 import ImageForm from "../ui/ImageForm";
 
 import {Formik, useFormikContext} from "formik"
+import recipeFormSchema from "../../helpers/recipeFormSchema";
 
 import "./RecipeForm.scss";
-import { FormEvent, useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
@@ -35,6 +35,7 @@ const emptyError:RecipeError = {
 /********************************* COMPONENT *********************************************/
 
 function RecipeForm({ recipe, onSubmitCallback }: Props) {
+  console.log("schema valid?", recipeFormSchema.validate(recipe))
 
   const [formData, setFormData] = useState(recipe);
   const [formErrors, setFormErrors] = useState<RecipeError>(emptyError)
@@ -247,6 +248,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
     });
   },[])
 
+
   /************************** UI Methods  */
 
   function closeModal(){
@@ -259,6 +261,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
     <>
     <Formik
       initialValues={recipe}
+      validationSchema={recipeFormSchema}
       onSubmit={async (values)=>{
         await onSubmitCallback(values, image);
       }}

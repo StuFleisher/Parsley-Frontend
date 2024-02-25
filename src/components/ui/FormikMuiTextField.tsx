@@ -5,10 +5,23 @@ import { TextFieldProps } from '@mui/material/TextField/TextField';
 
 interface FormikMuiTextFieldProps extends FieldProps, Omit<TextFieldProps, 'name' | 'value' | 'onChange' | 'onBlur'> {}
 
+function getNested(obj: any, path: string): any {
+  const keys = path.split(/[\.\[\]\'\"]/).filter(p => p);
+  return keys.reduce((accumulator: any, currentKey: string) => {
+    // Using type assertion to indicate that accumulator is indexable
+    if (accumulator && typeof accumulator === 'object' && currentKey in accumulator) {
+      return accumulator[currentKey];
+    } else {
+      // Return undefined or throw an error if the path does not exist
+      return undefined;
+    }
+  }, obj);
+}
+
 const FormikMuiTextField: React.FC<FormikMuiTextFieldProps> = ({ field, form, ...props }) => {
   const { name } = field;
   const { touched, errors } = form;
-  const fieldError = touched[name] && errors[name] ? errors[name] as string : '';
+  const fieldError = getNested(touched, name) && getNested(errors,name) ? "Error" : '';
 
   return (
     <TextField

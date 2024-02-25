@@ -1,5 +1,6 @@
-import React, { FormEvent, useState, useEffect, useCallback, createContext, useMemo } from "react";
 import {Formik} from "formik";
+import recipeFormSchema from "./recipeFormSchema";
+
 
 type props = {
     children: any;
@@ -14,7 +15,7 @@ function RecipeFormProvider({recipe, onSubmitCallback, children}:props) {
         <Formik
           initialValues={recipe}
           onSubmit={async (values)=>await onSubmitCallback(values)}
-          validateOnChange={false}
+          validationSchema={recipeFormSchema}
         >
           {children}
         </Formik>

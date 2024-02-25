@@ -45,8 +45,7 @@ function EditRecipePage() {
     }, [id, navigate]);
 
     async function updateRecipe(formData: IRecipe) {
-        //TODO: validate inputs
-
+        console.log("submitting form");
         await ParsleyAPI.UpdateRecipe(formData);
         if (recipe) {
             if (image) {

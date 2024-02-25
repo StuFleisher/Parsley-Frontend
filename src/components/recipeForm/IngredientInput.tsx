@@ -35,7 +35,7 @@ const IngredientInput = React.memo(function IngredientInput({
                     className="Ingredient-text"
                     variant="filled"
                     size="small"
-                    id={`S${stepIndex}I${index}-amount`}
+                    id={`steps[${stepIndex}].ingredients[${index}].amount`}
                     label="amount"
                     fullWidth
                     name={`steps[${stepIndex}].ingredients[${index}].amount`}
@@ -45,7 +45,7 @@ const IngredientInput = React.memo(function IngredientInput({
                     className="Ingredient-text"
                     variant="filled"
                     size="small"
-                    id={`S${stepIndex}I${index}-description`}
+                    id={`steps[${stepIndex}].ingredients[${index}].description`}
                     label="ingredient"
                     fullWidth
                     name={`steps[${stepIndex}].ingredients[${index}].description`}

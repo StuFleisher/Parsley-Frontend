@@ -27,7 +27,6 @@ function RecipeInfoInput() {
                     multiline
                     minRows={1}
                     maxRows={3}
-                    required
                     />
 
                 <FastField
@@ -41,7 +40,6 @@ function RecipeInfoInput() {
                     multiline
                     minRows={3}
                     maxRows={10}
-                    required
                 />
 
                 <Stack
@@ -56,8 +54,6 @@ function RecipeInfoInput() {
                         placeholder='Where did you find this recipe?'
                         label="source"
                         fullWidth
-                        required
-
                     />
                     <FastField
                         component={FormikMuiTextField}
