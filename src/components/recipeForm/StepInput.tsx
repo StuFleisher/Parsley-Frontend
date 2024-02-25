@@ -16,6 +16,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 type props = {
     // step:IStep,
     index:number,
+    step:IStep|StepForCreate
     // updateInstruction:Function,
     // updateIngredients:Function,
     // deleteIngredient:Function,
@@ -31,23 +32,18 @@ type props = {
  */
 
 const StepInput = React.memo(function StepInput({
-    // step,
     index,
-    // updateInstruction,
-    // updateIngredients,
-    // deleteIngredient,
-    // createIngredient
+    step,
 }:props){
 
-    const {values, handleChange, handleBlur, errors, touched} = useFormikContext<IRecipe|RecipeForCreate>();
-    const step = values.steps[index];
-    const {stepNumber, instructions, ingredients} = step;
+    // const {values, handleChange, handleBlur, errors, touched} = useFormikContext<IRecipe|RecipeForCreate>();
+    // const step = values.steps[index];
 
     return (
         <>
             <Box className="Step-number">
                 <Typography component="h3" variant="h2">
-                    Step {stepNumber}
+                    Step {step.stepNumber}
                 </Typography>
             </Box>
             <Stack
@@ -64,13 +60,12 @@ const StepInput = React.memo(function StepInput({
 
                 <IngredientInputList
                     stepIndex={index}
+                    ingredients={step.ingredients}
                 />
                 </Box>
                 <Box className="Step-instructions">
                     <InstructionInput
-                        // instruction={instructions}
                         stepIndex={index}
-                        // updateInstruction={stepIndex={index}}
                         />
                 </Box>
             </Stack>

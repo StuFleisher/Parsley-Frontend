@@ -15,6 +15,7 @@ import Button from "@mui/material/Button";
 
 type props = {
     stepIndex: number;
+    ingredients:(IIngredient|IngredientForCreate)[]
 };
 
 const emptyIngredient = {
@@ -23,10 +24,10 @@ const emptyIngredient = {
 }
 
 const IngredientInputList = React.memo(
-    function IngredientInputList({stepIndex}:props) {
+    function IngredientInputList({stepIndex, ingredients}:props) {
 
-        const { values, handleChange, handleBlur, errors, touched } = useFormikContext<IRecipe | RecipeForCreate>();
-        const ingredients = values.steps[stepIndex].ingredients;
+        // const { values, handleChange, handleBlur, errors, touched } = useFormikContext<IRecipe | RecipeForCreate>();
+        // const ingredients = values.steps[stepIndex].ingredients;
 
 
         const renderIngredientInput = useCallback((arrayHelpers: FieldArrayRenderProps) =>{

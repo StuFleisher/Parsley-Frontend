@@ -18,39 +18,10 @@ type Props = {
 
 function RecipeFormDisplay() {
 
-    const {handleSubmit} = useFormikContext();
-
-    const [showModal, setShowModal] = useState(false);
-
-    function closeModal(){
-        setShowModal(false)
-      }
+    const {values, handleSubmit} = useFormikContext();
 
     return (
         <>
-        {/* <Modal
-            open={showModal}
-            onClose={closeModal}
-        >
-            <Box className="EditImageModal">
-            <RecipeImageForm/>
-            </Box>
-        </Modal> */}
-
-        {/* <Box component="img"
-            src={image ? URL.createObjectURL(image) : recipe.imageUrl}
-            className="RecipeBanner"
-        /> */}
-
-        {/* <Button
-            className="RecipeInfo-editImage"
-            onClick={() => { setShowModal(true); }}
-            startIcon={<FontAwesomeIcon icon={faPencilAlt} />}
-            variant="contained"
-            color="brightWhite"
-        >
-            Image
-        </Button> */}
 
         <Box className="RecipeForm">
 
@@ -58,7 +29,7 @@ function RecipeFormDisplay() {
               handleSubmit(values)
             }} >
             <RecipeInfoInput/>
-            <StepsInputs/>
+            <StepsInputs steps={(values as IRecipe).steps}/>
             <Box className="Recipe-submitButton">
                 <Button
                 type='submit'

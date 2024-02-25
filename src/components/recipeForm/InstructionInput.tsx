@@ -1,14 +1,11 @@
 import React from "react";
-import { ChangeEvent } from "react";
 import "./InstructionInput.scss";
-import {useFormikContext} from "formik"
+import {FastField} from "formik"
 
-import TextField from "@mui/material/TextField";
+import FormikMuiTextField from "../ui/FormikMuiTextField";
 
 type props = {
-    // instruction:string,
     stepIndex:number,
-    // updateInstruction:Function,
 }
 
 /** Input to change the instructions for a recipe step
@@ -20,19 +17,15 @@ type props = {
  */
 const InstructionInput = React.memo(({stepIndex}:props)=>{
 
-    const {values, handleChange, handleBlur, errors, touched} = useFormikContext<IRecipe|RecipeForCreate>();
-    const instruction = values.steps[stepIndex].instructions
-
     return (
-        <TextField
+        <FastField
+            component={FormikMuiTextField}
             multiline
             rows={5}
             fullWidth
             name={`steps[${stepIndex}].instructions`}
             id = {`Step${stepIndex}-instruction`}
             className="InstructionInput"
-            value={instruction}
-            onChange={handleChange}
         />
     )
 })

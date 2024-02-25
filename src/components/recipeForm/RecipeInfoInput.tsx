@@ -1,35 +1,25 @@
-import React, { useState,ChangeEvent, FocusEvent } from "react";
-import {useFormikContext} from "formik"
+import React from "react";
+import {FastField} from "formik"
 
 
 import "./RecipeInfoInput.scss"
-import ImageForm from "../ui/ImageForm"
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import { isURL } from "../../helpers/utilities";
+import FormikMuiTextField from "../ui/FormikMuiTextField";
 
 
 
 const RecipeInfoInput = React.memo(
 function RecipeInfoInput() {
 
-    const {values, handleChange, handleBlur, errors, touched} = useFormikContext<IRecipe|RecipeForCreate>();
-
     return (
         <Box className="RecipeInfoInput">
 
-                <TextField
-                    value={values.name}
+                <FastField
+                    component={FormikMuiTextField}
                     placeholder="Name your recipe"
                     className="RecipeInfo-name MuiTypography-h2"
-                    onChange={handleChange}
                     name="name"
                     id="recipe-name"
                     label="recipe name"
@@ -40,11 +30,10 @@ function RecipeInfoInput() {
                     required
                     />
 
-                <TextField
-                    value={values.description}
+                <FastField
+                    component={FormikMuiTextField}
                     placeholder='Add a description for your recipe'
                     className="RecipeInfo-description"
-                    onChange = {handleChange}
                     name="description"
                     id="recipe-Description"
                     label="recipe description"
@@ -60,23 +49,21 @@ function RecipeInfoInput() {
                     direction="row"
                     spacing={1}
                 >
-                    <TextField
+                    <FastField
+                        component={FormikMuiTextField}
                         name="sourceName"
                         id="Recipe-sourceName"
                         placeholder='Where did you find this recipe?'
-                        value={values.sourceName}
-                        onChange={handleChange}
                         label="source"
                         fullWidth
                         required
 
                     />
-                    <TextField
+                    <FastField
+                        component={FormikMuiTextField}
                         name="sourceUrl"
                         id="Recipe-sourceUrl"
                         placeholder='Where did you find this recipe?'
-                        value={values.sourceUrl}
-                        onChange={handleChange}
                         label="URL"
                         fullWidth
                     />

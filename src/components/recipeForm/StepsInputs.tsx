@@ -1,6 +1,6 @@
 import StepInput from "./StepInput";
-import React, { MouseEvent, useCallback } from "react";
-import { useFormikContext, FieldArray, FieldArrayRenderProps } from "formik";
+import React, { useCallback } from "react";
+import { FieldArray, FieldArrayRenderProps } from "formik";
 import './StepsInputs.scss';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,15 +11,16 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
 
+type props = {
+    steps:(IStep|StepForCreate)[]
+}
+
 /** Renders StepInput components for every Step passed to props
  *  Handles creation and deletion of steps
  */
 
 const StepsInputs = React.memo(
-    function StepsInputs() {
-
-        const { values, handleChange, handleBlur, errors, touched } = useFormikContext<IRecipe | RecipeForCreate>();
-        const steps = values.steps;
+    function StepsInputs({steps}:props) {
 
         const createEmptyStep = useCallback((index:number, arrayHelpers:FieldArrayRenderProps)=>{
             const emptyStep = {
@@ -29,23 +30,23 @@ const StepsInputs = React.memo(
             };
 
             const updatedSteps = [
-                ...values.steps.slice(0, index),
+                ...steps.slice(0, index),
                 emptyStep,
-                ...values.steps.slice(index)
+                ...steps.slice(index)
               ].map((step, i) => ({ ...step, stepNumber: i + 1 }));
 
             arrayHelpers.form.setFieldValue('steps',updatedSteps)
-        },[values.steps])
+        },[steps])
 
         const deleteStep = useCallback((index: number, arrayHelpers:FieldArrayRenderProps)=>{
 
             const updatedSteps = [
-            ...values.steps.slice(0, index),
-            ...values.steps.slice(index + 1)
+            ...steps.slice(0, index),
+            ...steps.slice(index + 1)
             ].map((step, i) => ({ ...step, stepNumber: i + 1 }));
 
             arrayHelpers.form.setFieldValue('steps',updatedSteps)
-          },[values.steps])
+          },[steps])
 
         const renderStep= useCallback((step: IStep, index: number, arrayHelpers: FieldArrayRenderProps)=> {
             return (
@@ -53,6 +54,7 @@ const StepsInputs = React.memo(
                     <Box className="StepInput">
                         <StepInput
                             index={index}
+                            step={step}
                         />
                         <Box
                             className="StepInput-delete"

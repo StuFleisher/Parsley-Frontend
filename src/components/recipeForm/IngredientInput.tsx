@@ -1,16 +1,15 @@
-import React, { ChangeEvent, MouseEvent, useEffect } from "react";
-import { useFormikContext, FieldArray, FieldArrayRenderProps, useField } from "formik";
+import React from "react";
+import {FastField } from "formik";
+import FormikMuiTextField from "../ui/FormikMuiTextField";
 
 import "./IngredientInput.scss";
 
-import { Box, FormGroup, TextField } from "@mui/material";
+import { Box, FormGroup } from "@mui/material";
 
 
 type props = {
     stepIndex: number;
     index: number;
-    // description: string;
-    // amount: string;
 }
 
 
@@ -25,38 +24,32 @@ const IngredientInput = React.memo(function IngredientInput({
     index,
 }:props){
 
-    const [amountField, amountMeta] = useField(`steps[${stepIndex}].ingredients[${index}].amount`)
-    const [descriptionField, descriptionMeta] = useField(`steps[${stepIndex}].ingredients[${index}].description`)
-
-    // useEffect(()=>{
-    //     console.log(amountField.name)
-    // },[amountField])
+    // const [amountField, amountMeta] = useField(`steps[${stepIndex}].ingredients[${index}].amount`)
+    // const [descriptionField, descriptionMeta] = useField(`steps[${stepIndex}].ingredients[${index}].description`)
 
     return (
         <Box className="Ingredient">
             <FormGroup row={true}>
-                <TextField
+                <FastField
+                    component = {FormikMuiTextField}
                     className="Ingredient-text"
-                    value={amountField.value}
                     variant="filled"
                     size="small"
-                    name={amountField.name}
                     id={`S${stepIndex}I${index}-amount`}
                     label="amount"
                     fullWidth
-                    onChange={amountField.onChange}
-                    />
-                <TextField
+                    name={`steps[${stepIndex}].ingredients[${index}].amount`}
+                />
+                <FastField
+                    component={FormikMuiTextField}
                     className="Ingredient-text"
-                    value={descriptionField.value}
                     variant="filled"
                     size="small"
-                    name={descriptionField.name}
                     id={`S${stepIndex}I${index}-description`}
                     label="ingredient"
-                    onChange={descriptionField.onChange}
                     fullWidth
-                    />
+                    name={`steps[${stepIndex}].ingredients[${index}].description`}
+                />
             </FormGroup>
         </Box>
     )
