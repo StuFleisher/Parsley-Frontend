@@ -3,7 +3,7 @@ import StepsInputs from "./StepsInputs";
 
 import { useMemo } from "react";
 
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 import { useRecipeFormData } from "./RecipeFormControl";
 
@@ -13,10 +13,10 @@ function RecipeFormDisplay() {
     const {handleSubmit, formData} = useRecipeFormData();
 
     const recipeInfo = useMemo(()=>({
-        name:formData.name,
-        description:formData.description,
-        sourceName:formData.sourceName,
-        sourceUrl:formData.sourceUrl||undefined,
+        name:formData.name.value,
+        description:formData.description.value,
+        sourceName:formData.sourceName.value,
+        sourceUrl:formData.sourceUrl.value||undefined,
     }),[
         formData.name,
         formData.description,

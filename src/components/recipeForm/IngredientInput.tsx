@@ -7,7 +7,7 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { useRecipeFormCallbacks } from "./RecipeFormControl";
 
 type props = {
-    ingredient: IIngredient;
+    ingredient: IngredientFormData;
     stepIndex: number;
     index: number;
 }
@@ -30,6 +30,7 @@ const IngredientInput = React.memo(function IngredientInput({
     index
 }:props) {
     const {amount, description} = ingredient;
+    console.log(ingredient)
 
     const {updateIngredients, deleteIngredient} = useRecipeFormCallbacks();
 
@@ -39,7 +40,7 @@ const IngredientInput = React.memo(function IngredientInput({
             [e.target.name]:e.target.value
         }
 
-        updateIngredients(stepIndex, index, newIngredient.amount, newIngredient.description)
+        updateIngredients(stepIndex, index, newIngredient.amount.value, newIngredient.description.value)
     }
 
     function handleDelete(e: MouseEvent<HTMLButtonElement>){
@@ -52,7 +53,7 @@ const IngredientInput = React.memo(function IngredientInput({
             <FormGroup row={true}>
                 <TextField
                     className="Ingredient-text"
-                    value={amount}
+                    value={amount.value}
                     variant="filled"
                     size="small"
                     name="amount"
@@ -63,7 +64,7 @@ const IngredientInput = React.memo(function IngredientInput({
                     />
                 <TextField
                     className="Ingredient-text"
-                    value={description}
+                    value={description.value}
                     variant="filled"
                     size="small"
                     name="description"

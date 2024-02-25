@@ -9,6 +9,13 @@ interface IRecipe { //full recipe record from database
   steps:IStep[];
 }
 
+type recipeInfo = {
+  name: string;
+  description: string;
+  sourceUrl?: string;
+  sourceName: string;
+};
+
 type GeneratedRecipe = {
   name: string;
   steps: IStep[];
@@ -75,10 +82,34 @@ type StepError = {
   ingredients:ingredientError[];
 }
 
-type RecipeError = {
-  name:string|null,
-  description: string|null;
-  sourceUrl: string|null;
-  sourceName: string|null;
-  steps:stepError[];
+
+interface InputField<T> {
+  fieldId:string;
+  name:string;
+  value:T;
 }
+
+type IngredientFormData = {
+  amount: InputField,
+  description: InputField,
+}
+
+type StepFormData = {
+  stepNumber:InputField;
+  instructions: InputField,
+  ingredients: IngredientFormData[],
+}
+
+type RecipeFormData = {
+  name: InputField;
+  description:InputField;
+  sourceUrl?:InputField;
+  sourceName:InputField;
+  steps: StepFormData[];
+
+  //IRecipe only props
+  recipeId?:InputField;
+  owner?:InputField;
+  imageUrl?: InputField;
+}
+

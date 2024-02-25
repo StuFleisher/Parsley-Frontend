@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import { useRecipeFormCallbacks } from "./RecipeFormControl";
 
 type props = {
-    ingredients: IIngredient[];
+    ingredients: IngredientFormData[];
     stepIndex:number;
 }
 

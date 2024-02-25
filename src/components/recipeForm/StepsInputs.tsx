@@ -11,7 +11,7 @@ import Stack from "@mui/material/Stack";
 import { useRecipeFormCallbacks } from "./RecipeFormControl";
 
 type props = {
-    initialSteps:IStep[];
+    initialSteps:StepFormData[];
 }
 
 /** Renders StepInput components for every Step passed to props
@@ -44,32 +44,32 @@ function StepsInputs ({initialSteps}:props){
         <Box className="StepList">
             {initialSteps.map((step,i)=>{
                 return (
-                    <React.Fragment key={step.stepNumber}>
-                    <Box  className="StepInput">
-                        <StepInput
-                            step={step}
-                            index={step.stepNumber-1}
-                        />
-                        <Box
-                            className="StepInput-delete"
-                            component="button"
-                            data-index={i}
-                            onClick={handleDelete}
-                        >
-                            <FontAwesomeIcon icon={faCircleXmark}/>
+                    <React.Fragment key={`Step-${i}`}>
+                        <Box  className="StepInput">
+                            <StepInput
+                                step={step}
+                                index={step.stepNumber.value-1}
+                            />
+                            <Box
+                                className="StepInput-delete"
+                                component="button"
+                                data-index={i}
+                                onClick={handleDelete}
+                            >
+                                <FontAwesomeIcon icon={faCircleXmark}/>
+                            </Box>
                         </Box>
-                    </Box>
-                    <Stack direction="row">
-                        <Button
-                            className="Step-create"
-                            onClick={handleCreate}
-                            data-index={i}
-                            variant = "outlined"
-                            startIcon = {<FontAwesomeIcon icon={faPlusCircle}/>}
-                        >
-                            New Step
-                        </Button>
-                    </Stack>
+                        <Stack direction="row">
+                            <Button
+                                className="Step-create"
+                                onClick={handleCreate}
+                                data-index={i}
+                                variant = "outlined"
+                                startIcon = {<FontAwesomeIcon icon={faPlusCircle}/>}
+                            >
+                                New Step
+                            </Button>
+                        </Stack>
                     </React.Fragment>
             )
             })}

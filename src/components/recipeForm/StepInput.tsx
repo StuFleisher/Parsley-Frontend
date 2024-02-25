@@ -13,7 +13,7 @@ import parsleyTheme from "../../styles/theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 type props = {
-    step:IStep,
+    step:StepFormData,
     index:number,
 }
 
@@ -28,12 +28,11 @@ type props = {
 const StepInput = React.memo(function StepInput({step,index}:props){
 
     const {stepNumber, instructions, ingredients} = step;
-
     return (
-        <>
+        <React.Fragment key={`StepInput-${index}`}>
             <Box className="Step-number">
                 <Typography component="h3" variant="h2">
-                    Step {stepNumber}
+                    Step {stepNumber.value}
                 </Typography>
             </Box>
             <Stack
@@ -55,12 +54,12 @@ const StepInput = React.memo(function StepInput({step,index}:props){
                 </Box>
                 <Box className="Step-instructions">
                     <InstructionInput
-                        instruction={instructions}
+                        instruction={instructions.value}
                         stepIndex={index}
                         />
                 </Box>
             </Stack>
-        </>
+        </React.Fragment>
     )
 })
 
