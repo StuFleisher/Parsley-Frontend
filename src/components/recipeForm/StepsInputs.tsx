@@ -1,6 +1,6 @@
 import StepInput from "./StepInput";
 import React, { useCallback } from "react";
-import { FieldArray, FieldArrayRenderProps } from "formik";
+import { FieldArray, FieldArrayRenderProps, FormikErrors } from "formik";
 import './StepsInputs.scss';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +12,8 @@ import Stack from "@mui/material/Stack";
 
 
 type props = {
-    steps:(IStep|StepForCreate)[]
+    steps:(IStep|StepForCreate)[];
+    errors:string | string[] | FormikErrors<IStep>[] | undefined;
 }
 
 /** Renders StepInput components for every Step passed to props
@@ -20,7 +21,9 @@ type props = {
  */
 
 const StepsInputs = React.memo(
-    function StepsInputs({steps}:props) {
+    function StepsInputs({steps, errors}:props) {
+
+        /** Callback to handle creation of a new step */
 
         const createEmptyStep = useCallback((index:number, arrayHelpers:FieldArrayRenderProps)=>{
             const emptyStep = {
@@ -38,6 +41,9 @@ const StepsInputs = React.memo(
             arrayHelpers.form.setFieldValue('steps',updatedSteps)
         },[steps])
 
+
+        /** Callback to handle deletion of a step */
+
         const deleteStep = useCallback((index: number, arrayHelpers:FieldArrayRenderProps)=>{
 
             const updatedSteps = [
@@ -48,10 +54,20 @@ const StepsInputs = React.memo(
             arrayHelpers.form.setFieldValue('steps',updatedSteps)
           },[steps])
 
+
+
+        /** Renders a single StepInput and its controls */
+
         const renderStep= useCallback((step: IStep, index: number, arrayHelpers: FieldArrayRenderProps)=> {
             return (
                 <React.Fragment key={step.stepNumber}>
-                    <Box className="StepInput">
+                    <Box
+                        className={
+                            errors && errors[index] && Object.keys(errors[index]).length!==0
+                            ? "StepInput-error"
+                            : "StepInput"
+                        }
+                    >
                         <StepInput
                             index={index}
                             step={step}
@@ -80,7 +96,7 @@ const StepsInputs = React.memo(
                     </Stack>
                 </React.Fragment>
             );
-        },[createEmptyStep,deleteStep])
+        },[createEmptyStep,deleteStep,errors])
 
         return (
             <Box className="StepList">

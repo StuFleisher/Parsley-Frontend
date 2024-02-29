@@ -27,6 +27,7 @@ function EditRecipePage() {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
+    /** Fetches the full recipe record on mount */
     useEffect(function fetchRecipeOnMount() {
         async function fetchRecipe() {
             try {
@@ -44,6 +45,7 @@ function EditRecipePage() {
 
     }, [id, navigate]);
 
+    /** Callback to update the recipe record (including it's image) in the database */
     async function updateRecipe(formData: IRecipe) {
         console.log("submitting form");
         await ParsleyAPI.UpdateRecipe(formData);
@@ -55,6 +57,7 @@ function EditRecipePage() {
         }
     }
 
+    /** Callback to update the image state for submission along with the recipeForm */
     const updateRecipeImage = useCallback((file: Blob) => {
         closeModal();
         setImage(file);
@@ -90,11 +93,8 @@ function EditRecipePage() {
                     Image
                 </Button>
 
-                {/* <Box component="img" src={recipe.imageUrl} className="RecipeBanner" /> */}
                 <RecipeFormProvider recipe={recipe} onSubmitCallback={updateRecipe}>
-                    {/* <RecipeForm recipe={recipe} onSubmitCallback={updateRecipe} /> */}
                     <RecipeFormDisplay />
-
                 </RecipeFormProvider>
             </>
     );

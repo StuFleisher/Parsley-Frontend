@@ -4,7 +4,6 @@ import ImageForm from "../ui/ImageForm";
 import {Formik, useFormikContext} from "formik"
 import recipeFormSchema from "../../helpers/recipeFormSchema";
 
-import "./RecipeForm.scss";
 import { useState, useEffect, useCallback } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
