@@ -1,12 +1,24 @@
-interface IRecipe { //full recipe record from database
-  recipeId:number;
+
+interface IRecipe {
   name:string;
-  description: string;
   owner:string;
+  description: string;
+  sourceName: string;
+  steps:IStep[];
+}
+
+type Recipe = IRecipe & { //full recipe record from database
+  recipeId:number;
   sourceUrl?: string|undefined;
   sourceName: string;
   imageUrl?: string;
-  steps:IStep[];
+  steps:IStep[] | StepForCreate;
+}
+
+type RecipeForCreate = IRecipe & {
+  sourceUrl?: string|undefined;
+  imageUrl?: string;
+  steps:IStep[] | StepForCreate;
 }
 
 type GeneratedRecipe = {
@@ -14,15 +26,6 @@ type GeneratedRecipe = {
   steps: IStep[];
 }
 
-type RecipeForCreate = {
-  name:string;
-  owner: string;
-  description: string;
-  sourceUrl?: string|undefined;
-  sourceName: string;
-  imageUrl?: string;
-  steps:IStep[];
-}
 
 //A less detailed recipe for summary views with no submodel data
 type SimpleRecipeData = {

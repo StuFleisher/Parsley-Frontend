@@ -17,7 +17,7 @@ function RecipeDetailsPage() {
     const {username} = useContext(userContext);
 
     const [isLoading, setIsLoading] = useState(true);
-    const [recipe, setRecipe] = useState<IRecipe | null >(null);
+    const [recipe, setRecipe] = useState<Recipe | null >(null);
     const navigate = useNavigate();
 
     useEffect(function fetchRecipeOnMount() {

@@ -11,7 +11,7 @@ import { useFormikContext, Form } from "formik";
 
 function RecipeFormDisplay() {
 
-    const { values, isValid, errors } = useFormikContext<IRecipe | RecipeForCreate>();
+    const { values, isValid, errors } = useFormikContext<Recipe | RecipeForCreate>();
 
     //A flat array of each step with any errors in its fields
     const stepsWithErrors:(IStep | StepForCreate)[] = function ()  {
@@ -43,7 +43,7 @@ function RecipeFormDisplay() {
             <Box className="RecipeForm">
                 <Form>
                     <RecipeInfoInput />
-                    <StepsInputs steps={(values as IRecipe).steps} errors={errors.steps} />
+                    <StepsInputs steps={(values as Recipe).steps} errors={errors.steps} />
                     <Box className="Recipe-submitButton">
                         <Stack direction="row" alignContent="center" spacing={2}>
                             <Slide direction="up" in={!isValid}>

@@ -8,7 +8,7 @@ import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 
 type props = {
-    recipe:SimpleRecipeData|IRecipe;
+    recipe:SimpleRecipeData|Recipe;
 }
 
 function SimpleRecipeCard({recipe}:props){

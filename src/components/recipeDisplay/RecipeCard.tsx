@@ -6,7 +6,7 @@ import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 
 type Props = {
-  recipe:IRecipe,
+  recipe:Recipe,
 }
 
 function RecipeCard({recipe}:Props) {

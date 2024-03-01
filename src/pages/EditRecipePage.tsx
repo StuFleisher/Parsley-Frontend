@@ -3,28 +3,16 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { RecipeFormProvider } from "../helpers/RecipeFormContext";
 import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
-import RecipeImageForm from "../components/recipeForm/RecipeImageForm";
 import ParsleyAPI from "../helpers/api";
 
-import { Button, Modal, Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-
+import RecipeBanner from "../components/recipeForm/RecipeBanner";
 
 function EditRecipePage() {
 
     const { id } = useParams();
-    const [recipe, setRecipe] = useState<IRecipe | null>(null);
+    const [recipe, setRecipe] = useState<Recipe | null>(null);
     const [image, setImage] = useState<Blob | undefined>();
 
-    const [showModal, setShowModal] = useState(false);
-    function closeModal() {
-        setShowModal(false);
-    }
-
-    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     /** Fetches the full recipe record on mount */
@@ -35,7 +23,6 @@ function EditRecipePage() {
                     const numericId = parseInt(id);
                     const recipeDetails = await ParsleyAPI.getRecipeById(numericId);
                     setRecipe(recipeDetails);
-                    setIsLoading(false);
                 }
             } catch (err) {
                 navigate('/recipes');
@@ -46,7 +33,7 @@ function EditRecipePage() {
     }, [id, navigate]);
 
     /** Callback to update the recipe record (including it's image) in the database */
-    async function updateRecipe(formData: IRecipe) {
+    async function updateRecipe(formData: Recipe) {
         console.log("submitting form");
         await ParsleyAPI.UpdateRecipe(formData);
         if (recipe) {
@@ -59,7 +46,6 @@ function EditRecipePage() {
 
     /** Callback to update the image state for submission along with the recipeForm */
     const updateRecipeImage = useCallback((file: Blob) => {
-        closeModal();
         setImage(file);
     }, []);
 
@@ -69,29 +55,12 @@ function EditRecipePage() {
             <p> Loading...</p>
             :
             <>
-                <Modal
-                    open={showModal}
-                    onClose={closeModal}
-                >
-                    <Box className="EditImageModal">
-                        <RecipeImageForm updateRecipeImage={updateRecipeImage} />
-                    </Box>
-                </Modal>
-
-                <Box component="img"
-                    src={image ? URL.createObjectURL(image) : recipe.imageUrl}
-                    className="RecipeBanner"
+                <RecipeBanner
+                    image={image}
+                    updateImage={updateRecipeImage}
+                    imageUrl={recipe.imageUrl}
+                    editable
                 />
-
-                <Button
-                    className="RecipeInfo-editImage"
-                    onClick={() => { setShowModal(true); }}
-                    startIcon={<FontAwesomeIcon icon={faPencilAlt} />}
-                    variant="contained"
-                    color="brightWhite"
-                >
-                    Image
-                </Button>
 
                 <RecipeFormProvider recipe={recipe} onSubmitCallback={updateRecipe}>
                     <RecipeFormDisplay />

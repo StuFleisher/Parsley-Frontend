@@ -19,7 +19,7 @@ type recipeInfo = {
 };
 
 type Props = {
-  recipe: RecipeForCreate | IRecipe,
+  recipe: RecipeForCreate | Recipe,
   onSubmitCallback: Function,
 };
 
