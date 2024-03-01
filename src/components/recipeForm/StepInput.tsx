@@ -1,4 +1,5 @@
 import React from "react";
+import {useFormikContext} from "formik"
 
 import IngredientInputList from "./IngredientInputList";
 import InstructionInput from "./InstructionInput";
@@ -13,12 +14,13 @@ import parsleyTheme from "../../styles/theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 type props = {
-    step:IStep,
+    // step:IStep,
     index:number,
-    updateInstruction:Function,
-    updateIngredients:Function,
-    deleteIngredient:Function,
-    createIngredient:Function,
+    step:IStep|StepForCreate
+    // updateInstruction:Function,
+    // updateIngredients:Function,
+    // deleteIngredient:Function,
+    // createIngredient:Function,
 }
 
 /** Renders components for updating a step
@@ -29,24 +31,23 @@ type props = {
  * StepsInputs > StepInput > {IngredientInputList, InstructionInput}
  */
 
-const StepInput = React.memo(function StepInput({step,
+const StepInput = React.memo(function StepInput({
     index,
-    updateInstruction,
-    updateIngredients,
-    deleteIngredient,
-    createIngredient}:props){
+    step,
+}:props){
 
-    const {stepNumber, instructions, ingredients} = step;
+    // const {values, handleChange, handleBlur, errors, touched} = useFormikContext<IRecipe|RecipeForCreate>();
+    // const step = values.steps[index];
 
     return (
         <>
             <Box className="Step-number">
                 <Typography component="h3" variant="h2">
-                    Step {stepNumber}
+                    Step {step.stepNumber}
                 </Typography>
             </Box>
             <Stack
-                direction = "column" //{{xs:"column", md:"row"}}
+                direction = "column"
                 spacing={2}
                 divider={
                    <Divider
@@ -58,18 +59,13 @@ const StepInput = React.memo(function StepInput({step,
                 <Box className="Step-ingredientsForm">
 
                 <IngredientInputList
-                    ingredients={ingredients}
                     stepIndex={index}
-                    updateIngredients={updateIngredients}
-                    createIngredient={createIngredient}
-                    deleteIngredient={deleteIngredient}
-                    />
+                    ingredients={step.ingredients}
+                />
                 </Box>
                 <Box className="Step-instructions">
                     <InstructionInput
-                        instruction={instructions}
                         stepIndex={index}
-                        updateInstruction={updateInstruction}
                         />
                 </Box>
             </Stack>

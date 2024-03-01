@@ -1,19 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import RecipeForm from "../components/recipeForm/RecipeForm";
+import { RecipeFormProvider } from "../helpers/RecipeFormContext";
+import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
 import ParsleyAPI from "../helpers/api";
 
-import Box from "@mui/material/Box";
-
+import RecipeBanner from "../components/recipeForm/RecipeBanner";
 
 function EditRecipePage() {
 
     const { id } = useParams();
-    const [recipe, setRecipe] = useState<IRecipe | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [recipe, setRecipe] = useState<Recipe | null>(null);
+    const [image, setImage] = useState<Blob | undefined>();
+
     const navigate = useNavigate();
 
+    /** Fetches the full recipe record on mount */
     useEffect(function fetchRecipeOnMount() {
         async function fetchRecipe() {
             try {
@@ -21,7 +23,6 @@ function EditRecipePage() {
                     const numericId = parseInt(id);
                     const recipeDetails = await ParsleyAPI.getRecipeById(numericId);
                     setRecipe(recipeDetails);
-                    setIsLoading(false);
                 }
             } catch (err) {
                 navigate('/recipes');
@@ -31,9 +32,9 @@ function EditRecipePage() {
 
     }, [id, navigate]);
 
-    async function updateRecipe(formData: IRecipe, image?: Blob) {
-        //TODO: validate inputs
-
+    /** Callback to update the recipe record (including it's image) in the database */
+    async function updateRecipe(formData: Recipe) {
+        console.log("submitting form");
         await ParsleyAPI.UpdateRecipe(formData);
         if (recipe) {
             if (image) {
@@ -43,14 +44,27 @@ function EditRecipePage() {
         }
     }
 
+    /** Callback to update the image state for submission along with the recipeForm */
+    const updateRecipeImage = useCallback((file: Blob) => {
+        setImage(file);
+    }, []);
+
     return (
         !recipe
             ?
             <p> Loading...</p>
             :
             <>
-                {/* <Box component="img" src={recipe.imageUrl} className="RecipeBanner" /> */}
-                <RecipeForm recipe={recipe} onSubmitCallback={updateRecipe} />
+                <RecipeBanner
+                    image={image}
+                    updateImage={updateRecipeImage}
+                    imageUrl={recipe.imageUrl}
+                    editable
+                />
+
+                <RecipeFormProvider recipe={recipe} onSubmitCallback={updateRecipe}>
+                    <RecipeFormDisplay />
+                </RecipeFormProvider>
             </>
     );
 }

@@ -105,19 +105,19 @@ class ParsleyAPI {
   /************************ RECIPES ********************************/
   /**  CREATE  */
 
-  static async generateRecipe(formData: { recipeText: string; }): Promise<IRecipe> {
+  static async generateRecipe(formData: { recipeText: string; }): Promise<Recipe> {
     const response = await this.request('recipes/generate', formData, 'post');
     return response.recipe;
   }
 
-  static async createRecipe(recipe: IRecipe): Promise<IRecipe> {
+  static async createRecipe(recipe: IRecipe): Promise<Recipe> {
     const response = await this.request('recipes', recipe, 'post');
     return response.recipe;
   }
 
 
   /**  READ  */
-  static async getRecipeById(id: Number): Promise<IRecipe> {
+  static async getRecipeById(id: Number): Promise<Recipe> {
     const response = await this.request(`recipes/${id}`);
     return response.recipe;
   }
@@ -131,7 +131,7 @@ class ParsleyAPI {
   }
 
   /**  UPDATE  */
-  static async UpdateRecipe(formData: IRecipe): Promise<IRecipe> {
+  static async UpdateRecipe(formData: Recipe): Promise<Recipe> {
     const response = await this.request(
       `recipes/${formData.recipeId}`,
       formData,
@@ -155,7 +155,7 @@ class ParsleyAPI {
   }
 
   /**  DELETE  */
-  static async DeleteRecipe(id: number): Promise<IRecipe> {
+  static async DeleteRecipe(id: number): Promise<Recipe> {
     const response = await this.request(
       `recipes/${id}`,
       undefined,

@@ -3,8 +3,8 @@ import ParsleyAPI from "./api";
 
 type CookbookContextObject = {
   cookbook: SimpleRecipeData[];
-  isInCookbook:(recipe: SimpleRecipeData | IRecipe) => boolean;
-  toggleInCookbook: (recipe: SimpleRecipeData | IRecipe) => Promise<void>;
+  isInCookbook:(recipe: SimpleRecipeData | Recipe) => boolean;
+  toggleInCookbook: (recipe: SimpleRecipeData | Recipe) => Promise<void>;
 };
 
 
@@ -43,7 +43,7 @@ function CookbookProvider({ username, children }: props) {
     fetchCookbook();
   }, [username, setCookbook]);
 
-  async function toggleInCookbook(recipe: SimpleRecipeData | IRecipe) {
+  async function toggleInCookbook(recipe: SimpleRecipeData | Recipe) {
     const simpleRecipe: SimpleRecipeData = {
       recipeId: recipe.recipeId,
       name: recipe.name,
@@ -63,7 +63,7 @@ function CookbookProvider({ username, children }: props) {
   /** given a recipe and a cookbook, returns true if the cookbook contains
        * a match for that recipe and false if it does not.
        */
-  function isInCookbook(recipe: SimpleRecipeData | IRecipe) {
+  function isInCookbook(recipe: SimpleRecipeData | Recipe) {
     return cookbook.some((entry) => {
       return entry.recipeId === recipe.recipeId;
     });
@@ -80,7 +80,7 @@ function CookbookProvider({ username, children }: props) {
 
   /** Handles adding api calls and state updates related to removing a
    * recipe from a cookbook */
-  async function removeFromCookbook(recipe: SimpleRecipeData | IRecipe) {
+  async function removeFromCookbook(recipe: SimpleRecipeData | Recipe) {
     if (!username) throw new Error("Login required");
     await ParsleyAPI.removeFromCookbook(recipe.recipeId, username);
     setCookbook(() => cookbook.filter(

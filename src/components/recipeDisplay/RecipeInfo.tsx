@@ -12,7 +12,7 @@ import { faBook, faBookBookmark } from '@fortawesome/free-solid-svg-icons';
 import './RecipeInfo.scss';
 
 type props = {
-    recipe: IRecipe | SimpleRecipeData;
+    recipe: Recipe | SimpleRecipeData;
 };
 
 function RecipeInfo({ recipe }: props) {

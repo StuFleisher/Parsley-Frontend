@@ -1,9 +1,10 @@
-import RecipeInfoInput from "./RecipeInfoInput";
-import StepsInputs from "./StepsInputs";
+
 import ImageForm from "../ui/ImageForm";
 
-import "./RecipeForm.scss";
-import { FormEvent, useState, useEffect, useCallback } from "react";
+import {Formik, useFormikContext} from "formik"
+import recipeFormSchema from "../../helpers/recipeFormSchema";
+
+import { useState, useEffect, useCallback } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
@@ -18,7 +19,7 @@ type recipeInfo = {
 };
 
 type Props = {
-  recipe: RecipeForCreate | IRecipe,
+  recipe: RecipeForCreate | Recipe,
   onSubmitCallback: Function,
 };
 
@@ -33,6 +34,7 @@ const emptyError:RecipeError = {
 /********************************* COMPONENT *********************************************/
 
 function RecipeForm({ recipe, onSubmitCallback }: Props) {
+  console.log("schema valid?", recipeFormSchema.validate(recipe))
 
   const [formData, setFormData] = useState(recipe);
   const [formErrors, setFormErrors] = useState<RecipeError>(emptyError)
@@ -40,18 +42,21 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
   const [showModal, setShowModal] = useState(false);
   const [image, setImage] = useState<Blob | undefined>();
 
+
   useEffect(function updateFormDataOnRecipeChange() {
     setFormData(recipe);
   }, [recipe]);
 
+  const {handleSubmit} = useFormikContext();
 
-  async function handleSubmit(evt: FormEvent<HTMLFormElement>) {
-    evt.preventDefault();
-    console.log("handling form submission");
-    console.log("image in RecipeForm component:", image);
-    await onSubmitCallback(formData, image);
-    //update image
-  }
+
+  // async function handleSubmit(evt: FormEvent<HTMLFormElement>) {
+  //   evt.preventDefault();
+  //   console.log("handling form submission");
+  //   console.log("image in RecipeForm component:", image);
+  //   await onSubmitCallback(formData, image);
+  //   //update image
+  // }
 
   /**************************** UPDATE METHODS */
 
@@ -242,6 +247,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
     });
   },[])
 
+
   /************************** UI Methods  */
 
   function closeModal(){
@@ -252,6 +258,13 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
 
   return (
     <>
+    <Formik
+      initialValues={recipe}
+      validationSchema={recipeFormSchema}
+      onSubmit={async (values)=>{
+        await onSubmitCallback(values, image);
+      }}
+    >
       <Modal
         open={showModal}
         onClose={closeModal}
@@ -281,12 +294,12 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
       <Box className="RecipeForm">
 
         <form onSubmit={handleSubmit} >
-          <RecipeInfoInput
+          {/* <RecipeInfoInput
             recipe={formData}
             updateRecipeInfo={updateRecipeInfo}
             updateRecipeImage={updateRecipeImage}
-          />
-          <StepsInputs
+          /> */}
+          {/* <StepsInputs
             initialSteps={formData.steps}
             updateInstruction={updateInstruction}
             updateIngredients={updateIngredients}
@@ -294,7 +307,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
             createIngredient={createIngredient}
             createStep={createStep}
             deleteStep={deleteStep}
-          />
+          /> */}
           <Box className="Recipe-submitButton">
             <Button
               type='submit'
@@ -308,6 +321,7 @@ function RecipeForm({ recipe, onSubmitCallback }: Props) {
           </Box>
         </form>
       </Box>
+      </Formik>
     </>
   );
 }

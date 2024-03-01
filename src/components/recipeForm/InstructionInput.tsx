@@ -1,12 +1,11 @@
-import { ChangeEvent } from "react";
+import React from "react";
 import "./InstructionInput.scss";
+import {FastField} from "formik"
 
-import TextField from "@mui/material/TextField";
+import FormikMuiTextField from "../ui/FormikMuiTextField";
 
 type props = {
-    instruction:string,
     stepIndex:number,
-    updateInstruction:Function,
 }
 
 /** Input to change the instructions for a recipe step
@@ -16,26 +15,19 @@ type props = {
  *
  * StepInput > InstructionInput
  */
-function InstructionInput({instruction, stepIndex, updateInstruction}:props){
-
-    function handleChange(e:ChangeEvent<HTMLTextAreaElement | HTMLInputElement>){
-        // console.log("running handleChange from InstructionInput")
-        console.log("intended new value:", e.target.value)
-        updateInstruction(stepIndex,e.currentTarget.value)
-    }
+const InstructionInput = React.memo(({stepIndex}:props)=>{
 
     return (
-        <TextField
+        <FastField
+            component={FormikMuiTextField}
             multiline
             rows={5}
             fullWidth
-            name="instruction"
+            name={`steps[${stepIndex}].instructions`}
             id = {`Step${stepIndex}-instruction`}
             className="InstructionInput"
-            value={instruction}
-            onChange={e=>{handleChange(e)}}
         />
     )
-}
+})
 
 export default InstructionInput
