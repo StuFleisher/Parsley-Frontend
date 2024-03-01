@@ -60,7 +60,7 @@ class ParsleyAPI {
   /** AUTH */
 
   /** Register and sign-in a new user*/
-  static async userSignup(data: User) {
+  static async userSignup(data: IUser) {
     const response = await this.request('auth/register', data, 'post');
     ParsleyAPI.token = response.token;
     return response.token;

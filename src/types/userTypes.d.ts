@@ -5,7 +5,7 @@
   firstName: string | null,
   lastName: string | null,
   email:string | null,
-  isAdmin:boolean | null,
+  isAdmin?:boolean | null,
 }
 
 type User = IUser & {
@@ -21,6 +21,13 @@ type User = IUser & {
 type UserLoginData = {
   username:string,
   password:string,
+}
+
+type UserRegistrationData = {
+  email:string,
+  username:string,
+  password:string,
+  confirmPassword:string,
 }
 
 type TokenPayload = {

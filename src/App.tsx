@@ -76,7 +76,8 @@ function App() {
    *
    * userInfo:{username, password, firstName, lastName, email}
    */
-  async function register(userInfo: User) {
+  async function register(userInfo: IUser) {
+    console.log("calling register")
     const token = await ParsleyAPI.userSignup(userInfo);
     localStorage.setItem("token", token);
     setToken(token);

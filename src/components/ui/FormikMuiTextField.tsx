@@ -16,7 +16,7 @@ const FormikMuiTextField: React.FC<FormikMuiTextFieldProps> = ({ field, form, ..
       {...field}
       {...props}
       error={Boolean(fieldError)}
-      helperText={fieldError}
+      helperText={getNested(errors,name)}
     />
   );
 };
