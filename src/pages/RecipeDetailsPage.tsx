@@ -51,7 +51,7 @@ function RecipeDetailsPage() {
             <p>Loading...</p>
         :
             <>
-                <RecipeCard recipe={recipe} />
+                <RecipeCard recipe={recipe}/>
                 {username!==recipe.owner ? "" :<Link to={`/recipes/${recipe.recipeId}/edit`}> Edit this Recipe</Link>}
             </>}
 

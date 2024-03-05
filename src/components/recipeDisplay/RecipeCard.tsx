@@ -15,8 +15,8 @@ function RecipeCard({recipe}:Props) {
     <>
     <Box component="img" src={recipe.imageUrl} className="RecipeBanner"/>
     <Box className="RecipeCard">
-      <Card className="SimpleRecipeCard">
-        <RecipeInfo recipe={recipe}/>
+      <Card className="RecipeCard-RecipeInfo">
+        <RecipeInfo recipe={recipe} showActions={true}/>
       </Card>
       <StepsList steps={recipe.steps}/>
     </Box>

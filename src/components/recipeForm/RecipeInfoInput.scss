@@ -1,10 +1,13 @@
 @import '../../styles/_recipe-mixins.scss';
 
 .RecipeInfoInput {
-    @include RecipeInfo;
     background-color: #fcf7f0;
     padding: 1rem;
     border-radius: 5px;
+
+    & > * {
+        margin-top:.5rem;
+    }
 
     .RecipeInfo-editImage {
         color:$bright-white;
@@ -28,10 +31,10 @@
 
     .RecipeInfo-name {
         input, textArea {
-            font-size: 4rem;
+            font-size: 2rem;
             color: $primary;
             font-family:'Shrikhand', Georgia;
-            line-height: 4rem;
+            line-height: 2rem;
         }
     }
 

@@ -2,24 +2,27 @@
 
 .App {
   // width: 100%;
-  background-color:$muted-light;
+  background-color: $muted-light;
 }
 
 .App-page {
-  background-color: mix($muted-light, white,50);
-  padding:2rem;
-  position:relative;
+  background-color: mix($muted-light, white, 50);
+  padding: .5rem;
+  position: relative;
   min-height: 100vh;
+
+  @media (min-width:600px) {
+    padding: 1.5rem;
+  } 
 }
 
 .App-errors {
-  margin-top:3rem;
+  margin-top: 3rem;
   text-align: center;
 
-   > * {
-    margin-top:3rem;
-    color:$charcoal;
-   }
+  >* {
+    margin-top: 3rem;
+    color: $charcoal;
+  }
 
 }
-

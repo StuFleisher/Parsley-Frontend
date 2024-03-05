@@ -44,7 +44,7 @@ function RoutesList({login, register, logout}:props) {
                 </>
             :
                 <>
-                <Route path='/recipes/add' element={<AddRecipePage />} />
+                <Route path='/recipes/create' element={<AddRecipePage />} />
                 <Route path='/recipes/:id/edit' element={<EditRecipePage />} />
                 <Route path='/users/:username' element={<UserDetailPage/> }/>
                 <Route path='/users/:username/cookbook' element={<CookbookPage/> }/>

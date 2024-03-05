@@ -1,26 +1,60 @@
 @import '../../styles/_recipe-mixins.scss';
 
-.RecipeInfo {
-    @include RecipeInfo;
 
-    .RecipeInfo-owner {
-        color:$bright-white;
-    }
+.RecipeInfo-nameContainer {
+    width: 100%;
+    display: flex;
+    font-size: 2rem;
+    align-self: flex-start;
+    flex-basis: 2rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 2rem;
 
-    .CookbookIcon-add {
-        color:$bright-white;
+    .RecipeInfo-name {
+        color: $bright-white;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
 
-        & :hover {
-            color:$secondary
+        font-size: 1rem;
+        line-height: 1rem;
+
+        @media (min-width:600px) {
+            font-size: 1.4rem;
+            line-height: 1.4rem;
         }
-    }
 
-    .CookbookIcon-remove {
-        color:$secondary;
-
-        & :hover {
-            color:$bright-white
+        @media (min-width:900px) {
+            font-size: 2rem;
+            line-height: 2rem;
         }
     }
 }
 
+.RecipeInfo-name:hover,
+.RecipeInfo-name:focus {
+    color: $secondary;
+}
+
+.RecipeInfo-description {
+    margin: .5rem 0;
+    font-style: italic;
+    overflow: hidden;
+    display: none;
+
+    @media (min-width:600px) {
+        display: inline-block;
+    }
+}
+
+.RecipeInfo-owner,
+.RecipeInfo-sourceName {
+    color: $bright-white;
+    font-size: .75rem;
+
+    @media (min-width:600px) {
+        font-size: 1rem;
+    }
+}

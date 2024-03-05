@@ -2,15 +2,12 @@
 @import "../../styles/colors";
 
 .RecipeForm{
-    // @include Recipe;
     margin: 1rem;
     margin-top: 200px;
     background-color: #fcf7f0;
     z-index:5;
     position:relative;
     border-radius: 5px;
-    // position: relative;
-
 }
 
 .RecipeInfo-editImage {
@@ -29,9 +26,7 @@
     bottom:0;
     left:0;
     padding:1rem;
-    // background-color: white;
-    // width:100%;
-    // margin:1rem auto;
+
     font-size: 1.25rem;
     z-index: 1500;
     display:flex;

@@ -1,28 +1,99 @@
 @import "../../styles/colors";
 
 .SimpleRecipeCard {
-    margin:1rem;
-    padding:1rem;
+    margin: 1rem 0;
+    padding: 1rem;
     background-color: $primary;
     border-radius: 1rem;
+    align-items: stretch;
+    height:fit-content;
+    height:325px;
+    flex-direction: column;
 
-    img {
-            height:100%;
-            aspect-ratio: 1;
-            object-fit: cover;
+    @media (min-width:600px){
+        flex-direction: row;
     }
-    img:hover{
+}
+
+.SimpleRecipeCard-RecipeInfo {
+    background-color: $primary;
+    border-radius: 5px;
+    color: $bright-white;
+    height: 100%;
+    padding: 1rem 0 1rem 0;
+    flex:1 1 50%;
+
+
+    @media (min-width:600px) {
+        padding: 0 1rem 0 1rem;
+
+    }
+
+    a {
+        color: $secondary;
+        text-decoration: none;
+    }
+}
+
+.SimpleRecipeCard-imageContainer {
+    display: block;
+    flex:1 0 30%;
+    height:100%;
+    line-height: 0;
+    position:relative;
+
+    :hover {
         border: $secondary 2px solid;
     }
 
-}
-
-@media (max-width:600px){
-
-    .SimpleRecipeCard{
-        img{
-            height:100px;
+    .SimpleRecipeCard-image {
+        height:100%;
+        background-size:cover;
+        background-position: center center;
+        @media (max-width:600px){
+            min-height:200px;
         }
+    }
 
+    .IconBar {
+        background-color: #4F4F51aa;
+        position: absolute;
+        top:0;
+        right:0;
+        width: 3rem;
+        height:3rem;
+        border-radius: 0 0 0 200px;
+
+        .CookbookIcon {
+            position:absolute;
+            top:0rem;
+            right:0rem;
+            font-size: 1.5rem;
+            align-self: flex-start;
+            flex-basis: 2rem;
+            flex-grow: 0;
+            flex-shrink: 0;
+            min-width: 2rem;
+
+            .CookbookIcon-add {
+                color: $bright-white;
+
+                & :hover {
+                    color: $secondary
+                }
+            }
+
+            .CookbookIcon-remove {
+                color: $secondary;
+
+                & :hover {
+                    color: $bright-white
+                }
+            }
+        }
     }
 }
+
+
+
+

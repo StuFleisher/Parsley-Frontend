@@ -21,55 +21,7 @@
     object-fit: cover;
 }
 
-@mixin RecipeInfo {
-    background-color: $primary;
-    padding: 1rem;
-    border-radius: 5px;
-    color: $bright-white;
-    width: 100%;
 
-    .RecipeInfo-nameContainer {
-        width:100%;
-        display:flex;
-
-        svg {
-            font-size: 2rem;
-            align-self: flex-start;
-            flex-basis:2rem;
-            flex-grow:0;
-            flex-shrink:0;
-            min-width: 2rem;
-        }
-
-        .RecipeInfo-name {
-            color: $bright-white;
-            display: inline-block;
-        }
-        .RecipeInfo-name:hover, .RecipeInfo-name:focus {
-            color:$secondary;
-        }
-    }
-
-    .RecipeInfo-description {
-        margin: 2rem 0;
-        font-style: italic;
-    }
-
-    .RecipeInfo-sourceName{
-        @content;
-    }
-
-    a {
-        color: $secondary;
-        text-decoration: none;
-    }
-
-    @media (max-width:600px){
-        .RecipeInfo-description{
-            display:none;
-        }
-    }
-}
 /************************** STEPS ******************/
 
 @mixin StepList {

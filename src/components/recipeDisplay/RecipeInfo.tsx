@@ -4,53 +4,47 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import MuiLink from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import IconButton from '@mui/material/IconButton';
 
 import { Link } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faBookBookmark } from '@fortawesome/free-solid-svg-icons';
 import './RecipeInfo.scss';
 
 type props = {
     recipe: Recipe | SimpleRecipeData;
+    showActions?: boolean;
 };
 
-function RecipeInfo({ recipe }: props) {
+function RecipeInfo({ recipe, showActions = false }: props) {
 
-    const {isInCookbook, toggleInCookbook} = useCookbook()
+    const { isInCookbook, toggleInCookbook } = useCookbook();
 
     return (
-        <Box className="RecipeInfo">
+        <>
             <Stack
                 className="RecipeInfo-nameContainer"
                 direction="row"
                 alignItems="start"
                 justifyContent="space-between"
                 flexWrap="nowrap"
-                spacing={2}
+                spacing={{ sm: 1, md: 2 }}
             >
                 <Link to={`/recipes/${recipe.recipeId}`}>
                     <Typography className='RecipeInfo-name' variant="h1">
-                        {recipe.name}
+                        {`${recipe.name.substring(0, 40)}`}
                     </Typography>
                 </Link>
-                <IconButton
-                    onClick={()=>toggleInCookbook(recipe)}
-                >
-                    <FontAwesomeIcon
-                        icon={isInCookbook(recipe) ? faBookBookmark : faBook }
-                        className={
-                            isInCookbook(recipe) ? "CookbookIcon-remove" : "CookbookIcon-add"
-                        }
-                    />
-                </IconButton>
             </Stack>
             <Typography className='RecipeInfo-owner' variant="subtitle1">
                 {"Submitted by "}
                 <Link to={`/users/${recipe.owner}`}>{recipe.owner}</Link>
             </Typography>
             <Typography className='RecipeInfo-description' variant="body1">
-                {recipe.description}
+                {recipe.description.length > 100
+                    ? `${recipe.description.substring(0, 100)}...`
+                    : recipe.description
+                }
             </Typography>
 
             {
@@ -67,7 +61,28 @@ function RecipeInfo({ recipe }: props) {
                         Source: {recipe.sourceName}
                     </Typography>
             }
-        </Box>
+
+            {showActions &&
+                <IconButton
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return toggleInCookbook(recipe);
+                    }
+                    }
+                    className="CookbookIcon"
+                >
+                    <FontAwesomeIcon
+                        icon={isInCookbook(recipe) ? faBookBookmark : faBook}
+                        className={
+                            isInCookbook(recipe)
+                                ? "CookbookIcon-remove"
+                                : "CookbookIcon-add"
+                        }
+                    />
+                </IconButton>
+            }
+        </>
     );
 }
 

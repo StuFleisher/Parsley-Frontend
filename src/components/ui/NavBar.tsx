@@ -7,7 +7,7 @@ import { Link as RouterLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUtensils, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUtensils, faUser, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 //MUI Components
 import AppBar from "@mui/material/AppBar";
@@ -77,6 +77,14 @@ function NavBar({login}:props) {
     const userLinkSection = (
         <>
             <Stack direction="row" spacing={2} className="NavBar-links">
+                <Link component={RouterLink} to="/recipes/create">
+                    <Button
+                        color={'brightWhite'}
+                        startIcon={<FontAwesomeIcon icon={faPlusCircle} />}
+                        >
+                        create
+                    </Button>
+                </Link>
                 <Link component={RouterLink} to="/recipes">
                     <Button
                         color={'brightWhite'}
