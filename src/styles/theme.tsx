@@ -8,11 +8,15 @@ const theme = createTheme({
         h1:{
             fontFamily:`'Shrikhand', Georgia`,
             fontSize:`1.5rem`,
-            '@media (min-width:600px)':{fontSize:'3.5rem'},
+            '@media (min-width:600px)':{fontSize:'2rem'},
+            '@media (min-width:900px)':{fontSize:'2.5rem'},
+            '@media (min-width:1200px)':{fontSize:'3rem'},
         },
         h2:{fontFamily:`'Shrikhand', Georgia`,
-        fontSize:`1.5rem`,
-        '@media (min-width:600px)':{fontSize:'3.5rem'},
+        fontSize:`1rem`,
+        '@media (min-width:600px)':{fontSize:'2rem'},
+        '@media (min-width:900px)':{fontSize:'2.5rem'},
+        '@media (min-width:1200px)':{fontSize:'3.5rem'},
         },
         h3:{
             fontFamily:`'Shrikhand', Georgia`,
@@ -29,10 +33,9 @@ const theme = createTheme({
               },
         },
         body2:{
-            fontSize:'1rem',
-            '@media (min-width:600px)': {
-                fontSize: '1.5rem',
-              },
+            fontSize:'.75rem',
+            '@media (min-width:600px)': {fontSize: '1rem'},
+            '@media (min-width:900px)': {fontSize: '1.4rem'},
         }
     },
     components:{

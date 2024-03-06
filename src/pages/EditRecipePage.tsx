@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { RecipeFormProvider } from "../helpers/RecipeFormContext";
 import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
 import ParsleyAPI from "../helpers/api";
-
+import { Container } from "@mui/material";
 import RecipeBanner from "../components/recipeForm/RecipeBanner";
 
 function EditRecipePage() {
@@ -50,22 +50,24 @@ function EditRecipePage() {
     }, []);
 
     return (
-        !recipe
-            ?
-            <p> Loading...</p>
-            :
-            <>
-                <RecipeBanner
-                    image={image}
-                    updateImage={updateRecipeImage}
-                    imageUrl={recipe.imageUrl}
-                    editable
-                />
+        <Container className="Page-container" maxWidth="xl">
+            {!recipe
+                ?
+                <p> Loading...</p>
+                :
+                <>
+                    <RecipeBanner
+                        image={image}
+                        updateImage={updateRecipeImage}
+                        imageUrl={recipe.imageUrl}
+                        editable
+                    />
 
-                <RecipeFormProvider recipe={recipe} onSubmitCallback={updateRecipe}>
-                    <RecipeFormDisplay />
-                </RecipeFormProvider>
-            </>
+                    <RecipeFormProvider recipe={recipe} onSubmitCallback={updateRecipe}>
+                        <RecipeFormDisplay />
+                    </RecipeFormProvider>
+                </>}
+        </Container>
     );
 }
 

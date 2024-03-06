@@ -1,39 +1,191 @@
 @import '../styles/_recipe-mixins.scss';
 
-.Homepage-backgroundImage {
+section {
     height:100vh;
-    top:5rem;
-    left:50%;
-    transform:translate(-50%,0px);
-
-    position:absolute;
-    opacity:10%;
-    text-align: center;
-
+    width:100%;
+    position:relative;
 }
 
-.Homepage-introSection{
+.headlinePanel-left, .headlinePanel-right {
+    z-index: 10;
+    color:$bright-white;
+    height:50%;
+    width:100%;
+    padding:5%;
+    flex: 1 0 40%;
+
+    p, h1 {
+        width:80%;
+        position:relative;
+    }
+
+    @media (min-width:600px){
+        height:100%;
+        width:40%;
+
+        p, h1 {
+            width:100%;
+        }
+    }
+}
+
+.headlinePanel-left{
+    border-radius: 0 0 100px 0;
+
+    @media (min-width:600px){
+        border-radius: 0 0 200px 0;
+    }
+}
+
+.headlinePanel-right{
+    border-radius: 0 0 0 100px;
+
+    @media (min-width:600px){
+        border-radius: 0 0 0 200px;
+    }
+}
+
+.imagePanel {
+    width:100%;
+    height:100%;
+    overflow: hidden;
+    flex:0 1 60%;
+
+    > div {
+        margin:1rem;
+    }
+
+    img {
+        width:100vw;
+        height:100%;
+        object-fit: cover;
+        position: absolute;
+        right:0;
+        top:0;
+
+        @media (min-width:600px){
+            height: 100%;
+
+        }
+    }
+}
+
+/** HERO SECTION STYLING **/
+.Hero {
+    height:calc(100vh - 3rem); //compensate for navbar
+    width:100%;
+}
+
+.Hero-headlinePanel {
+    background-color: $secondary;
+}
+
+.Hero-imagePanel{
+
+    // padding:3rem;
+    @media (min-width:600px){
+        padding:3rem;
+    }
+
+    img {
+        width:100%;
+        height: calc(100vh - 3rem);
+        object-fit: cover;
+        position: absolute;
+        right:0;
+    }
+}
+
+.Homepage-animation {
+    z-index: 10;
+    max-height:90%;
+    aspect-ratio: 1;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: $bright-white;
+
+    @media (min-width:600px){
+        height: auto;
+        max-height:fit-content;
+        width:90%;
+    }
+}
+
+
+
+//Register Section styles
+.Register {
+    position:static;
+    padding:2rem;
+    background-color: $bright-white;
+}
+
+.Register-container {
+    position:relative;
+    width:100%;
     height: 100vh;
 }
 
-.Homepage-copy {
-    max-width:800px;
-    padding:1rem;
-    z-index: 100;
-
-    align-items: center;
-    justify-content: center;
-
-
-    @media(max-width:600px){
-        // p, h1 {
-            text-align: center;
-        // }
+.Register-headlinePanel {
+    background-color: $primary;
+    @media (min-width:600px){
+        width:100%;
     }
 
 }
 
-.Homepage-animation {
-    max-height:600px;
-    flex-shrink: 1;
+.Register-imagePanel {
+
+    img {
+        width:100%;
+        object-fit: cover;
+        position: absolute;
+        right:0;
+    }
+
+}
+
+.Register-form {
+    z-index:10;
+}
+
+
+
+
+// FEATURES SECTION
+
+.Features{
+    width:100%;
+    padding:10%;
+    background-color: $muted-light;
+}
+
+.Features-feature {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    max-width: 45%;
+    // height:30%;
+    color: $charcoal;
+
+    @media (min-width:600px){
+        height:300px;
+        width: 33%;
+        max-height: fit-content;
+    }
+}
+
+.Features-featureIcon {
+
+    max-width:100px;
+    // max-height:100px;
+    // width:80%;
+    aspect-ratio: 1;
+
+    @media (min-width:600px){
+        margin-bottom: 1rem;
+        max-width:200px;
+        // max-height:200px;
+        max-width: 65%;
+    }
 }

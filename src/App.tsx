@@ -13,7 +13,6 @@ import Box from '@mui/material/Box';
 
 import { ThemeProvider } from '@mui/material';
 import parsleyTheme from './styles/theme';
-import { Container } from '@mui/material';
 
 const ANON_USER: IUser = {
   username: null,
@@ -90,12 +89,12 @@ function App() {
       <Box className="App">
         <BrowserRouter>
           <NavBar login={login} />
-          <Container className="App-page">
+          <Box className="App-page">
             <Box className="App-errors">
               <Typography variant="h2">Sorry, we had trouble loading the page</Typography>
               <Typography variant="body1" color="charcoal">{error}</Typography>
             </Box>
-          </Container>
+          </Box>
         </BrowserRouter>
       </Box>
       </ThemeProvider>
@@ -108,20 +107,20 @@ function App() {
         {
           (token && !user.username)
             ?
-            <Container className="App-page">
+            <Box className="App-page">
               <p>Loading</p>
-            </Container>
+            </Box>
             :
             <userContext.Provider value={user}>
               <BrowserRouter>
                 <NavBar login={login} />
-                <Container className="App-page">
+                <Box className="App-page" >
                   <RoutesList
                     login={login}
                     register={register}
                     logout={logout}
                   />
-                </Container>
+                </Box>
               </BrowserRouter>
             </userContext.Provider>
         }

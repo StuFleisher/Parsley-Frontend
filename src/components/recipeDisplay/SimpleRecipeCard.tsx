@@ -20,47 +20,46 @@ function SimpleRecipeCard({ recipe }: props) {
 
     return (
 
-            <Stack
-                className="SimpleRecipeCard"
-                spacing={{ sm: 1, md: 2, lg: 3 }}
+        <Stack
+            className="SimpleRecipeCard"
+            spacing={{ sm: 1, md: 2, lg: 3 }}
+        >
+            <Link
+                to={`/recipes/${recipe.recipeId}`}
+                className="SimpleRecipeCard-imageContainer"
             >
-                <Link
-                    to={`/recipes/${recipe.recipeId}`}
-                    className="SimpleRecipeCard-imageContainer"
+                <Box
+                    className="SimpleRecipeCard-image"
+                    component="div"
+                    sx={{
+                        backgroundImage: `url("${recipe.imageUrl}")`,
+                    }}
                 >
-                    <Box
-                        className="SimpleRecipeCard-image"
-                        component="div"
-                        sx={{
-                            backgroundImage: `url("${recipe.imageUrl}")`,
-                        }}
-                    >
-                        <Box className="IconBar">
-                            <IconButton
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    return toggleInCookbook(recipe);
+                    <Box className="IconBar">
+                        <IconButton
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                return toggleInCookbook(recipe);
+                            }}
+                            className="CookbookIcon"
+                        >
+                            <FontAwesomeIcon
+                                icon={isInCookbook(recipe) ? faBookBookmark : faBook}
+                                className={
+                                    isInCookbook(recipe)
+                                        ? "CookbookIcon-remove"
+                                        : "CookbookIcon-add"
                                 }
-                                }
-                                className="CookbookIcon"
-                            >
-                                <FontAwesomeIcon
-                                    icon={isInCookbook(recipe) ? faBookBookmark : faBook}
-                                    className={
-                                        isInCookbook(recipe)
-                                            ? "CookbookIcon-remove"
-                                            : "CookbookIcon-add"
-                                    }
-                                />
-                            </IconButton>
-                        </Box>
+                            />
+                        </IconButton>
                     </Box>
-                </Link>
-                    <Box className="SimpleRecipeCard-RecipeInfo">
-                        <RecipeInfo recipe={recipe} />
-                    </Box>
-            </Stack>
+                </Box>
+            </Link>
+            <Box className="SimpleRecipeCard-RecipeInfo">
+                <RecipeInfo recipe={recipe} />
+            </Box>
+        </Stack>
     );
 }
 

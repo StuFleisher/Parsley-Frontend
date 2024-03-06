@@ -149,8 +149,6 @@ class ParsleyAPI {
       formData,
       'put'
     );
-    console.log("API response:", response)
-    console.log("updated recipe:", await ParsleyAPI.getRecipeById(recipeId))
     return response.imageUrl;
   }
 

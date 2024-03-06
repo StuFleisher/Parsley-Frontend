@@ -6,7 +6,7 @@ import userContext from "../helpers/userContext";
 
 import { CookbookProvider } from "../helpers/cookbookContext";
 
-import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 // import testRecipe from "../tempData";
 
 
@@ -14,21 +14,18 @@ import Box from "@mui/material/Box";
 function RecipeDetailsPage() {
 
     const { id } = useParams();
-    const {username} = useContext(userContext);
+    const { username } = useContext(userContext);
 
     const [isLoading, setIsLoading] = useState(true);
-    const [recipe, setRecipe] = useState<Recipe | null >(null);
+    const [recipe, setRecipe] = useState<Recipe | null>(null);
     const navigate = useNavigate();
 
     useEffect(function fetchRecipeOnMount() {
         async function fetchRecipe() {
             try {
-                console.log('running fetchRecipe')
                 if (id !== undefined) {
                     const numericId = parseInt(id);
                     const recipeDetails = await ParsleyAPI.getRecipeById(numericId);
-                    console.log("current", recipe)
-                    console.log("fetched", recipeDetails);
                     setRecipe(recipeDetails);
                     setIsLoading(false);
                 }
@@ -45,16 +42,16 @@ function RecipeDetailsPage() {
     return (
 
         <CookbookProvider username={username!}>
-
-        {!recipe
-        ?
-            <p>Loading...</p>
-        :
-            <>
-                <RecipeCard recipe={recipe}/>
-                {username!==recipe.owner ? "" :<Link to={`/recipes/${recipe.recipeId}/edit`}> Edit this Recipe</Link>}
-            </>}
-
+            <Container className="Page-container" maxWidth="xl">
+                {!recipe
+                    ?
+                    <p>Loading...</p>
+                    :
+                    <>
+                        <RecipeCard recipe={recipe} />
+                        {username !== recipe.owner ? "" : <Link to={`/recipes/${recipe.recipeId}/edit`}> Edit this Recipe</Link>}
+                    </>}
+            </Container>
         </CookbookProvider>
     );
 

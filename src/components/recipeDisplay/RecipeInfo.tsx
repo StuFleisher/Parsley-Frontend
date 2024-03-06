@@ -31,7 +31,7 @@ function RecipeInfo({ recipe, showActions = false }: props) {
                 spacing={{ sm: 1, md: 2 }}
             >
                 <Link to={`/recipes/${recipe.recipeId}`}>
-                    <Typography className='RecipeInfo-name' variant="h1">
+                    <Typography className='RecipeInfo-name' variant="h2">
                         {`${recipe.name.substring(0, 40)}`}
                     </Typography>
                 </Link>

@@ -31,7 +31,7 @@ const PARSLEY_ICON = (
 );
 
 type props = {
-    login:(credentials:UserLoginData)=>void
+    login:(credentials:UserLoginData)=>Promise<void>
 }
 
 function NavBar({login}:props) {
@@ -66,7 +66,7 @@ function NavBar({login}:props) {
                 >
                 Log In
             </Button>
-            <Link component={RouterLink} to="/auth/register">
+            <Link component={RouterLink} to="/register">
                 <Button color={'brightWhite'}>
                     Sign Up
                 </Button>
@@ -150,7 +150,7 @@ function NavBar({login}:props) {
             onClose={closeModal}
             className="loginModal"
         >
-                {<LoginForm login={login}></LoginForm>}
+                {<LoginForm login={login} hideRegistrationLink></LoginForm>}
         </Modal>
 
         <AppBar position="static" elevation={0}>

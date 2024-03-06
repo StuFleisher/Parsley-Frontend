@@ -7,15 +7,16 @@ import AddRecipePage from './AddRecipePage';
 import UserDetailPage from './UserDetailPage';
 import LogOutPage from "./LogOutPage";
 import CookbookPage from "./CookbookPage";
-import LoginForm from "../components/user/loginForm";
 import NotFound from "./NotFound";
 import {useContext} from "react";
 import userContext from "../helpers/userContext";
-import UserRegistrationForm from "../components/user/UserRegistrationForm";
+import RegistrationPage from "./RegistrationPage";
+import LogInPage from "./LogInPage";
+// import UserRegistrationForm from "../components/user/UserRegistrationForm";
 
 
 type props = {
-    login:(credentials:UserLoginData)=>Promise<void>;
+    login:(credentials: UserLoginData)=>Promise<void>,
     register:(userInfo:IUser)=>Promise<void>;
     logout: ()=>void;
 }
@@ -39,8 +40,8 @@ function RoutesList({login, register, logout}:props) {
             {!username
             ?
                 <>
-                <Route path='/login' element={<LoginForm login={login} />}/>
-                <Route path='/auth/register' element={<UserRegistrationForm register={register}/>}/>
+                <Route path='/login' element={<LogInPage login={login} />}/>
+                <Route path='/register' element={<RegistrationPage register={register}/>}/>
                 </>
             :
                 <>

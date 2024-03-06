@@ -1,9 +1,13 @@
 import { Stack, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 import userRegistrationSchema from "../../helpers/userRegistrationSchema";
 import './loginForm.scss';
 import FormikMuiTextField from "../ui/FormikMuiTextField";
 import { Formik, FastField, Form } from "formik";
+
+import "./userRegistrationForm.scss";
 
 const DEFAULT_FORM_DATA: UserRegistrationData = {
     email: "",
@@ -37,7 +41,7 @@ function UserRegistrationForm({ register }: props) {
             validationSchema={userRegistrationSchema}
         >
             {({ isValid }) => (
-                <Form>
+                <Form className="RegistrationForm">
                     <Stack direction="column" spacing={2}>
 
                         <FastField
@@ -80,6 +84,10 @@ function UserRegistrationForm({ register }: props) {
                             color="primary"
                             disabled={isValid ? false : true}
                         > Sign Up </Button>
+                        <Typography component="p" variant="caption" align="center">
+
+                            Already Registered?<Link to="/LogIn">   Log In</Link>
+                        </Typography>
                     </Stack>
 
                 </Form>

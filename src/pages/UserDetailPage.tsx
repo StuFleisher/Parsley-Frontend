@@ -6,6 +6,7 @@ import RecipeList from "../components/recipeDisplay/RecipeList";
 import { useNavigate, useParams } from "react-router-dom"
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
+import Container from "@mui/material/Container";
 
 import './UserDetailPage.scss'
 
@@ -33,7 +34,8 @@ function UserDetailPage(){
     }, [username, navigate])
 
     return (
-        <>
+        <Container className="Page-container" maxWidth="xl">
+
         {user !== "loading"
         ?
             <>
@@ -55,7 +57,7 @@ function UserDetailPage(){
         :
             <Typography>Loading</Typography>
         }
-        </>
+        </Container>
 
     )
 }
