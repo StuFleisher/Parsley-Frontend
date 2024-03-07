@@ -10,8 +10,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils, faUser, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 //MUI Components
+import { useTheme } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import ParsleyBox from "./ParsleyBox";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -38,6 +42,10 @@ function NavBar({ login }: props) {
 
     const { username } = useContext(userContext);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     let isOpen = Boolean(anchorEl);
 
     const [showLoginModal, setShowLoginModal] = useState(false);
@@ -88,21 +96,23 @@ function NavBar({ login }: props) {
                     component={RouterLink} to="/recipes/create"
                     underline="hover"
                 >
-                    <Button
-                        startIcon={<FontAwesomeIcon icon={faPlusCircle} />}
-                    >
-                        create
-                    </Button>
+                    <Tooltip title="New Recipe" color="primary">
+                        <IconButton>
+                            <FontAwesomeIcon icon={faPlusCircle} />
+                        </IconButton>
+                    </Tooltip>
                 </Link>
                 <Link
                     component={RouterLink} to="/recipes"
                     underline="hover"
                 >
-                    <Button
-                        startIcon={<FontAwesomeIcon icon={faUtensils} />}
-                    >
-                        recipes
-                    </Button>
+                    <Tooltip title="Recipes">
+
+                    <IconButton>
+                        <FontAwesomeIcon icon={faUtensils} />
+                    </IconButton>
+                    </Tooltip>
+
                 </Link>
 
                 <IconButton
@@ -154,7 +164,10 @@ function NavBar({ login }: props) {
                 onClose={closeModal}
                 className="loginModal"
             >
-                {<LoginForm login={login} hideRegistrationLink></LoginForm>}
+                {<ParsleyBox>
+                    <LoginForm login={login} hideRegistrationLink></LoginForm>
+                </ParsleyBox>
+                }
             </Modal>
 
             <AppBar position="static" elevation={0}>

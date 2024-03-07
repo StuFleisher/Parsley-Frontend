@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
+import SimpleLayout from "../helpers/SimpleLayout";
 
 type props = {
     logOut: () => void;
@@ -16,9 +17,11 @@ function LogOutPage({ logOut }: props) {
     }, [logOut, navigate]);
 
     return (
-        <Container className="Page-container" maxWidth="xl">
+
+        <SimpleLayout src="/images/banner_01.jpg">
             Logging out...
-        </Container>);
+        </SimpleLayout>
+    )
 }
 
 export default LogOutPage;

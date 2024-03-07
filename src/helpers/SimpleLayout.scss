@@ -1,0 +1,25 @@
+@import '../styles/_colors.scss';
+
+.SimpleLayout {
+    min-height: calc(80vh);
+    height: 100%;
+    overflow: hidden;
+
+    .SimpleLayout-background {
+        object-fit: cover;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width:100%;
+        height:calc(100vh - 3rem);
+    }
+
+}
+
+.SimpleLayout-contents{
+    padding:1rem;
+    border-radius: 1rem;
+    z-index: 10;
+    background-color: $bright-white;
+    max-width: 80%;
+}

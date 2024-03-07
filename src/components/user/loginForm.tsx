@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import './loginForm.scss';
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@mui/material/Link";
-import { boolean } from "yup";
 
 const DEFAULT_FORM_DATA: UserLoginData = {
     username: "",
@@ -42,7 +41,7 @@ const LoginForm = React.forwardRef((
     }
 
     return (
-        <Card className="LoginForm" ref={ref} tabIndex={-1}>
+        // <Card className="LoginForm" ref={ref} tabIndex={-1}>
             <Stack spacing={2} component="form">
                 <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
                     <TextField
@@ -74,7 +73,7 @@ const LoginForm = React.forwardRef((
                     </Link>
                 }
             </Stack>
-        </Card>
+        // </Card>
     );
 });
 

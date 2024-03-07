@@ -46,7 +46,7 @@ function UserRegistrationForm({ register }: props) {
 
                         <FastField
                             component={FormikMuiTextField}
-                            variant="filled"
+                            variant="outlined"
                             size="small"
                             id={`username`}
                             label="username"
@@ -54,7 +54,7 @@ function UserRegistrationForm({ register }: props) {
                         />
                         <FastField
                             component={FormikMuiTextField}
-                            variant="filled"
+                            variant="outlined"
                             size="small"
                             type="password"
                             id={`password`}
@@ -63,7 +63,7 @@ function UserRegistrationForm({ register }: props) {
                         />
                         <FastField
                             component={FormikMuiTextField}
-                            variant="filled"
+                            variant="outlined"
                             size="small"
                             type="password"
                             id={`confirmPassword`}
@@ -72,7 +72,7 @@ function UserRegistrationForm({ register }: props) {
                         />
                         <FastField
                             component={FormikMuiTextField}
-                            variant="filled"
+                            variant="outlined"
                             size="small"
                             id={`email`}
                             label="email"

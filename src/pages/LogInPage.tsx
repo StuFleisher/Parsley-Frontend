@@ -1,8 +1,7 @@
 import LoginForm from "../components/user/loginForm";
+import SimpleLayout from "../helpers/SimpleLayout";
 
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Container from "@mui/material/Container";
 
 import "./LogInPage.scss";
 
@@ -12,25 +11,10 @@ type props = {
 
 function LogInPage({ login }: props) {
     return (
-        <Container className=" Page-container" maxWidth="xl">
-            <Stack
-                className="LogInPage"
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-            >
-                <Box className="LoginPage-form">
-                    <LoginForm login={login} />
-                </Box>
-                <Box
-                    className="LogInPage"
-                    component="img"
-                    src="/images/banner01.jpg">
-                </Box>
+        <SimpleLayout src="/images/banner01.jpg">
+                <LoginForm login={login} />
+        </SimpleLayout>
 
-            </Stack>
-
-        </Container >
     );
 }
 

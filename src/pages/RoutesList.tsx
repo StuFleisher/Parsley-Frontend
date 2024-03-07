@@ -7,7 +7,7 @@ import AddRecipePage from './AddRecipePage';
 import UserDetailPage from './UserDetailPage';
 import LogOutPage from "./LogOutPage";
 import CookbookPage from "./CookbookPage";
-import NotFound from "./NotFound";
+import NotFound from "./404";
 import {useContext} from "react";
 import userContext from "../helpers/userContext";
 import RegistrationPage from "./RegistrationPage";
@@ -31,7 +31,7 @@ function RoutesList({login, register, logout}:props) {
             <Route path='/' element={
                 <Homepage
                     register={register}
-                    login={login}/>
+                />
                 }
             />
             <Route path='/recipes' element={<RecipeListPage />} />

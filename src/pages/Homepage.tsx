@@ -9,11 +9,10 @@ import './Hompage.scss';
 import UserRegistrationForm from "../components/user/UserRegistrationForm";
 
 type props = {
-    login: Function,
     register: (userInfo: IUser) => Promise<void>,
 };
 
-function Homepage({ login, register }: props) {
+function Homepage({ register }: props) {
 
     return (
         <div className="Homepage">

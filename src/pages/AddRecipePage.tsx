@@ -8,6 +8,8 @@ import { RecipeFormProvider } from "../helpers/RecipeFormContext";
 import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
 import RecipeBanner from "../components/recipeForm/RecipeBanner";
 import Container from "@mui/material/Container";
+import SimpleLayout from "../helpers/SimpleLayout";
+
 
 type Props = {
     initialRecipe?: RecipeForCreate;
@@ -110,10 +112,10 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
 
 
     return (
-        <Container>
+        <SimpleLayout src="/images/banner01.jpg">
             {error ? "Sorry! Our chefs weren't able to prepare that recipe for you." : ""}
             {pageContent}
-        </Container>
+        </SimpleLayout>
     );
 
 
