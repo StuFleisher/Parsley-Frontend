@@ -8,11 +8,11 @@
 
     padding:0 1rem 0 1rem;
 
-    background-color: $primary;
+    background-color: $bright-white;
     height: 50px;
     width:100%;
 
-    color:$almond-light;
+    color:$charcoal;
 }
 
 .NavBar-home {
@@ -20,27 +20,28 @@
         font-weight: 700;
         font-size:large;
         text-decoration: none;
-        color:$muted;
+        color:$charcoal;
         display: flex;
         align-items: center;
+
+        svg {
+            margin-right: .5rem;
+            transform: translateY(-.15rem);
+            color: $charcoal;
+        }
     }
 
-    svg {
-        margin-right: .5rem;
-        transform: translateY(-.15rem);
-        color: $bright-white;
-    }
 }
 
 .NavBar-search {
 
-    background-color: $bright-white;
+    background-color: $muted-light;
 
     height:60%;
     border-radius: 1rem;
     box-shadow: none;
 
-    border:none;
+    border:solid 1px charcoal;
 
     .MuiFormControl-root{
         height:100%;
@@ -59,7 +60,7 @@
     }
 
     & svg {
-        color:$muted;
+        color:$charcoal;
     }
 
     &  * {
@@ -78,18 +79,22 @@
 
 .NavBar-links {
     font-size: larger;
-    color: $bright-white;
+    color: $charcoal;
 
     & button {
         display: flex;
         align-items: center;
         font-size: 1rem;
-
+        color:$charcoal;
         font-weight: 400;
         list-style-type: none ;
 
+        span {
+            text-decoration: none;
+        }
+
         & svg {
-            color:$almond-light;
+            color:$charcoal;
         }
     }
 }

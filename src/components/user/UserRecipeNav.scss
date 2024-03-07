@@ -1,0 +1,19 @@
+@import '../../styles/_colors.scss';
+
+
+.UserRecipesNav-button {
+    width: 100%;
+    margin: auto;
+    color: $bright-white;
+    border: $bright-white solid 1px;
+    border-radius: 0;
+
+}
+
+
+
+.selected {
+    background-color: $bright-white;
+    border: none;
+    color:$primary;
+}

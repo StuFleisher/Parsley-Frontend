@@ -17,6 +17,7 @@ section {
     p, h1 {
         width:80%;
         position:relative;
+        color:$charcoal
     }
 
     @media (min-width:600px){
@@ -128,6 +129,11 @@ section {
 
 .Register-headlinePanel {
     background-color: $primary;
+
+    p, h1 {
+        color:$bright-white;
+    }
+
     @media (min-width:600px){
         width:100%;
     }

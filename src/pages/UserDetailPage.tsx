@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
+import UserRecipeNav from "../components/user/UserRecipeNav";
 
 import ParsleyAPI from "../helpers/api"
 import RecipeList from "../components/recipeDisplay/RecipeList";
@@ -23,7 +24,6 @@ function UserDetailPage(){
                 try {
                     const userDetails = await ParsleyAPI.getUser(username);
                     setUser(userDetails);
-                    // setIsLoading(false);
                 } catch {
                     console.warn(`Couldn't find username:${username}`)
                     navigate('/users')
@@ -34,12 +34,14 @@ function UserDetailPage(){
     }, [username, navigate])
 
     return (
+        <>
+        {username && <UserRecipeNav username={username} selected="recipes"/>}
         <Container className="Page-container" maxWidth="xl">
 
         {user !== "loading"
         ?
             <>
-            <Card className="UserDetail-header">
+            {/* <Card className="UserDetail-header">
                 <Typography variant="h2" color="primary">
                     {user.username}
                 </Typography>
@@ -51,13 +53,14 @@ function UserDetailPage(){
                 <Typography variant="subtitle2">
                     Recipes: {user.recipes.length}
                 </Typography>
-            </Card>
+            </Card> */}
             <RecipeList recipes={user.recipes}/>
             </>
         :
             <Typography>Loading</Typography>
         }
         </Container>
+        </>
 
     )
 }

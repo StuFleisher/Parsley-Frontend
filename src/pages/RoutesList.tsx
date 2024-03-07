@@ -49,6 +49,7 @@ function RoutesList({login, register, logout}:props) {
                 <Route path='/recipes/:id/edit' element={<EditRecipePage />} />
                 <Route path='/users/:username' element={<UserDetailPage/> }/>
                 <Route path='/users/:username/cookbook' element={<CookbookPage/> }/>
+                <Route path='/users/:username/recipes' element={<UserDetailPage/> }/>
                 <Route path='/auth/logOut' element={<LogOutPage logOut={logout}/>}/>
                 </>
             }

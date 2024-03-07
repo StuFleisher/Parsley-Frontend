@@ -1,6 +1,6 @@
 import "./NavBar.scss";
 
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import userContext from "../../helpers/userContext";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -31,79 +31,90 @@ const PARSLEY_ICON = (
 );
 
 type props = {
-    login:(credentials:UserLoginData)=>Promise<void>
-}
+    login: (credentials: UserLoginData) => Promise<void>;
+};
 
-function NavBar({login}:props) {
+function NavBar({ login }: props) {
 
-    const {username} = useContext(userContext);
-    const [anchorEl, setAnchorEl] = useState<null|HTMLElement>(null);
+    const { username } = useContext(userContext);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     let isOpen = Boolean(anchorEl);
 
     const [showLoginModal, setShowLoginModal] = useState(false);
 
 
     //Dropdown Menu functions
-    function handleClickMenu(event: React.MouseEvent<HTMLElement>){
-        setAnchorEl(event.currentTarget)
+    function handleClickMenu(event: React.MouseEvent<HTMLElement>) {
+        setAnchorEl(event.currentTarget);
     }
-    function handleCloseMenu(){
+    function handleCloseMenu() {
         setAnchorEl(null);
     }
 
     //Login modal
-    function closeModal(){
+    function closeModal() {
         setShowLoginModal(false);
     }
 
 
     const anonLinkSection = (
-    <>
-        <Stack direction="row" spacing={0} className="NavBar-links">
-            <Button
-                color={'brightWhite'}
-                onClick={()=>{setShowLoginModal(true)}}
+        <>
+            <Stack direction="row" spacing={0} className="NavBar-links">
+                <Link
+                    underline="hover"
                 >
-                Log In
-            </Button>
-            <Link component={RouterLink} to="/register">
-                <Button color={'brightWhite'}>
-                    Sign Up
-                </Button>
-            </Link>
-        </Stack>
-    </>);
+                    <Button
+                        color={'brightWhite'}
+                        onClick={() => { setShowLoginModal(true); }}
+                    >
+                        Log In
+                    </Button>
+                </Link>
+                <Link
+                    component={RouterLink} to="/register"
+                    underline="hover"
+                >
+                    <Button color={'brightWhite'}>
+                        Sign Up
+                    </Button>
+                </Link>
+            </Stack>
+        </>);
 
     const userLinkSection = (
         <>
             <Stack direction="row" spacing={2} className="NavBar-links">
-                <Link component={RouterLink} to="/recipes/create">
+                <Link
+                    component={RouterLink} to="/recipes/create"
+                    underline="hover"
+                >
                     <Button
-                        color={'brightWhite'}
                         startIcon={<FontAwesomeIcon icon={faPlusCircle} />}
-                        >
+                    >
                         create
                     </Button>
                 </Link>
-                <Link component={RouterLink} to="/recipes">
+                <Link
+                    component={RouterLink} to="/recipes"
+                    underline="hover"
+                >
                     <Button
-                        color={'brightWhite'}
                         startIcon={<FontAwesomeIcon icon={faUtensils} />}
-                        >
+                    >
                         recipes
                     </Button>
                 </Link>
 
                 <IconButton
-                    color={'brightWhite'}
                     onClick={handleClickMenu}
-                    >
+                >
                     <FontAwesomeIcon icon={faUser} />
                 </IconButton>
             </Stack>
             <Menu
                 className="NavBar-dropdown"
                 open={isOpen}
+                elevation={1}
                 anchorEl={anchorEl}
                 onClose={handleCloseMenu}
             >
@@ -123,14 +134,7 @@ function NavBar({login}:props) {
                         </MenuItem>
                     </Link>
 
-                    <Link component={RouterLink} to={`/users/${username}`}>
-                        <MenuItem>
-                            <Typography>
-                                Profile
-                            </Typography>
-                        </MenuItem>
-                    </Link>
-                    <Divider/>
+                    <Divider />
                     <Link component={RouterLink} to={`auth/logout`}>
                         <MenuItem>
                             <Typography>
@@ -145,42 +149,42 @@ function NavBar({login}:props) {
 
     return (
         <>
-        <Modal
-            open={showLoginModal}
-            onClose={closeModal}
-            className="loginModal"
-        >
+            <Modal
+                open={showLoginModal}
+                onClose={closeModal}
+                className="loginModal"
+            >
                 {<LoginForm login={login} hideRegistrationLink></LoginForm>}
-        </Modal>
+            </Modal>
 
-        <AppBar position="static" elevation={0}>
-            <Stack className="NavBar">
-                <Stack direction="row" className="NavBar-home">
-                    <Link component={RouterLink} to="/">
-                        {PARSLEY_ICON} <span>Parsley</span>
-                    </Link>
+            <AppBar position="static" elevation={0}>
+                <Stack className="NavBar">
+                    <Stack direction="row" className="NavBar-home">
+                        <Link component={RouterLink} to="/">
+                            {PARSLEY_ICON} <span>Parsley</span>
+                        </Link>
+                    </Stack>
+
+                    <Box
+                        sx={{
+                            display: { xs: "none", sm: "flex" },
+                            height: "100%",
+                            alignItems: "center",
+                        }}
+                    >
+                        <SearchBar />
+                    </Box>
+
+                    {username
+                        ?
+                        userLinkSection
+                        :
+                        anonLinkSection
+                    }
+
+
                 </Stack>
-
-                <Box
-                    sx={{
-                        display: { xs: "none", sm:"flex" },
-                        height:"100%",
-                        alignItems:"center",
-                    }}
-                >
-                    <SearchBar/>
-                </Box>
-
-                {username
-                ?
-                    userLinkSection
-                :
-                    anonLinkSection
-                }
-
-
-            </Stack>
-        </AppBar>
+            </AppBar>
         </>
     );
 
