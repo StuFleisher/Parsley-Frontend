@@ -1,20 +1,23 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { RecipeFormProvider } from "../helpers/RecipeFormContext";
 import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
 import ParsleyAPI from "../helpers/api";
-import { Container, CircularProgress, Box, Stack } from "@mui/material";
+import { Container } from "@mui/material";
 import RecipeBanner from "../components/recipeForm/RecipeBanner";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
+import userContext from "../helpers/userContext";
 
 function EditRecipePage() {
 
     const { id } = useParams();
     const [recipe, setRecipe] = useState<Recipe | null>(null);
     const [image, setImage] = useState<Blob | undefined>();
-
+    const user = useContext(userContext);
     const navigate = useNavigate();
+
+    if (recipe && (user.username !== recipe?.owner)) { navigate(`/recipes/${id}`); }
 
     /** Fetches the full recipe record on mount */
     useEffect(function fetchRecipeOnMount() {
@@ -45,6 +48,13 @@ function EditRecipePage() {
         }
     }
 
+    /** Callback to delete a recipe and update the record */
+    async function deleteRecipe(): Promise<void> {
+        console.log("deleteRecipe");
+        await ParsleyAPI.DeleteRecipe(recipe!.recipeId);
+        navigate(`/recipes/`);
+    }
+
     /** Callback to update the image state for submission along with the recipeForm */
     const updateRecipeImage = useCallback((file: Blob) => {
         setImage(file);
@@ -54,7 +64,7 @@ function EditRecipePage() {
         <Container className="Page-container" maxWidth="xl">
             {!recipe
                 ?
-                <LoadingSpinner/>
+                <LoadingSpinner />
                 :
                 <>
                     <RecipeBanner
@@ -65,7 +75,7 @@ function EditRecipePage() {
                     />
 
                     <RecipeFormProvider recipe={recipe} onSubmitCallback={updateRecipe}>
-                        <RecipeFormDisplay />
+                        <RecipeFormDisplay deleteRecipe={deleteRecipe} />
                     </RecipeFormProvider>
                 </>}
         </Container>

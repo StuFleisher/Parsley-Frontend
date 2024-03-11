@@ -8,13 +8,16 @@ import "./RecipeFormDisplay.scss";
 
 import { useFormikContext, Form } from "formik";
 
+type props = {
+    deleteRecipe:()=>Promise<void>
+}
 
-function RecipeFormDisplay() {
+function RecipeFormDisplay({deleteRecipe}:props) {
 
     const { values, isValid, errors } = useFormikContext<Recipe | RecipeForCreate>();
 
     //A flat array of each step with any errors in its fields
-    const stepsWithErrors:(IStep | StepForCreate)[] = function ()  {
+    const stepsWithErrors: (IStep | StepForCreate)[] = function () {
         if (!errors.steps || errors.steps.length === 0) {
             return [];
         } else {
@@ -44,6 +47,15 @@ function RecipeFormDisplay() {
                 <Form>
                     <RecipeInfoInput />
                     <StepsInputs steps={(values as Recipe).steps} errors={errors.steps} />
+                    <Button
+                        color="primary"
+                        onClick={async (e) => {
+                            e.preventDefault();
+                            deleteRecipe();
+                        }}
+                    >
+                        Delete Recipe
+                    </Button>
                     <Box className="Recipe-submitButton">
                         <Stack direction="row" alignContent="center" spacing={2}>
                             <Slide direction="up" in={!isValid}>

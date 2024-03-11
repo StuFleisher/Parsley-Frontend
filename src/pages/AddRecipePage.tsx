@@ -122,7 +122,7 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
                     editable
                 />
                 <RecipeFormProvider<RecipeForCreate> recipe={recipe} onSubmitCallback={saveRecipe}>
-                    <RecipeFormDisplay />
+                    <RecipeFormDisplay deleteRecipe={async ()=>{navigate('/recipes')}}/>
                 </RecipeFormProvider>
             </>
         );
