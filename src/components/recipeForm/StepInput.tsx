@@ -14,13 +14,8 @@ import parsleyTheme from "../../styles/theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 type props = {
-    // step:IStep,
     index:number,
     step:IStep|StepForCreate
-    // updateInstruction:Function,
-    // updateIngredients:Function,
-    // deleteIngredient:Function,
-    // createIngredient:Function,
 }
 
 /** Renders components for updating a step
@@ -35,9 +30,6 @@ const StepInput = React.memo(function StepInput({
     index,
     step,
 }:props){
-
-    // const {values, handleChange, handleBlur, errors, touched} = useFormikContext<IRecipe|RecipeForCreate>();
-    // const step = values.steps[index];
 
     return (
         <>

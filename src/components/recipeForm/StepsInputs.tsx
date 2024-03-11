@@ -12,22 +12,22 @@ import Stack from "@mui/material/Stack";
 
 
 type props = {
-    steps:(IStep|StepForCreate)[];
-    errors:string | string[] | FormikErrors<IStep>[] | undefined;
-}
+    steps: (IStep | StepForCreate)[];
+    errors: string | string[] | FormikErrors<IStep>[] | undefined;
+};
 
 /** Renders StepInput components for every Step passed to props
  *  Handles creation and deletion of steps
  */
 
 const StepsInputs = React.memo(
-    function StepsInputs({steps, errors}:props) {
+    function StepsInputs({ steps, errors }: props) {
 
         /** Callback to handle creation of a new step */
 
-        const createEmptyStep = useCallback((index:number, arrayHelpers:FieldArrayRenderProps)=>{
+        const createEmptyStep = useCallback((index: number, arrayHelpers: FieldArrayRenderProps) => {
             const emptyStep = {
-                stepNumber: index+1,
+                stepNumber: index + 1,
                 instructions: "",
                 ingredients: []
             };
@@ -36,38 +36,39 @@ const StepsInputs = React.memo(
                 ...steps.slice(0, index),
                 emptyStep,
                 ...steps.slice(index)
-              ].map((step, i) => ({ ...step, stepNumber: i + 1 }));
+            ].map((step, i) => ({ ...step, stepNumber: i + 1 }));
 
-            arrayHelpers.form.setFieldValue('steps',updatedSteps)
-        },[steps])
+            arrayHelpers.form.setFieldValue('steps', updatedSteps);
+        }, [steps]);
 
 
         /** Callback to handle deletion of a step */
 
-        const deleteStep = useCallback((index: number, arrayHelpers:FieldArrayRenderProps)=>{
+        const deleteStep = useCallback((index: number, arrayHelpers: FieldArrayRenderProps) => {
 
             const updatedSteps = [
-            ...steps.slice(0, index),
-            ...steps.slice(index + 1)
+                ...steps.slice(0, index),
+                ...steps.slice(index + 1)
             ].map((step, i) => ({ ...step, stepNumber: i + 1 }));
 
-            arrayHelpers.form.setFieldValue('steps',updatedSteps)
-          },[steps])
+            arrayHelpers.form.setFieldValue('steps', updatedSteps);
+        }, [steps]);
 
 
 
         /** Renders a single StepInput and its controls */
 
-        const renderStep= useCallback((step: IStep, index: number, arrayHelpers: FieldArrayRenderProps)=> {
+        const renderStep = useCallback((step: IStep, index: number, arrayHelpers: FieldArrayRenderProps) => {
             return (
                 <React.Fragment key={step.stepNumber}>
                     <Box
                         className={
-                            errors && errors[index] && Object.keys(errors[index]).length!==0
-                            ? "StepInput-error"
-                            : "StepInput"
+                            errors && errors[index] && Object.keys(errors[index]).length !== 0
+                                ? "StepInput-error"
+                                : "StepInput"
                         }
                     >
+
                         <StepInput
                             index={index}
                             step={step}
@@ -77,7 +78,7 @@ const StepsInputs = React.memo(
                             component="button"
                             data-index={index}
                             type="button"
-                            onClick={()=>deleteStep(index, arrayHelpers)}
+                            onClick={() => deleteStep(index, arrayHelpers)}
                         >
                             <FontAwesomeIcon icon={faCircleXmark} />
                         </Box>
@@ -85,7 +86,7 @@ const StepsInputs = React.memo(
                     <Stack direction="row">
                         <Button
                             className="Step-create"
-                            onClick={()=>createEmptyStep(index + 1, arrayHelpers)}
+                            onClick={() => createEmptyStep(index + 1, arrayHelpers)}
                             data-index={index}
                             variant="outlined"
                             type="button"
@@ -96,22 +97,32 @@ const StepsInputs = React.memo(
                     </Stack>
                 </React.Fragment>
             );
-        },[createEmptyStep,deleteStep,errors])
+        }, [createEmptyStep, deleteStep, errors]);
 
         return (
             <Box className="StepList">
                 <FieldArray
                     name="steps"
                     render={(arrayHelpers) => (
-                        steps.map((step, i) => {
-                            return (
+                        <>
+                            <Button
+                                className="Step-create"
+                                onClick={() => createEmptyStep(0, arrayHelpers)}
+                                data-index={0}
+                                variant="outlined"
+                                type="button"
+                                startIcon={<FontAwesomeIcon icon={faPlusCircle} />}
+                            >
+                                New Step
+                            </Button>
+                            {steps.map((step, i) => (
                                 renderStep(step, i, arrayHelpers)
-                            );
-                        })
+                            ))}
+                        </>
                     )}
                 />
             </Box>
-        );
+        )
     });
 
 export default StepsInputs
