@@ -19,7 +19,7 @@ function SearchBar() {
         setQuery(()=>newQuery)
     }
 
-    function handleSubmit(e:React.FormEvent<HTMLFormElement>){
+    function handleSubmit(e:React.FormEvent<HTMLFormElement|SVGSVGElement>){
         e.preventDefault();
         navigate(`/recipes?q=${query}`)
     }
@@ -38,7 +38,10 @@ function SearchBar() {
             onChange={(e)=>handleChange(e)}
             InputProps={{
                 endAdornment: (
-                    <FontAwesomeIcon icon={faSearch} />
+                    <FontAwesomeIcon
+                        icon={faSearch}
+                        cursor="pointer"
+                        onClick={(e:React.FormEvent<SVGSVGElement>)=>handleSubmit(e)}/>
                     ),
                 }}
         />

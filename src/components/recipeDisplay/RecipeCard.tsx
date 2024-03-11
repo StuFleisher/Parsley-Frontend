@@ -13,7 +13,7 @@ function RecipeCard({recipe}:Props) {
 
   return (
     <>
-    <Box component="img" src={recipe.imageUrl} className="RecipeBanner"/>
+    <Box component="img" src={recipe.imageLg} className="RecipeBanner"/>
     <Box className="RecipeCard">
       <Card className="RecipeCard-RecipeInfo">
         <RecipeInfo recipe={recipe} showActions={true}/>

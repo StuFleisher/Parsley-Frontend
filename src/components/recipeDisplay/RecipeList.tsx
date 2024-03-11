@@ -8,6 +8,7 @@ import PaginationItem from "@mui/material/PaginationItem";
 import SimpleRecipeCard from "./SimpleRecipeCard";
 import userContext from "../../helpers/userContext";
 import { CookbookProvider } from "../../helpers/cookbookContext";
+import SimpleLayout from "../ui/SimpleLayout";
 
 type props = {
     recipes: SimpleRecipeData[];
@@ -18,6 +19,7 @@ function RecipeList({ recipes, pageLength = 10 }: props) {
 
     const location = useLocation();
     const query = new URLSearchParams(location.search);
+    const q = query.get('q');
     const page = parseInt(query.get('page') || '1', 10);
     const pageStart = (page - 1) * pageLength;
     const pageEnd = (page) * pageLength;
@@ -30,31 +32,32 @@ function RecipeList({ recipes, pageLength = 10 }: props) {
         page={page}
         sx={{
             '& > .MuiPagination-ul': {
-              justifyContent: 'center',
+                justifyContent: 'center',
             },
-          }}
+        }}
         renderItem={(item) => (
-                <PaginationItem
-                    className="RecipeList-pagelink"
-                    component={Link}
-                    to={`${location.pathname}${item.page === 1 ? '' : `?page=${item.page}`}`}
-                    {...item}
-                />
+            <PaginationItem
+                className="RecipeList-pagelink"
+                component={Link}
+                to={`${location.pathname}${`?page=${item.page}`}${q ? `&q=${q}` : ""}`}
+                {...item}
+            />
         )}
     />);
 
     if (recipes.length === 0) {
         return (
-            <Box>
-                <Typography variant="h2" color="secondary">
-                    Sorry, We couldn't find any relevant recipes.
+            <SimpleLayout src="/images/banner01.jpg">
+                <Typography variant="h3" color="primary" align="center">
+                    Sorry, We couldn't find any recipes that matched your search.
                 </Typography>
-            </Box>
+            </SimpleLayout>
+
         );
     }
 
     return (
-        <CookbookProvider username={username!}>
+        <CookbookProvider cookbookOwner={username!}>
             <Box justifyContent="center">
 
                 {pagination}

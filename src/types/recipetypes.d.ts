@@ -11,18 +11,24 @@ type Recipe = IRecipe & { //full recipe record from database
   recipeId:number;
   sourceUrl?: string|undefined;
   sourceName: string;
-  imageUrl?: string;
+  imageSm?: string;
+  imageMd?: string;
+  imageLg?: string;
   steps:IStep[] | StepForCreate;
 }
 
 type RecipeForCreate = IRecipe & {
   sourceUrl?: string|undefined;
-  imageUrl?: string;
+  imageSm?: string;
+  imageMd?: string;
+  imageLg?: string;
   steps:IStep[] | StepForCreate;
 }
 
 type GeneratedRecipe = {
   name: string;
+  description:string;
+  sourceName:string;
   steps: IStep[];
 }
 
@@ -35,7 +41,9 @@ type SimpleRecipeData = {
   description: string;
   sourceUrl: string|undefined;
   sourceName: string;
-  imageUrl:string;
+  imageSm:string;
+  imageMd:string;
+  imageLg:string;
 }
 
 interface IIngredient {

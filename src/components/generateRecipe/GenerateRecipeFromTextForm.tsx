@@ -37,12 +37,14 @@ function GenerateRecipeFromTextForm ({onSubmit}:Props){
             <Typography variant="h2" color="$primary" className="RecipeFromText-title">
                 Create a new recipe
             </Typography>
+
             <TextField
                 name='recipeText'
                 multiline
                 minRows={10}
                 onChange={evt=>handleChange(evt)}
-                label="Copy/Paste your recipe here"
+                placeholder={`Copy/Paste your raw recipe text here.  No need to tidy it up - we'll take care of that for you.
+                `}
             />
             <Button
                 type="submit"

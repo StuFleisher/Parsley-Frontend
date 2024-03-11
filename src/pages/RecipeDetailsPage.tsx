@@ -7,6 +7,9 @@ import userContext from "../helpers/userContext";
 import { CookbookProvider } from "../helpers/cookbookContext";
 
 import Container from "@mui/material/Container";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 // import testRecipe from "../tempData";
 
 
@@ -41,11 +44,12 @@ function RecipeDetailsPage() {
 
     return (
 
-        <CookbookProvider username={username!}>
+        <CookbookProvider cookbookOwner={username!}>
             <Container className="Page-container" maxWidth="xl">
+
                 {!recipe
                     ?
-                    <p>Loading...</p>
+                    <LoadingSpinner />
                     :
                     <>
                         <RecipeCard recipe={recipe} />

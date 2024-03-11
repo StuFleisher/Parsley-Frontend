@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import ParsleyAPI from "./api";
+import { emptyRecipeList } from "./recipeFactory";
+import userContext from "./userContext";
 
 type CookbookContextObject = {
   cookbook: SimpleRecipeData[];
@@ -19,31 +21,30 @@ function useCookbook():CookbookContextObject {
   return context;
 };
 
-
 type props = {
   children: any,
-  username: string,
+  cookbookOwner: string,
 }
 
 /** Wrapper for cookbook context.  Provides access to functions for reading and updating
  * a user's cookbook.
  */
-function CookbookProvider({ username, children }: props) {
+function CookbookProvider({ cookbookOwner, children }: props) {
 
-  // const { username } = useContext(userContext);
-  const [cookbook, setCookbook] = useState<SimpleRecipeData[]>([]);
+  const [cookbook, setCookbook] = useState<SimpleRecipeData[]>(emptyRecipeList);
+  const loggedInUser = useContext(userContext);
 
   useEffect(function fetchCookbookOnMount() {
     async function fetchCookbook() {
-      if (username) {
-        setCookbook(await ParsleyAPI.getCookbook(username));
+      if (cookbookOwner) {
+        setCookbook(await ParsleyAPI.getCookbook(cookbookOwner));
       }
     }
 
     fetchCookbook();
-  }, [username, setCookbook]);
+  }, [cookbookOwner, setCookbook]);
 
-  async function toggleInCookbook(recipe: SimpleRecipeData | Recipe) {
+  async function toggleInCookbook(recipe: SimpleRecipeData | Recipe):Promise<void> {
     const simpleRecipe: SimpleRecipeData = {
       recipeId: recipe.recipeId,
       name: recipe.name,
@@ -51,12 +52,14 @@ function CookbookProvider({ username, children }: props) {
       description: recipe.description,
       sourceUrl: recipe.sourceUrl ? recipe.sourceUrl : "",
       sourceName: recipe.sourceName,
-      imageUrl: recipe.imageUrl ? recipe.imageUrl : "",
+      imageSm: recipe.imageSm ? recipe.imageSm : "",
+      imageMd: recipe.imageMd ? recipe.imageMd : "",
+      imageLg: recipe.imageLg ? recipe.imageLg : "",
     };
     if (isInCookbook(simpleRecipe)) {
       await removeFromCookbook(simpleRecipe);
     } else {
-      await addToCookbook(simpleRecipe);
+    await addToCookbook(simpleRecipe);
     }
   }
 
@@ -73,16 +76,16 @@ function CookbookProvider({ username, children }: props) {
    * recipe to a cookbook */
   async function addToCookbook(recipe: SimpleRecipeData) {
 
-    if (!username) throw new Error("Login required");
-    await ParsleyAPI.addToCookbook(recipe.recipeId, username);
+    if (!loggedInUser.username) throw new Error("Login required");
+    await ParsleyAPI.addToCookbook(recipe.recipeId, loggedInUser.username);
     setCookbook(() => [...cookbook, recipe]);
   }
 
   /** Handles adding api calls and state updates related to removing a
    * recipe from a cookbook */
   async function removeFromCookbook(recipe: SimpleRecipeData | Recipe) {
-    if (!username) throw new Error("Login required");
-    await ParsleyAPI.removeFromCookbook(recipe.recipeId, username);
+    if (!loggedInUser.username) throw new Error("Login required");
+    await ParsleyAPI.removeFromCookbook(recipe.recipeId, loggedInUser.username);
     setCookbook(() => cookbook.filter(
       (entry) => {
         return (recipe.recipeId !== entry.recipeId);

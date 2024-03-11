@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import IconButton from '@mui/material/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faBookBookmark } from '@fortawesome/free-solid-svg-icons';
+import CookbookButton from "../ui/CookbookButton";
 
 type props = {
     recipe: SimpleRecipeData | Recipe;
@@ -32,27 +33,11 @@ function SimpleRecipeCard({ recipe }: props) {
                     className="SimpleRecipeCard-image"
                     component="div"
                     sx={{
-                        backgroundImage: `url("${recipe.imageUrl}")`,
+                        backgroundImage: `url("${recipe.imageMd}")`,
                     }}
                 >
                     <Box className="IconBar">
-                        <IconButton
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                return toggleInCookbook(recipe);
-                            }}
-                            className="CookbookIcon"
-                        >
-                            <FontAwesomeIcon
-                                icon={isInCookbook(recipe) ? faBookBookmark : faBook}
-                                className={
-                                    isInCookbook(recipe)
-                                        ? "CookbookIcon-remove"
-                                        : "CookbookIcon-add"
-                                }
-                            />
-                        </IconButton>
+                        <CookbookButton recipe={recipe}/>
                     </Box>
                 </Box>
             </Link>

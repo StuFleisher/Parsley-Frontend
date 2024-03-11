@@ -1,3 +1,5 @@
+import Lottie from "lottie-react";
+import loadingAnimation from "../animations/loading_animation.json";
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import ParsleyAPI from "../helpers/api";
@@ -7,9 +9,10 @@ import userContext from "../helpers/userContext";
 import { RecipeFormProvider } from "../helpers/RecipeFormContext";
 import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
 import RecipeBanner from "../components/recipeForm/RecipeBanner";
-import Container from "@mui/material/Container";
-import SimpleLayout from "../helpers/SimpleLayout";
-
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import SimpleLayout from "../components/ui/SimpleLayout";
+import "./AddRecipePage.scss";
 
 type Props = {
     initialRecipe?: RecipeForCreate;
@@ -27,6 +30,8 @@ const emptyRecipe: RecipeForCreate = {
     }
     ],
 };
+
+const DEFAULT_IMG_BASE_URL = "https://sf-parsley.s3.amazonaws.com/recipeImage/default";
 
 function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
 
@@ -54,9 +59,10 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
             let recipeForCreate = {
                 ...generatedRecipe,
                 owner: username!,
-                description: "",
-                sourceName: "",
                 sourceUrl: "",
+                imageLg: `${DEFAULT_IMG_BASE_URL}-lg`,
+                imageMd: `${DEFAULT_IMG_BASE_URL}-md`,
+                imageSm: `${DEFAULT_IMG_BASE_URL}-sm`,
             };
 
             setRecipe(recipeForCreate);
@@ -86,8 +92,24 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
     /******************* Conditional rendering *****************************/
     let pageContent;
 
+
+    if (mode === "input") {
+        pageContent = (
+            <SimpleLayout src="/images/banner01.jpg">
+                <GenerateRecipeFromTextForm onSubmit={generateRecipe} />;
+            </SimpleLayout>
+        );
+    }
+
     if (mode === "generate") {
-        pageContent = <p>Generating your recipe. This may take a moment.</p>;
+        pageContent = (
+            <SimpleLayout src="/images/banner01.jpg">
+                <Box className="LoadingAnimation">
+                    <Typography variant="h1" color="primary" align="center"> Let him cook! </Typography>
+                    <Lottie loop animationData={loadingAnimation} />
+                    <Typography variant="body1" color="charcoal" align="center">Our AI chef is preparing your recipe. This may take a minute or two.</Typography>
+                </Box>
+            </SimpleLayout>);
     }
 
     if (mode === "display") {
@@ -96,7 +118,7 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
                 <RecipeBanner
                     image={image}
                     updateImage={updateRecipeImage}
-                    imageUrl={recipe.imageUrl}
+                    imageUrl={recipe.imageLg}
                     editable
                 />
                 <RecipeFormProvider<RecipeForCreate> recipe={recipe} onSubmitCallback={saveRecipe}>
@@ -106,16 +128,14 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
         );
     }
 
-    if (mode === "input") {
-        pageContent = <GenerateRecipeFromTextForm onSubmit={generateRecipe} />;
-    }
+
 
 
     return (
-        <SimpleLayout src="/images/banner01.jpg">
+        <>
             {error ? "Sorry! Our chefs weren't able to prepare that recipe for you." : ""}
             {pageContent}
-        </SimpleLayout>
+        </>
     );
 
 

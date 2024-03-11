@@ -1,2 +1,18 @@
-@import '../../styles/_recipe-mixins.scss';
+@import '../styles/_recipe-mixins.scss';
 
+.LoadingAnimation {
+    padding:2rem;
+    background-color: $muted-light;
+    max-height:80vh;
+
+    div{
+        padding:1rem;
+        margin:auto;
+
+        svg {
+            width:80%;
+            max-height: 50vh;
+        }
+
+    }
+}

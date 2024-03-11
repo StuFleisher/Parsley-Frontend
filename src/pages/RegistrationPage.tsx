@@ -1,5 +1,5 @@
-import UserRegistrationForm from "../components/user/UserRegistrationForm";
-import SimpleLayout from "../helpers/SimpleLayout";
+import UserRegistrationForm from "../components/userAuth/UserRegistrationForm";
+import SimpleLayout from "../components/ui/SimpleLayout";
 
 
 import "./RegistrationPage.scss";

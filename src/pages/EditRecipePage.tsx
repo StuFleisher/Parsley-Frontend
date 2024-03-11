@@ -4,8 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { RecipeFormProvider } from "../helpers/RecipeFormContext";
 import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
 import ParsleyAPI from "../helpers/api";
-import { Container } from "@mui/material";
+import { Container, CircularProgress, Box, Stack } from "@mui/material";
 import RecipeBanner from "../components/recipeForm/RecipeBanner";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 function EditRecipePage() {
 
@@ -53,13 +54,13 @@ function EditRecipePage() {
         <Container className="Page-container" maxWidth="xl">
             {!recipe
                 ?
-                <p> Loading...</p>
+                <LoadingSpinner/>
                 :
                 <>
                     <RecipeBanner
                         image={image}
                         updateImage={updateRecipeImage}
-                        imageUrl={recipe.imageUrl}
+                        imageUrl={recipe.imageLg}
                         editable
                     />
 

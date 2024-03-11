@@ -5,6 +5,18 @@
   background-color: $muted-light;
 }
 
+.App-loading {
+  background-color: $muted-light;
+  width:100%;
+  min-height: 100vh;
+  display:flex;
+  justify-content: center;
+
+  & * {
+    margin:auto;
+  }
+}
+
 .App-page {
   background-color: $muted-light;
   width:100%;

@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faBookBookmark } from '@fortawesome/free-solid-svg-icons';
 import './RecipeInfo.scss';
+import CookbookButton from '../ui/CookbookButton';
 
 type props = {
     recipe: Recipe | SimpleRecipeData;
@@ -63,24 +64,7 @@ function RecipeInfo({ recipe, showActions = false }: props) {
             }
 
             {showActions &&
-                <IconButton
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        return toggleInCookbook(recipe);
-                    }
-                    }
-                    className="CookbookIcon"
-                >
-                    <FontAwesomeIcon
-                        icon={isInCookbook(recipe) ? faBookBookmark : faBook}
-                        className={
-                            isInCookbook(recipe)
-                                ? "CookbookIcon-remove"
-                                : "CookbookIcon-add"
-                        }
-                    />
-                </IconButton>
+                <CookbookButton recipe={recipe}/>
             }
         </>
     );

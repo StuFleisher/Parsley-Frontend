@@ -12,7 +12,6 @@ import { faUtensils, faUser, faPlusCircle } from "@fortawesome/free-solid-svg-ic
 //MUI Components
 import { useTheme } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import ParsleyBox from "./ParsleyBox";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
@@ -25,7 +24,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
 import Modal from "@mui/material/Modal";
-import LoginForm from "../user/loginForm";
+import LoginForm from "../userAuth/loginForm";
 
 
 const PARSLEY_ICON = (
@@ -164,9 +163,9 @@ function NavBar({ login }: props) {
                 onClose={closeModal}
                 className="loginModal"
             >
-                {<ParsleyBox>
+                {<Box bgcolor="bright-white">
                     <LoginForm login={login} hideRegistrationLink></LoginForm>
-                </ParsleyBox>
+                </Box>
                 }
             </Modal>
 

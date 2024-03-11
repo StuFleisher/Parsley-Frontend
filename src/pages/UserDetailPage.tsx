@@ -1,68 +1,74 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import UserRecipeNav from "../components/user/UserRecipeNav";
+import UserRecipeNav from "../components/userAuth/UserRecipeNav";
 
-import ParsleyAPI from "../helpers/api"
-import RecipeList from "../components/recipeDisplay/RecipeList";
-import { useNavigate, useParams } from "react-router-dom"
-import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
+import ParsleyAPI from "../helpers/api";
+import { useNavigate, useParams } from "react-router-dom";
 import Container from "@mui/material/Container";
 
-import './UserDetailPage.scss'
+import { useLocation } from "react-router-dom";
+import { CookbookProvider } from "../helpers/cookbookContext";
+import CookbookRecipesList from "../components/userViews/CookbookRecipesList";
+import { UserRecipesProvider } from "../helpers/userRecipesContext";
 
-function UserDetailPage(){
+import './UserDetailPage.scss';
+import UserRecipesList from "../components/userViews/UserRecipesList";
+
+type props = {
+    initialView: "cookbook" | "recipes";
+};
+
+function UserDetailPage({ initialView }: props) {
 
     const { username } = useParams();
-    const [user,setUser]=useState<User | "loading">("loading")
-    // const [isLoading,setIsLoading]=useState(true)
-    const navigate = useNavigate();
+    const location = useLocation();
 
-    useEffect(function fetchUserOnMount(){
-        async function fetchUser(){
-            if (username!==undefined) {
-                try {
-                    const userDetails = await ParsleyAPI.getUser(username);
-                    setUser(userDetails);
-                } catch {
-                    console.warn(`Couldn't find username:${username}`)
-                    navigate('/users')
-                }
+    const navigate = useNavigate();
+    const [view, setView] = useState<"cookbook" | "recipes">(initialView);
+
+    useEffect(function switchViewsWithUrl() {
+        const viewToShow = (
+            location.pathname.includes('/cookbook')
+                ? "cookbook"
+                : "recipes"
+        );
+        setView(viewToShow)
+    },[location,setView]);
+
+    useEffect(function verifyUserOnMount() {
+        async function verifyUser() {
+            if (username !== undefined) {
+
+                    const isUser = await ParsleyAPI.verifyUser(username);
+                    if (!isUser){
+                        console.warn(`Couldn't find username:${username}`);
+                        navigate('/users');
+                    }
             }
         }
-        fetchUser();
-    }, [username, navigate])
+        verifyUser();
+    }, [username, navigate]);
 
     return (
         <>
-        {username && <UserRecipeNav username={username} selected="recipes"/>}
-        <Container className="Page-container" maxWidth="xl">
+            {username && <UserRecipeNav username={username} selected={view} />}
+            <Container className="Page-container" maxWidth="xl">
 
-        {user !== "loading"
-        ?
-            <>
-            {/* <Card className="UserDetail-header">
-                <Typography variant="h2" color="primary">
-                    {user.username}
-                </Typography>
-                <Typography variant="subtitle2">
-                    <Link to={`/users/${user.username}/cookbook`}>
-                        View Cookbook
-                    </Link>
-                </Typography>
-                <Typography variant="subtitle2">
-                    Recipes: {user.recipes.length}
-                </Typography>
-            </Card> */}
-            <RecipeList recipes={user.recipes}/>
-            </>
-        :
-            <Typography>Loading</Typography>
-        }
-        </Container>
+                <CookbookProvider cookbookOwner={username!}>
+                    <UserRecipesProvider owner={username!}>
+                        {view === "cookbook" &&
+                            <CookbookRecipesList />
+                        }
+                        {view === "recipes" &&
+                            <UserRecipesList />
+                        }
+                    </UserRecipesProvider >
+                </CookbookProvider>
+            </Container>
+
+
         </>
-
-    )
+    );
 }
 
-export default UserDetailPage
+export default UserDetailPage;

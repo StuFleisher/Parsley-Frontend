@@ -90,9 +90,16 @@ class ParsleyAPI {
 
   /** GET */
 
+  //get full user data
   static async getUser(username: string) {
     const response = await this.request(`users/${username}`);
     return response.user;
+  }
+
+  //verify that the user exists
+  static async verifyUser(username: string) {
+    const response = await this.request(`users/${username}/verify`);
+    return response.isUser;
   }
 
   /** UPDATE */
@@ -120,6 +127,13 @@ class ParsleyAPI {
   static async getRecipeById(id: Number): Promise<Recipe> {
     const response = await this.request(`recipes/${id}`);
     return response.recipe;
+  }
+
+  static async getUserRecipes(username:string){
+    const response = await this.request(
+      `users/${username}/recipes`
+    )
+    return response.recipes;
   }
 
   static async getAllRecipes(query:string | null): Promise<SimpleRecipeData[]> {

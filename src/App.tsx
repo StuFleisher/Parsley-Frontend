@@ -10,6 +10,7 @@ import NavBar from './components/ui/NavBar';
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { CircularProgress } from '@mui/material';
 
 import { ThemeProvider } from '@mui/material';
 import parsleyTheme from './styles/theme';
@@ -41,12 +42,12 @@ function App() {
           const userData = await ParsleyAPI.getUser(username);
           setUser(userData);
         }
-      } catch (e:any) {
-        setError(()=> `Error fetching user: ${e}`);
+      } catch (e: any) {
+        setError(() => `Error fetching user: ${e}`);
       }
     }
 
-      fetchUser();
+    fetchUser();
   }, [token]);
 
   /** Calls the api with login credentials and tries to log the user in
@@ -55,9 +56,9 @@ function App() {
    */
 
   async function login(credentials: UserLoginData) {
-      const token = await ParsleyAPI.userLogin(credentials);
-      localStorage.setItem("token", token);
-      setToken(token);
+    const token = await ParsleyAPI.userLogin(credentials);
+    localStorage.setItem("token", token);
+    setToken(token);
   }
 
   /** Logs the user out
@@ -76,7 +77,7 @@ function App() {
    * userInfo:{username, password, firstName, lastName, email}
    */
   async function register(userInfo: IUser) {
-    console.log("calling register")
+    console.log("calling register");
     const token = await ParsleyAPI.userSignup(userInfo);
     localStorage.setItem("token", token);
     setToken(token);
@@ -86,17 +87,17 @@ function App() {
   if (error) {
     return (
       <ThemeProvider theme={parsleyTheme}>
-      <Box className="App">
-        <BrowserRouter>
-          <NavBar login={login} />
-          <Box className="App-page">
-            <Box className="App-errors">
-              <Typography variant="h2">Sorry, we had trouble loading the page</Typography>
-              <Typography variant="body1" color="charcoal">{error}</Typography>
+        <Box className="App">
+          <BrowserRouter>
+            <NavBar login={login} />
+            <Box className="App-page">
+              <Box className="App-errors">
+                <Typography variant="h2">Sorry, we had trouble loading the page</Typography>
+                <Typography variant="body1" color="charcoal">{error}</Typography>
+              </Box>
             </Box>
-          </Box>
-        </BrowserRouter>
-      </Box>
+          </BrowserRouter>
+        </Box>
       </ThemeProvider>
     );
   }
@@ -107,8 +108,12 @@ function App() {
         {
           (token && !user.username)
             ?
-            <Box className="App-page">
-              <p>Loading</p>
+            <Box
+              className="App-loading"
+              width="100%"
+
+            >
+              <CircularProgress size="6rem" />
             </Box>
             :
             <userContext.Provider value={user}>

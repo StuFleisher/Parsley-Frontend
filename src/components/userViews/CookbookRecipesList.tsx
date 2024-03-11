@@ -1,11 +1,11 @@
 import { useCookbook } from "../../helpers/cookbookContext";
-import RecipeList from "./RecipeList";
+import RecipeList from "../recipeDisplay/RecipeList";
 
 type props={
     username:string;
 }
 
-function CookbookRecipes(){
+function CookbookRecipesList(){
     const {cookbook} = useCookbook()
 
     return (
@@ -13,4 +13,4 @@ function CookbookRecipes(){
     )
 }
 
-export default CookbookRecipes
+export default CookbookRecipesList

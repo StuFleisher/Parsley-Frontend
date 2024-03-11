@@ -1,5 +1,5 @@
-import LoginForm from "../components/user/loginForm";
-import SimpleLayout from "../helpers/SimpleLayout";
+import LoginForm from "../components/userAuth/loginForm";
+import SimpleLayout from "../components/ui/SimpleLayout";
 
 import Box from "@mui/material/Box";
 

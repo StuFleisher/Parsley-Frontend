@@ -1,12 +1,12 @@
 
 import Lottie from "lottie-react";
-import testAnimation from "../animations/recipeTransform.json";
+import explainerAnimation from "../animations/recipeTransform.json";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import './Hompage.scss';
-import UserRegistrationForm from "../components/user/UserRegistrationForm";
+import './Homepage.scss';
+import UserRegistrationForm from "../components/userAuth/UserRegistrationForm";
 
 type props = {
     register: (userInfo: IUser) => Promise<void>,
@@ -47,7 +47,7 @@ function Homepage({ register }: props) {
                         src="/images/hero-banner.jpg">
                     </Box>
                     <Box className="Homepage-animation">
-                        <Lottie loop animationData={testAnimation} />
+                        <Lottie loop animationData={explainerAnimation} />
                     </Box>
 
                 </Stack>
