@@ -19,7 +19,7 @@ function RecipeInfoInput() {
                 <FastField
                     component={FormikMuiTextField}
                     placeholder="Name your recipe"
-                    className="RecipeInfo-name MuiTypography-h2"
+                    className="RecipeInfoInput-name MuiTypography-h2"
                     name="name"
                     id="recipe-name"
                     label="recipe name"
@@ -31,8 +31,8 @@ function RecipeInfoInput() {
 
                 <FastField
                     component={FormikMuiTextField}
+                    className="RecipeInfoInput-description"
                     placeholder='Add a description for your recipe'
-                    className="RecipeInfo-description"
                     name="description"
                     id="recipe-Description"
                     label="recipe description"
@@ -43,7 +43,7 @@ function RecipeInfoInput() {
                 />
 
                 <Stack
-                    className="RecipeInfo-sourceName"
+                    className="RecipeInfoInput-sourceName"
                     direction="row"
                     spacing={1}
                 >
