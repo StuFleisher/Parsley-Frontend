@@ -1,7 +1,7 @@
 import { TextField, Stack, Button, Card, Typography } from "@mui/material";
 import React, { useState } from "react";
 import './loginForm.scss';
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
 
 const DEFAULT_FORM_DATA: UserLoginData = {
@@ -20,6 +20,7 @@ const LoginForm = React.forwardRef((
 
     const [formData, setFormData] = useState<UserLoginData>(DEFAULT_FORM_DATA);
     const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = evt.target;
@@ -35,6 +36,7 @@ const LoginForm = React.forwardRef((
         e.preventDefault();
         try {
             await login(formData);
+            navigate(`/users/${formData.username}`)
         } catch (err: any) {
             setError("Invalid username/password");
         }
