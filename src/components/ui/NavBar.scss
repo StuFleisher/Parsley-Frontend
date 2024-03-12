@@ -13,6 +13,13 @@
     width:100%;
 
     color:$charcoal;
+
+}
+
+.NavBar-logo > svg {
+    height:2.5rem;
+    max-width: 2.5rem;
+    aspect-ratio: 1;
 }
 
 .NavBar-home {
