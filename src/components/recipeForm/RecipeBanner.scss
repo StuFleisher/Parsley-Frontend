@@ -1,0 +1,19 @@
+@import "../../styles/colors";
+
+.RecipeBanner-editButton {
+    position:absolute;
+    background-color: #FFFAF3cc;
+    border-radius: 50%;
+    top:3rem;
+    left:50%;
+    transform: translate(-50%,0);
+
+    & > :hover {
+        background-color: #FFFAF3ff;
+    }
+
+    svg {
+        padding:1rem;
+        font-size: 3.5rem;
+    }
+}
