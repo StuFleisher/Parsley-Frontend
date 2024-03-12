@@ -10,8 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils, faUser, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 //MUI Components
-import { useTheme } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
@@ -23,8 +21,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
-import Modal from "@mui/material/Modal";
 import LoginForm from "../userAuth/loginForm";
+import ModalButton from "./ModalButton";
 
 
 const PARSLEY_ICON = (
@@ -41,13 +39,8 @@ function NavBar({ login }: props) {
 
     const { username } = useContext(userContext);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
     let isOpen = Boolean(anchorEl);
 
-    const [showLoginModal, setShowLoginModal] = useState(false);
 
 
     //Dropdown Menu functions
@@ -58,24 +51,18 @@ function NavBar({ login }: props) {
         setAnchorEl(null);
     }
 
-    //Login modal
-    function closeModal() {
-        setShowLoginModal(false);
-    }
-
-
+    //JSX to render when a user is not logged in
     const anonLinkSection = (
         <>
             <Stack direction="row" spacing={0} className="NavBar-links">
                 <Link
                     underline="hover"
                 >
-                    <Button
-                        color={'brightWhite'}
-                        onClick={() => { setShowLoginModal(true); }}
+                    <ModalButton
+                        component={<Button>Log In</Button>}
                     >
-                        Log In
-                    </Button>
+                        <LoginForm login={login} hideRegistrationLink></LoginForm>
+                    </ModalButton>
                 </Link>
                 <Link
                     component={RouterLink} to="/register"
@@ -86,8 +73,10 @@ function NavBar({ login }: props) {
                     </Button>
                 </Link>
             </Stack>
-        </>);
+        </>
+    );
 
+    //JSX to render when a user is logged in
     const userLinkSection = (
         <>
             <Stack direction="row" spacing={2} className="NavBar-links">
@@ -107,9 +96,9 @@ function NavBar({ login }: props) {
                 >
                     <Tooltip title="Recipes">
 
-                    <IconButton>
-                        <FontAwesomeIcon icon={faUtensils} />
-                    </IconButton>
+                        <IconButton>
+                            <FontAwesomeIcon icon={faUtensils} />
+                        </IconButton>
                     </Tooltip>
 
                 </Link>
@@ -156,19 +145,10 @@ function NavBar({ login }: props) {
         </>
     );
 
+
+
     return (
         <>
-            <Modal
-                open={showLoginModal}
-                onClose={closeModal}
-                className="loginModal"
-            >
-                {<Box bgcolor="bright-white">
-                    <LoginForm login={login} hideRegistrationLink></LoginForm>
-                </Box>
-                }
-            </Modal>
-
             <AppBar position="static" elevation={0}>
                 <Stack className="NavBar">
                     <Stack direction="row" className="NavBar-home">
