@@ -7,6 +7,7 @@ import Lottie from "lottie-react";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 import { RecipeFormProvider } from "../helpers/RecipeFormContext";
 import userContext from "../helpers/userContext";
@@ -126,21 +127,25 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
                     editable
                 />
                 <RecipeFormProvider<RecipeForCreate> recipe={recipe} onSubmitCallback={saveRecipe}>
-                    <RecipeFormDisplay deleteRecipe={async ()=>{navigate('/recipes')}}/>
+                    <RecipeFormDisplay deleteRecipe={async () => { navigate('/recipes'); }} />
                 </RecipeFormProvider>
             </>
         );
     }
 
-    
+
     return (
-        <>
+        // <>
+        <Container className="Page-container" maxWidth="xl">
+
             {error ? "Sorry! Our chefs weren't able to prepare that recipe for you." : ""}
             {pageContent}
-        </>
+        </Container>
+
+        // </>
     );
 
 
 }
 
-export default AddRecipePage;
+export default AddRecipePage;;
