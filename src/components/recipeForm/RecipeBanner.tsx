@@ -1,12 +1,12 @@
-import { Modal, Box, Button } from "@mui/material";
+import { Modal, Box, Button, IconButton } from "@mui/material";
 import { useState } from "react";
 import RecipeImageForm from "./RecipeImageForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-
+import "./RecipeBanner.scss"
 
 type props = {
-    image: Blob | undefined ;
+    image: Blob | undefined;
     imageUrl: string | undefined;
     updateImage: (file: Blob) => void;
     editable?: boolean;
@@ -41,13 +41,18 @@ function RecipeBanner({ updateImage, image, imageUrl, editable = false }: props)
                             <RecipeImageForm updateRecipeImage={handleUpdate} />
                         </Box>
                     </Modal>
-                    <Button
-                        className="RecipeInfo-editImage"
-                        onClick={() => { setShowModal(true); }}
-                        startIcon={<FontAwesomeIcon icon={faPencilAlt} />}
-                        variant="contained"
-                        color="brightWhite"
-                    ></Button>
+                    <Box  className="RecipeBanner-editButton">
+
+                        <IconButton
+                            className="RecipeInfo-editImage"
+                            onClick={() => { setShowModal(true); }}
+                            size="large"
+                            // variant="contained"
+                            color="brightWhite"
+                        >
+                            <FontAwesomeIcon icon={faPencilAlt} />
+                        </IconButton>
+                    </Box>
                 </>
                 :
                 null
