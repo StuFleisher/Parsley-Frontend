@@ -205,6 +205,17 @@ class ParsleyAPI {
     return false;
   }
 
+      /************************ BUG REPORTS ********************************/
+
+  static async createBugReport(reportedBy:string, reportText:string){
+    const response = await this.request(
+      `bugReports`,
+      {bugReport:{reportedBy,reportText}},
+      'post'
+    )
+    return response.bugReport;
+  }
+
 
 }
 

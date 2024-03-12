@@ -1,0 +1,18 @@
+@import '../../styles/_colors.scss';
+
+.BugReportPanel{
+    background-color: $bright-white;
+    border-radius: 50%;
+    width:fit-content;
+    position: sticky;
+    bottom:1rem;
+    left:100%;
+    transform:translate(-50%,0);
+
+    z-index: 10;
+
+    & svg {
+        font-size: 1rem;
+    }
+
+}

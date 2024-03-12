@@ -14,6 +14,7 @@ import { CircularProgress } from '@mui/material';
 
 import { ThemeProvider } from '@mui/material';
 import parsleyTheme from './styles/theme';
+import BugReportPanel from './components/ui/BugReportPanel';
 
 const ANON_USER: IUser = {
   username: null,
@@ -125,6 +126,7 @@ function App() {
                     register={register}
                     logout={logout}
                   />
+                  {user.username && <BugReportPanel/>}
                 </Box>
               </BrowserRouter>
             </userContext.Provider>
