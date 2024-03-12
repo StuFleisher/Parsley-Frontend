@@ -1,8 +1,13 @@
-import { Modal, Box, Button, IconButton } from "@mui/material";
 import { useState } from "react";
-import RecipeImageForm from "./RecipeImageForm";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+
+import RecipeImageForm from "./RecipeImageForm";
 import "./RecipeBanner.scss"
 
 type props = {

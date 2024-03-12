@@ -1,11 +1,13 @@
-import Ingredient from "./Ingredient";
-import './IngredientList.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKitchenSet } from "@fortawesome/free-solid-svg-icons";
+
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import { useMediaQuery } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 import parsleyTheme from "../../styles/theme";
+import Ingredient from "./Ingredient";
+import './IngredientList.scss';
 
 type props = {
     ingredients:IIngredient[];

@@ -1,8 +1,6 @@
 import LoginForm from "../components/userAuth/loginForm";
 import SimpleLayout from "../components/ui/SimpleLayout";
 
-import Box from "@mui/material/Box";
-
 import "./LogInPage.scss";
 
 type props = {
@@ -14,7 +12,6 @@ function LogInPage({ login }: props) {
         <SimpleLayout src="/images/banner01.jpg">
                 <LoginForm login={login} />
         </SimpleLayout>
-
     );
 }
 

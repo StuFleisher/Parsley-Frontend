@@ -2,9 +2,10 @@ import React from "react";
 import {FastField } from "formik";
 import FormikMuiTextField from "../ui/FormikMuiTextField";
 
-import "./IngredientInput.scss";
 
-import { Box, FormGroup } from "@mui/material";
+import Box from "@mui/material/Box";
+import FormGroup from "@mui/material/FormGroup";
+import "./IngredientInput.scss";
 
 
 type props = {
@@ -23,9 +24,6 @@ const IngredientInput = React.memo(function IngredientInput({
     stepIndex,
     index,
 }:props){
-
-    // const [amountField, amountMeta] = useField(`steps[${stepIndex}].ingredients[${index}].amount`)
-    // const [descriptionField, descriptionMeta] = useField(`steps[${stepIndex}].ingredients[${index}].description`)
 
     return (
         <Box className="Ingredient">

@@ -1,7 +1,7 @@
+import Box from "@mui/material/Box";
+
 import Step from "./Step";
 import './StepsList.scss';
-
-import Box from "@mui/material/Box";
 
 function StepsList ({steps}:{steps:IStep[]}){
 

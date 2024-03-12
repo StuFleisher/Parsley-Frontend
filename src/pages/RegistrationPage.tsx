@@ -1,7 +1,5 @@
 import UserRegistrationForm from "../components/userAuth/UserRegistrationForm";
 import SimpleLayout from "../components/ui/SimpleLayout";
-
-
 import "./RegistrationPage.scss";
 
 type props = {

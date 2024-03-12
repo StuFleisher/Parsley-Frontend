@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
+
 import SimpleRecipeCard from "./SimpleRecipeCard";
 import userContext from "../../helpers/userContext";
 import { CookbookProvider } from "../../helpers/cookbookContext";
@@ -52,7 +53,6 @@ function RecipeList({ recipes, pageLength = 10 }: props) {
                     Sorry, We couldn't find any recipes that matched your search.
                 </Typography>
             </SimpleLayout>
-
         );
     }
 

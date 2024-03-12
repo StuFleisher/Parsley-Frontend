@@ -1,8 +1,9 @@
 import React from "react";
-import "./InstructionInput.scss";
-import {FastField} from "formik"
 
+import {FastField} from "formik"
 import FormikMuiTextField from "../ui/FormikMuiTextField";
+
+import "./InstructionInput.scss";
 
 type props = {
     stepIndex:number,

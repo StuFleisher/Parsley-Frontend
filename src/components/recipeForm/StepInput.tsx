@@ -1,17 +1,15 @@
 import React from "react";
-import {useFormikContext} from "formik"
-
-import IngredientInputList from "./IngredientInputList";
-import InstructionInput from "./InstructionInput";
-import "./StepInput.scss";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-
-import parsleyTheme from "../../styles/theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+import IngredientInputList from "./IngredientInputList";
+import InstructionInput from "./InstructionInput";
+import "./StepInput.scss";
+import parsleyTheme from "../../styles/theme";
 
 type props = {
     index:number,

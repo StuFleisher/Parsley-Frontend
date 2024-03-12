@@ -1,4 +1,3 @@
-// import TextareaAutosize from 'react-textarea-autosize';
 import { ChangeEvent, FormEvent, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

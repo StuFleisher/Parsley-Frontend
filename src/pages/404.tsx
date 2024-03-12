@@ -1,4 +1,5 @@
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+
 import SimpleLayout from "../components/ui/SimpleLayout";
 
 function NotFound() {

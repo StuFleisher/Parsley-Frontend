@@ -1,14 +1,16 @@
-import { Stack, Button, Slide } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import userRegistrationSchema from "../../helpers/userRegistrationSchema";
-import './loginForm.scss';
+import { useState } from "react";
+
 import FormikMuiTextField from "../ui/FormikMuiTextField";
 import { Formik, FastField, Form } from "formik";
-import { useState } from "react";
-import ErrorDisplay from "../ui/ErrorDisplay";
 
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+
+import userRegistrationSchema from "../../helpers/userRegistrationSchema";
+import ErrorDisplay from "../ui/ErrorDisplay";
 import "./userRegistrationForm.scss";
 
 const DEFAULT_FORM_DATA: UserRegistrationData = {

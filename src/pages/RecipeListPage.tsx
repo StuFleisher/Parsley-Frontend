@@ -1,14 +1,12 @@
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { emptyRecipeList } from "../helpers/recipeFactory";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
+import { emptyRecipeList } from "../helpers/recipeFactory";
 import ParsleyAPI from "../helpers/api";
 import RecipeList from "../components/recipeDisplay/RecipeList";
 import Container from "@mui/material/Container";
 
-
-import { useSearchParams } from "react-router-dom";
 
 function RecipeListPage() {
 

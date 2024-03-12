@@ -1,5 +1,4 @@
-import { createTheme, responsiveFontSizes } from "@mui/material";
-
+import { createTheme } from "@mui/material";
 
 const theme = createTheme({
     typography:{
@@ -101,8 +100,5 @@ const theme = createTheme({
         },
     }
 })
-
-// const parsleyTheme = responsiveFontSizes(theme)
-
 
 export default theme;

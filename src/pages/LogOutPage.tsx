@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Container from "@mui/material/Container";
 import SimpleLayout from "../components/ui/SimpleLayout";
 
 type props = {

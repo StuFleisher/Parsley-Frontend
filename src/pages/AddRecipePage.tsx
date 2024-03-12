@@ -1,17 +1,21 @@
-import Lottie from "lottie-react";
-import loadingAnimation from "../animations/loading_animation.json";
-import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import ParsleyAPI from "../helpers/api";
-import GenerateRecipeFromTextForm from "../components/generateRecipe/GenerateRecipeFromTextForm";
+
 import { useContext } from "react";
-import userContext from "../helpers/userContext";
-import { RecipeFormProvider } from "../helpers/RecipeFormContext";
-import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
-import RecipeBanner from "../components/recipeForm/RecipeBanner";
+import { useNavigate } from "react-router-dom";
+import { useState, useCallback } from "react";
+
+import Lottie from "lottie-react";
+
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+
+import { RecipeFormProvider } from "../helpers/RecipeFormContext";
+import userContext from "../helpers/userContext";
+import GenerateRecipeFromTextForm from "../components/generateRecipe/GenerateRecipeFromTextForm";
+import ParsleyAPI from "../helpers/api";
+import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
+import RecipeBanner from "../components/recipeForm/RecipeBanner";
 import SimpleLayout from "../components/ui/SimpleLayout";
+import loadingAnimation from "../animations/loading_animation.json";
 import "./AddRecipePage.scss";
 
 type Props = {
@@ -128,9 +132,7 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
         );
     }
 
-
-
-
+    
     return (
         <>
             {error ? "Sorry! Our chefs weren't able to prepare that recipe for you." : ""}

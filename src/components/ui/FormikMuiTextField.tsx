@@ -1,7 +1,9 @@
 import React from 'react';
 import { FieldProps } from 'formik';
-import TextField from '@mui/material/TextField';
-import { TextFieldProps } from '@mui/material/TextField/TextField';
+
+import TextField, {TextFieldProps} from '@mui/material/TextField';
+
+
 import { getNested } from '../../helpers/utilities';
 
 interface FormikMuiTextFieldProps extends FieldProps, Omit<TextFieldProps, 'name' | 'value' | 'onChange' | 'onBlur'> {}

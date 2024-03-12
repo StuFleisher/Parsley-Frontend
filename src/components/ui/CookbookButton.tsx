@@ -2,12 +2,15 @@
  * from a cookbook.
  */
 
-import "./CookbookButton.scss"
-import { useCookbook } from "../../helpers/cookbookContext";
 import React, { useState } from "react";
-import { IconButton } from "@mui/material";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook, faBookBookmark } from '@fortawesome/free-solid-svg-icons';
+
+import IconButton from "@mui/material/IconButton";
+
+import { useCookbook } from "../../helpers/cookbookContext";
+import "./CookbookButton.scss"
 
 type props = {
     recipe: SimpleRecipeData | Recipe;

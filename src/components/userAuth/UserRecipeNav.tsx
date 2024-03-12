@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
+
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { Link } from "react-router-dom";
-import './UserRecipeNav.scss'
 
+import './UserRecipeNav.scss'
 
 type props = {
     username: string;

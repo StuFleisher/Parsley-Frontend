@@ -1,9 +1,9 @@
+import Card from "@mui/material/Card";
+import Box from "@mui/material/Box";
+
 import RecipeInfo from "./RecipeInfo";
 import StepsList from "./StepsList";
 import './RecipeCard.scss';
-
-import Card from "@mui/material/Card";
-import Box from "@mui/material/Box";
 
 type Props = {
   recipe:Recipe,

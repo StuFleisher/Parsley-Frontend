@@ -8,7 +8,6 @@ function emptyRecipe(recipe = ({} as SimpleRecipeData)): SimpleRecipeData {
   return recipe;
 }
 
-
 function emptyStep(step = ({} as IStep)): IStep {
   step.stepNumber = 0;
   step.instructions = "";

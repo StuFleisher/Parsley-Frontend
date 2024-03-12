@@ -1,16 +1,15 @@
 import React from "react";
 
-import IngredientList from "./IngredientList";
-import Instruction from "./Instruction";
-import './Step.scss';
-
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-
-import parsleyTheme from "../../styles/theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+import IngredientList from "./IngredientList";
+import Instruction from "./Instruction";
+import './Step.scss';
+import parsleyTheme from "../../styles/theme";
 
 import {getIngredientColorMaps} from "../../helpers/colorPicker";
 

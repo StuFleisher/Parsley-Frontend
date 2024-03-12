@@ -1,13 +1,11 @@
 import React from "react";
 import {FastField} from "formik"
-
-
-import "./RecipeInfoInput.scss"
+import FormikMuiTextField from "../ui/FormikMuiTextField";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import FormikMuiTextField from "../ui/FormikMuiTextField";
 
+import "./RecipeInfoInput.scss"
 
 
 const RecipeInfoInput = React.memo(

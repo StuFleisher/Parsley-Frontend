@@ -1,25 +1,18 @@
-import ParsleyAPI from "../helpers/api";
-import RecipeCard from "../components/recipeDisplay/RecipeCard";
 import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import userContext from "../helpers/userContext";
 
 import { CookbookProvider } from "../helpers/cookbookContext";
-
+import userContext from "../helpers/userContext";
 import Container from "@mui/material/Container";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
-// import testRecipe from "../tempData";
-
-
+import ParsleyAPI from "../helpers/api";
+import RecipeCard from "../components/recipeDisplay/RecipeCard";
 
 function RecipeDetailsPage() {
 
     const { id } = useParams();
     const { username } = useContext(userContext);
 
-    const [isLoading, setIsLoading] = useState(true);
     const [recipe, setRecipe] = useState<Recipe | null>(null);
     const navigate = useNavigate();
 
@@ -30,7 +23,6 @@ function RecipeDetailsPage() {
                     const numericId = parseInt(id);
                     const recipeDetails = await ParsleyAPI.getRecipeById(numericId);
                     setRecipe(recipeDetails);
-                    setIsLoading(false);
                 }
             } catch (err) {
                 navigate('/recipes');

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import "./ImageForm.scss";
-// import { TextField, Stack, Button, Box, Card } from "@mui/material"
+
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 
+import "./ImageForm.scss";
+
 type props = {
   onSubmit:Function
   imgUrl:string
 }
-
 
 function ImageForm ({onSubmit}:props){
 

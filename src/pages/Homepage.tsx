@@ -5,8 +5,9 @@ import explainerAnimation from "../animations/recipeTransform.json";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import './Homepage.scss';
+
 import UserRegistrationForm from "../components/userAuth/UserRegistrationForm";
+import './Homepage.scss';
 
 type props = {
     register: (userInfo: IUser) => Promise<void>,

@@ -5,7 +5,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import Box from '@mui/material/Box';
 import Stack from "@mui/material/Stack";
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 type props = {
     ingredient: IIngredient;

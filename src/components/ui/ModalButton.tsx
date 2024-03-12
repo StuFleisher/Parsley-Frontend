@@ -1,5 +1,8 @@
 import React, { ReactNode, useState } from "react";
-import { Box, Modal, Button } from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+
 import './ModalButton.scss';
 
 type props = {

@@ -1,16 +1,11 @@
-import { useCookbook } from '../../helpers/cookbookContext';
+import { Link } from 'react-router-dom';
 
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import MuiLink from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 
-import { Link } from 'react-router-dom';
-import IconButton from '@mui/material/IconButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faBookBookmark } from '@fortawesome/free-solid-svg-icons';
-import './RecipeInfo.scss';
 import CookbookButton from '../ui/CookbookButton';
+import './RecipeInfo.scss';
 
 type props = {
     recipe: Recipe | SimpleRecipeData;
@@ -18,8 +13,6 @@ type props = {
 };
 
 function RecipeInfo({ recipe, showActions = false }: props) {
-
-    const { isInCookbook, toggleInCookbook } = useCookbook();
 
     return (
         <>

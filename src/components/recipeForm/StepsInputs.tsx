@@ -1,7 +1,5 @@
-import StepInput from "./StepInput";
 import React, { useCallback } from "react";
 import { FieldArray, FieldArrayRenderProps, FormikErrors } from "formik";
-import './StepsInputs.scss';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +8,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
+import StepInput from "./StepInput";
+import './StepsInputs.scss';
 
 type props = {
     steps: (IStep | StepForCreate)[];

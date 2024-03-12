@@ -1,6 +1,6 @@
-import './Instruction.scss';
 import Typography from '@mui/material/Typography';
-import { useEffect } from 'react';
+
+import './Instruction.scss';
 
 type props = {
     instruction: string;
@@ -35,10 +35,7 @@ function Instruction({ instruction, colorMap }: props) {
         }, null);
     }
 
-
-
     return highlightText(instruction);
-    // return <p className="Instruction">{instruction}</p>
     }
 
 export default Instruction;

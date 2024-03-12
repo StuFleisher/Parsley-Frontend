@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import UserRecipeNav from "../components/userAuth/UserRecipeNav";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-import ParsleyAPI from "../helpers/api";
-import { useNavigate, useParams } from "react-router-dom";
 import Container from "@mui/material/Container";
 
-import { useLocation } from "react-router-dom";
 import { CookbookProvider } from "../helpers/cookbookContext";
-import CookbookRecipesList from "../components/userViews/CookbookRecipesList";
 import { UserRecipesProvider } from "../helpers/userRecipesContext";
+import ParsleyAPI from "../helpers/api";
+import UserRecipeNav from "../components/userAuth/UserRecipeNav";
+import CookbookRecipesList from "../components/userViews/CookbookRecipesList";
 
 import './UserDetailPage.scss';
 import UserRecipesList from "../components/userViews/UserRecipesList";
@@ -65,8 +63,6 @@ function UserDetailPage({ initialView }: props) {
                     </UserRecipesProvider >
                 </CookbookProvider>
             </Container>
-
-
         </>
     );
 }

@@ -3,7 +3,6 @@ import { jwtDecode } from "jwt-decode";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
-
 class ParsleyAPI {
 
   //This token will be changed dynamically on login
