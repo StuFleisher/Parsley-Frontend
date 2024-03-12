@@ -1,6 +1,7 @@
 
 import RecipeInfoInput from "./RecipeInfoInput";
 import StepsInputs from "./StepsInputs";
+import ErrorDisplay from "../ui/ErrorDisplay";
 
 import { Stack, Box, Button, Typography, Alert, Slide } from "@mui/material";
 import "./RecipeFormDisplay.scss";
@@ -9,10 +10,10 @@ import "./RecipeFormDisplay.scss";
 import { useFormikContext, Form } from "formik";
 
 type props = {
-    deleteRecipe:()=>Promise<void>
-}
+    deleteRecipe: () => Promise<void>;
+};
 
-function RecipeFormDisplay({deleteRecipe}:props) {
+function RecipeFormDisplay({ deleteRecipe }: props) {
 
     const { values, isValid, errors } = useFormikContext<Recipe | RecipeForCreate>();
 
@@ -27,19 +28,11 @@ function RecipeFormDisplay({deleteRecipe}:props) {
         }
     }();
 
-    console.log(stepsWithErrors);
-
-    function errorMessage() {
-        return (
-            <Box >
-                <Alert severity="error">
-                    {`Please check following fields to continue: `}
-                    {Object.keys(errors).map(key => key).join(", ")}
-                    {stepsWithErrors.map((step) => ` Step ${step.stepNumber}`).join(',')}
-                </Alert>
-            </Box>
-        );
-    }
+    const errorMessage = (`
+        Please check following fields to continue:
+        ${Object.keys(errors).map(key =>{return key!=="steps" ? key : null}).join(", ")}
+        ${stepsWithErrors.map((step) => ` Step ${step.stepNumber}`).join(',')}
+    `)
 
     return (
         <>
@@ -58,9 +51,7 @@ function RecipeFormDisplay({deleteRecipe}:props) {
                     </Button>
                     <Box className="Recipe-submitButton">
                         <Stack direction="row" alignContent="center" spacing={2}>
-                            <Slide direction="up" in={!isValid}>
-                                {errorMessage()}
-                            </Slide>
+                            {!isValid && <ErrorDisplay message={errorMessage} />}
 
                             <Button
                                 type='submit'

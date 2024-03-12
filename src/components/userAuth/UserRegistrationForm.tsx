@@ -1,4 +1,4 @@
-import { Stack, Button } from "@mui/material";
+import { Stack, Button, Slide } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
@@ -6,6 +6,8 @@ import userRegistrationSchema from "../../helpers/userRegistrationSchema";
 import './loginForm.scss';
 import FormikMuiTextField from "../ui/FormikMuiTextField";
 import { Formik, FastField, Form } from "formik";
+import { useState } from "react";
+import ErrorDisplay from "../ui/ErrorDisplay";
 
 import "./userRegistrationForm.scss";
 
@@ -22,16 +24,23 @@ type props = {
 
 function UserRegistrationForm({ register }: props) {
     const navigate = useNavigate();
+    const [error, setError] = useState<string | null>(null);
 
     async function registerUser(values: UserRegistrationData) {
-        await register({
-            username: values.username,
-            password: values.password,
-            email: values.email,
-            firstName: "",
-            lastName: "",
-        });
-        navigate('/');
+        try {
+            await register({
+                username: values.username,
+                password: values.password,
+                email: values.email,
+                firstName: "",
+                lastName: "",
+            });
+            setError(null);
+            navigate('/');
+        } catch (errs: any) {
+            console.log("errors: ",errs[0]);
+            setError(errs[0]);
+        }
     }
 
     return (
@@ -88,8 +97,8 @@ function UserRegistrationForm({ register }: props) {
 
                             Already Registered?<Link to="/LogIn">   Log In</Link>
                         </Typography>
+                        {error && <ErrorDisplay message={error}/>}
                     </Stack>
-
                 </Form>
             )}
 
