@@ -6,10 +6,13 @@ import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKitchenSet } from "@fortawesome/free-solid-svg-icons";
+
 import SimpleRecipeCard from "./SimpleRecipeCard";
 import userContext from "../../helpers/userContext";
 import { CookbookProvider } from "../../helpers/cookbookContext";
-import SimpleLayout from "../ui/SimpleLayout";
+import "./RecipeList.scss"
 
 type props = {
     recipes: SimpleRecipeData[];
@@ -48,11 +51,12 @@ function RecipeList({ recipes, pageLength = 10 }: props) {
 
     if (recipes.length === 0) {
         return (
-            <SimpleLayout src="/images/banner01.jpg">
-                <Typography variant="h3" color="primary" align="center">
-                    Sorry, We couldn't find any recipes that matched your search.
+            <Box className="RecipeList-empty">
+                <FontAwesomeIcon icon={faKitchenSet} size="lg"/>
+                <Typography variant="body1" color="charcoal" align="center">
+                    There are no recipes to display.
                 </Typography>
-            </SimpleLayout>
+            </Box>
         );
     }
 

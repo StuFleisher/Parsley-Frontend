@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
@@ -26,7 +27,6 @@ function WelcomePage() {
                 </Typography>
                 <Link component={RouterLink} to="/recipes/create" underline="none">
                     <Button
-                    variant="outlined"
                         startIcon={<FontAwesomeIcon icon={faPaste} />}
                     >
                         <Typography variant="body1">
