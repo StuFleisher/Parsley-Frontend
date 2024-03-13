@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
