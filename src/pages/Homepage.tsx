@@ -1,6 +1,6 @@
 
-import Lottie from "lottie-react";
-import explainerAnimation from "../animations/recipeTransform.json";
+// import Lottie from "lottie-react";
+// import explainerAnimation from "../animations/recipeTransform.json";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -48,7 +48,7 @@ function Homepage({ register }: props) {
                         src="/images/hero-banner.jpg">
                     </Box>
                     <Box className="Homepage-animation">
-                        <Lottie loop animationData={explainerAnimation} />
+                        {/* <Lottie loop animationData={explainerAnimation} /> */}
                     </Box>
 
                 </Stack>
