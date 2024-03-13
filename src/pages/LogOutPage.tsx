@@ -17,7 +17,7 @@ function LogOutPage({ logOut }: props) {
 
     return (
 
-        <SimpleLayout src="/images/banner_01.jpg">
+        <SimpleLayout src="/images/banner01.jpg">
             Logging out...
         </SimpleLayout>
     )
