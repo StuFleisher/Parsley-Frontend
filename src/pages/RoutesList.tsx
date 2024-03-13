@@ -12,6 +12,7 @@ import NotFound from "./404";
 import userContext from "../helpers/userContext";
 import RegistrationPage from "./RegistrationPage";
 import LogInPage from "./LogInPage";
+import WelcomePage from "./WelcomePage";
 
 
 type props = {
@@ -47,6 +48,7 @@ function RoutesList({login, register, logout}:props) {
                 </>
             :
             <>
+                <Route path='/welcome' element={<WelcomePage />} />
                 <Route path='/recipes/create' element={<AddRecipePage />} />
                 <Route path='/recipes/:id/edit' element={<EditRecipePage />} />
                 <Route path='/auth/logOut' element={<LogOutPage logOut={logout}/>}/>
