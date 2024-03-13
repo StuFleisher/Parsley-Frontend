@@ -16,7 +16,7 @@ export function isURL(string?:string){
 */
 
 export function getNested(obj: any, path: string): any {
-  const keys = path.split(/[\.\[\]\'\"]/).filter(p => p);
+  const keys = path.split(/[.[\]'"]/).filter(p => p);
   return keys.reduce((accumulator: any, currentKey: string) => {
     // Using type assertion to indicate that accumulator is indexable
     if (accumulator && typeof accumulator === 'object' && currentKey in accumulator) {
