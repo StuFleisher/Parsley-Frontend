@@ -38,7 +38,7 @@ function UserRegistrationForm({ register }: props) {
                 lastName: "",
             });
             setError(null);
-            navigate('/');
+            navigate('/welcome');
         } catch (errs: any) {
             console.log("errors: ",errs[0]);
             setError(errs[0]);
