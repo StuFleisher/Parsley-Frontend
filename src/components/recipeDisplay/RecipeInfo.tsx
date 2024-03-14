@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 
 import Typography from '@mui/material/Typography';
 import MuiLink from '@mui/material/Link';
@@ -6,13 +7,17 @@ import Stack from '@mui/material/Stack';
 
 import CookbookButton from '../ui/CookbookButton';
 import './RecipeInfo.scss';
+import userContext from '../../helpers/userContext';
 
 type props = {
     recipe: Recipe | SimpleRecipeData;
-    showActions?: boolean;
+    variant: "simple" | "detailed"
+
 };
 
-function RecipeInfo({ recipe, showActions = false }: props) {
+function RecipeInfo({ recipe, variant }: props) {
+
+    const {username} = useContext(userContext)
 
     return (
         <>
@@ -35,7 +40,7 @@ function RecipeInfo({ recipe, showActions = false }: props) {
                 <Link to={`/users/${recipe.owner}`}>{recipe.owner}</Link>
             </Typography>
             <Typography className='RecipeInfo-description' variant="body1">
-                {recipe.description.length > 100
+                {recipe.description.length > 100 && variant==="simple"
                     ? `${recipe.description.substring(0, 100)}...`
                     : recipe.description
                 }
@@ -56,7 +61,7 @@ function RecipeInfo({ recipe, showActions = false }: props) {
                     </Typography>
             }
 
-            {showActions &&
+            {variant==="detailed" && username &&
                 <CookbookButton recipe={recipe}/>
             }
         </>

@@ -16,7 +16,7 @@ function RecipeCard({recipe}:Props) {
     <Box component="img" src={recipe.imageLg} className="RecipeBanner"/>
     <Box className="RecipeCard">
       <Card className="RecipeCard-RecipeInfo">
-        <RecipeInfo recipe={recipe} showActions={true}/>
+        <RecipeInfo recipe={recipe} variant="detailed"/>
       </Card>
       <StepsList steps={recipe.steps}/>
     </Box>

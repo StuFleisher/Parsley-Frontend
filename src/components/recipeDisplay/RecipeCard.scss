@@ -24,7 +24,15 @@
         padding: 2rem;
     }
 
-    a {
+    .RecipeInfo-sourceName a,
+    .RecipeInfo-owner a {
+        color: $bright-white;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+    }
+
+    .RecipeInfo-name {
         color: $secondary;
         text-decoration: none;
     }

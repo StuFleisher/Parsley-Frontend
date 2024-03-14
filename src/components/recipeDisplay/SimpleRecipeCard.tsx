@@ -40,7 +40,7 @@ function SimpleRecipeCard({ recipe }: props) {
                 </Box>
             </Link>
             <Box className="SimpleRecipeCard-RecipeInfo">
-                <RecipeInfo recipe={recipe} />
+                <RecipeInfo recipe={recipe} variant="simple"/>
             </Box>
         </Stack>
     );
