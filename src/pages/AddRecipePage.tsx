@@ -8,6 +8,7 @@ import Lottie from "lottie-react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Modal from "@mui/material/Modal";
 
 import { RecipeFormProvider } from "../helpers/RecipeFormContext";
 import userContext from "../helpers/userContext";
@@ -17,6 +18,7 @@ import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
 import RecipeBanner from "../components/recipeForm/RecipeBanner";
 import SimpleLayout from "../components/ui/SimpleLayout";
 import loadingAnimation from "../animations/loading_animation.json";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 import "./AddRecipePage.scss";
 
 type Props = {
@@ -40,7 +42,7 @@ const DEFAULT_IMG_BASE_URL = "https://sf-parsley.s3.amazonaws.com/recipeImage/de
 
 function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
 
-    const [mode, setMode] = useState<"input" | "generate" | "display">("input");
+    const [mode, setMode] = useState<"input" | "generate" | "display" | "saving">("input");
     const [error, setError] = useState<string | null>(null);
     const [image, setImage] = useState<Blob | undefined>();
     const [recipe, setRecipe] = useState<RecipeForCreate>(initialRecipe);
@@ -82,7 +84,8 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
      * Navigates to the recipeDetail view upon success.
      */
     async function saveRecipe(formData: RecipeForCreate) {
-        const recipe = await ParsleyAPI.createRecipe(formData);
+        setMode("saving");
+        const recipe = await ParsleyAPI.createRecipe(formData);\
         if (image) {
             await ParsleyAPI.updateRecipeImage(image, recipe.recipeId);
         }
@@ -133,16 +136,31 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
         );
     }
 
+    if (mode === "saving") {
+        pageContent = (
+            <>
+                <Modal open={true}>
+                    <LoadingSpinner />
+                </Modal>
+                <RecipeBanner
+                    image={image}
+                    updateImage={updateRecipeImage}
+                    imageUrl={recipe.imageLg}
+                    editable
+                />
+                <RecipeFormProvider<RecipeForCreate> recipe={recipe} onSubmitCallback={saveRecipe}>
+                    <RecipeFormDisplay deleteRecipe={async () => { navigate('/recipes'); }} />
+                </RecipeFormProvider>
+            </>
+        );
+    }
+
 
     return (
-        // <>
         <Container className="Page-container" maxWidth="xl">
-
             {error ? "Sorry! Our chefs weren't able to prepare that recipe for you." : ""}
             {pageContent}
         </Container>
-
-        // </>
     );
 
 

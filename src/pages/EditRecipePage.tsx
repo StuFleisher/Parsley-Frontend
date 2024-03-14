@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import Container from "@mui/material/Container";
+import Modal from "@mui/material/Modal";
 
 import { RecipeFormProvider } from "../helpers/RecipeFormContext";
 import userContext from "../helpers/userContext";
@@ -15,6 +16,7 @@ function EditRecipePage() {
     const { id } = useParams();
     const [recipe, setRecipe] = useState<Recipe | null>(null);
     const [image, setImage] = useState<Blob | undefined>();
+    const [saving, setSaving] = useState(false);
     const user = useContext(userContext);
     const navigate = useNavigate();
 
@@ -39,14 +41,14 @@ function EditRecipePage() {
 
     /** Callback to update the recipe record (including it's image) in the database */
     async function updateRecipe(formData: Recipe) {
-        console.log("submitting form");
+        setSaving(true);
         await ParsleyAPI.UpdateRecipe(formData);
         if (recipe) {
             if (image) {
                 await ParsleyAPI.updateRecipeImage(image, recipe.recipeId);
             }
             navigate(`/recipes/${recipe.recipeId}`);
-        }
+        } else setSaving(false);
     }
 
     /** Callback to delete a recipe and update the record */
@@ -68,6 +70,11 @@ function EditRecipePage() {
                 <LoadingSpinner />
                 :
                 <>
+                    {saving &&
+                        <Modal open={true}>
+                            <LoadingSpinner />
+                        </Modal>
+                    }
                     <RecipeBanner
                         image={image}
                         updateImage={updateRecipeImage}
@@ -77,9 +84,10 @@ function EditRecipePage() {
 
                     <RecipeFormProvider recipe={recipe} onSubmitCallback={updateRecipe}>
                         <RecipeFormDisplay deleteRecipe={deleteRecipe} />
-                    </RecipeFormProvider>
-                </>}
-        </Container>
+                    </RecipeFormProvider>;
+                </>
+            }
+        </Container >
     );
 }
 
