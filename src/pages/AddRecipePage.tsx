@@ -85,7 +85,7 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
      */
     async function saveRecipe(formData: RecipeForCreate) {
         setMode("saving");
-        const recipe = await ParsleyAPI.createRecipe(formData);\
+        const recipe = await ParsleyAPI.createRecipe(formData);
         if (image) {
             await ParsleyAPI.updateRecipeImage(image, recipe.recipeId);
         }
