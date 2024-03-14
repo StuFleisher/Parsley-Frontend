@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
 
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -6,12 +7,15 @@ import Box from "@mui/material/Box";
 import RecipeInfo from "./RecipeInfo";
 import CookbookButton from "../ui/CookbookButton";
 import "./SimpleRecipeCard.scss";
+import userContext from "../../helpers/userContext";
 
 type props = {
     recipe: SimpleRecipeData | Recipe;
 };
 
 function SimpleRecipeCard({ recipe }: props) {
+
+    const { username } = useContext(userContext);
 
     return (
         <Stack
@@ -29,9 +33,10 @@ function SimpleRecipeCard({ recipe }: props) {
                         backgroundImage: `url("${recipe.imageMd}")`,
                     }}
                 >
-                    <Box className="IconBar">
-                        <CookbookButton recipe={recipe}/>
-                    </Box>
+                    {username &&
+                        <Box className="IconBar">
+                            <CookbookButton recipe={recipe} />
+                        </Box>}
                 </Box>
             </Link>
             <Box className="SimpleRecipeCard-RecipeInfo">
