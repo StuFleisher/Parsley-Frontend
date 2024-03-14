@@ -101,17 +101,14 @@ section {
 }
 
 .Homepage-animation {
+    background-color: $bright-white;
     z-index: 10;
     max-height: 90%;
-    aspect-ratio: 1;
     padding: 1rem;
     border-radius: 1rem;
-    background-color: $bright-white;
 
-    @media (min-width:600px) {
-        height: auto;
-        max-height: fit-content;
-        width: 90%;
+    > svg {
+        aspect-ratio: 1;
     }
 }
 

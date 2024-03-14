@@ -53,9 +53,9 @@ function Homepage({ register }: props) {
                         component="img"
                         src="/images/hero-banner.jpg">
                     </Box>
-                    <Box className="Homepage-animation">
-                        <Lottie loop animationData={explainerAnimation} />
-                    </Box>
+                    {/* <Box className="Homepage-animation"> */}
+                        <Lottie loop animationData={explainerAnimation} className="Homepage-animation"/>
+                    {/* </Box> */}
 
                 </Stack>
             </Stack>
