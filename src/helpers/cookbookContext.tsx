@@ -55,6 +55,7 @@ function CookbookProvider({ cookbookOwner, children }: props) {
       imageSm: recipe.imageSm ? recipe.imageSm : "",
       imageMd: recipe.imageMd ? recipe.imageMd : "",
       imageLg: recipe.imageLg ? recipe.imageLg : "",
+      createdTime: recipe.createdTime,
     };
     if (isInCookbook(simpleRecipe)) {
       await removeFromCookbook(simpleRecipe);

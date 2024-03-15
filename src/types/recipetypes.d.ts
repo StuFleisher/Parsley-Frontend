@@ -14,6 +14,7 @@ type Recipe = IRecipe & { //full recipe record from database
   imageSm?: string;
   imageMd?: string;
   imageLg?: string;
+  createdTime: Date;
   steps:IStep[] | StepForCreate;
 }
 
@@ -44,6 +45,7 @@ type SimpleRecipeData = {
   imageSm:string;
   imageMd:string;
   imageLg:string;
+  createdTime: Date;
 }
 
 interface IIngredient {

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import Container from "@mui/material/Container";
 import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 
 import { RecipeFormProvider } from "../helpers/RecipeFormContext";
 import userContext from "../helpers/userContext";
@@ -72,7 +73,9 @@ function EditRecipePage() {
                 <>
                     {saving &&
                         <Modal open={true}>
-                            <LoadingSpinner />
+                            <Box className="LoadingSpinnerContainer">
+                                <LoadingSpinner />
+                            </Box>
                         </Modal>
                     }
                     <RecipeBanner
