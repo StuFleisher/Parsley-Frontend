@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import MuiLink from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import Tooltip from '@mui/material/Tooltip';
 
 import CookbookButton from '../ui/CookbookButton';
 import './RecipeInfo.scss';
