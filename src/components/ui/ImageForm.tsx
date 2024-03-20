@@ -15,15 +15,11 @@ type props = {
 function ImageForm ({onSubmit}:props){
 
   const [image,setImage] = useState<Blob | null>(null);
-  const [imageInput,setImageInput] = (
-    useState<string | number | readonly string[] | undefined>("")
-  );
   const [fileName, setFileName] = useState("Upload an Image")
 
   function handleChange(e:React.ChangeEvent<HTMLInputElement>){
     e.preventDefault();
     const file = e.target.files![0];
-    setImageInput(e.target.value);
     setFileName(e.target.files![0].name)
     setImage(file)
   }
