@@ -46,10 +46,10 @@ function ImageForm ({onSubmit}:props){
               Upload File
               <input
                 type="file"
+                accept="image"
                 name="image"
                 hidden
                 onChange={(e)=>handleChange(e)}
-                value={imageInput}
                 />
           </Button>
           <Box className="ImageForm-fileName">
