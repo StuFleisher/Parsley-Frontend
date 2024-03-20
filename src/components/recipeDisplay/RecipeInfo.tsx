@@ -8,16 +8,17 @@ import Stack from '@mui/material/Stack';
 import CookbookButton from '../ui/CookbookButton';
 import './RecipeInfo.scss';
 import userContext from '../../helpers/userContext';
+import { shortenString } from '../../helpers/utilities';
 
 type props = {
     recipe: Recipe | SimpleRecipeData;
-    variant: "simple" | "detailed"
+    variant: "simple" | "detailed";
 
 };
 
 function RecipeInfo({ recipe, variant }: props) {
 
-    const {username} = useContext(userContext)
+    const { username } = useContext(userContext);
 
     return (
         <>
@@ -31,7 +32,11 @@ function RecipeInfo({ recipe, variant }: props) {
             >
                 <Link to={`/recipes/${recipe.recipeId}`}>
                     <Typography className='RecipeInfo-name' variant="h2">
-                        {`${recipe.name.substring(0, 40)}`}
+                        {
+                            variant === "simple"
+                                ? shortenString(recipe.name, 40)
+                                : recipe.name
+                        }
                     </Typography>
                 </Link>
             </Stack>
@@ -40,8 +45,8 @@ function RecipeInfo({ recipe, variant }: props) {
                 <Link to={`/users/${recipe.owner}`}>{recipe.owner}</Link>
             </Typography>
             <Typography className='RecipeInfo-description' variant="body1">
-                {recipe.description.length > 100 && variant==="simple"
-                    ? `${recipe.description.substring(0, 100)}...`
+                {variant === "simple"
+                    ? shortenString(recipe.description, 100)
                     : recipe.description
                 }
             </Typography>
@@ -61,8 +66,8 @@ function RecipeInfo({ recipe, variant }: props) {
                     </Typography>
             }
 
-            {variant==="detailed" && username &&
-                <CookbookButton recipe={recipe}/>
+            {variant === "detailed" && username &&
+                <CookbookButton recipe={recipe} />
             }
         </>
     );
