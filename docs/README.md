@@ -18,7 +18,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/StuFleisher/Parsley-Backend">
+  <a href="https://github.com/StuFleisher/Parsley-Frontend">
     <img src="images/ParsleyLogo.svg" alt="Logo" width="80" height="80">
   </a>
 
@@ -27,7 +27,7 @@
   <p align="center">
     If you've ever lost your place in a recipe while switching between the ingredients and instructions sections, Parsley is the solution for you.  Parsley leverages AI to parse and reformat recipes, putting each ingredient right next to the instructions where it is required.
     <br />
-    <a href="https://github.com/StuFleisher/Parsley-Backend"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/StuFleisher/Parsley-Frontend"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/StuFleisher/Parsley-Frontend">Front End Repo</a>
@@ -36,9 +36,9 @@
     <br/>
     <a href="https://parsley.cooking">Live Site</a>
     ·
-    <a href="https://github.com/StuFleisher/Parsley-Backend/issues">Report Bug</a>
+    <a href="https://github.com/StuFleisher/Parsley-Frontend/issues">Report Bug</a>
     ·
-    <a href="https://github.com/StuFleisher/Parsley-Backend/issues">Request Feature</a>
+    <a href="https://github.com/StuFleisher/Parsley-Frontend/issues">Request Feature</a>
   </p>
 </div>
 
@@ -75,12 +75,12 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://parsley.cooking)
 
 Parsley allows users to generate records easily from copy/pasted text.  We leverage the
 OpenAI api to parse and format user entries into usable JSON for user-friendly display.
 
-This is the Backend Repository.  For the Frontend Repository, please visit <a href="https://github.com/StuFleisher/Parsley-Frontend">Parsley-Frontend</a>.
+This is the Frontend Repository.  For the Backend Repository, please visit <a href="https://github.com/StuFleisher/Parsley-Backend">Parsley-Backend</a>.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -117,7 +117,7 @@ This is an example of how to list things you need to use the software and how to
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
    ```sh
-   git clone https://github.com/StuFleisher/Parsley-Backend.git
+   git clone https://github.com/StuFleisher/Parsley-Frontend.git
    ```
 3. Install NPM packages
    ```sh
@@ -129,43 +129,20 @@ This is an example of how to list things you need to use the software and how to
 ### Environment Variables
 You'll need to set up the following environment variables in your .env file
 
-
-* OPENAI_API_KEY
-* DATABASE_URL (For use by Prisma ORM)
-* SECRET_KEY (Used for hashing)
-* BUCKET_NAME (for S3)
-* BUCKET_REGION (for S3)
-* AWS_KEY (for S3)
-* AWS_SECRET_KEY (for S3)
-* PORT
-* CORS_URL (whitelisted domain for CORS)
+* REACT_APP_BASE_URL (your backend server address)
 </ul>
 
 
-### Migrations
-This codebase uses PrismaORM to handle migrations.  Please refer to their documentation
-at https://www.prisma.io/docs(https://www.prisma.io/docs)
-
-
 ### Testing
-While I employed TDD for the majority of development, my testing lagged behind
-in the final weeks of development in order to hit my deployment target.  I hope
-to have an updated testing suite in the coming weeks.
+Due to rapid iteration in the early stages of development, Front End testing is still pending.
 
-To Run tests on typescript files:
-
-```sh
-   npm run test
-   ```
-
-To run tests on typescript files and compiled files:
-
-```sh
-   npm run buildtest
-   ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+
+### User Flow
+![User Flow Diagram][user-flow]
+
 
 Here are a few additional features of the app:<br/>
 * Auth controls for user registration and login
@@ -192,7 +169,7 @@ Here are a few additional features of the app:<br/>
 - [ ] Checkboxes/accordions for completed recipes
 
 
-See the [open issues](https://github.com/StuFleisher/Parsley-Backend/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/StuFleisher/Parsley-Frontend/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -230,7 +207,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - StuartFleisher([linkedin_url]) - stufleisher@gmail.com
 
-Project Link: [https://github.com/StuFleisher/Parsley-Backend](https://github.com/StuFleisher/Parsley-Backend)
+Project Link: [https://github.com/StuFleisher/Parsley-Frontend](https://github.com/StuFleisher/Parsley-Frontend)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -249,19 +226,20 @@ Project Link: [https://github.com/StuFleisher/Parsley-Backend](https://github.co
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/StuFleisher/Parsley-Backend.svg?style=for-the-badge
-[contributors-url]: https://github.com/StuFleisher/Parsley-Backend/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/StuFleisher/Parsley-Backend.svg?style=for-the-badge
-[forks-url]: https://github.com/StuFleisher/Parsley-Backend/network/members
-[stars-shield]: https://img.shields.io/github/stars/StuFleisher/Parsley-Backend.svg?style=for-the-badge
-[stars-url]: https://github.com/StuFleisher/Parsley-Backend/stargazers
-[issues-shield]: https://img.shields.io/github/issues/StuFleisher/Parsley-Backend.svg?style=for-the-badge
-[issues-url]: https://github.com/StuFleisher/Parsley-Backend/issues
-[license-shield]: https://img.shields.io/github/license/StuFleisher/Parsley-Backend.svg?style=for-the-badge
-[license-url]: https://github.com/StuFleisher/Parsley-Backend/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/StuFleisher/Parsley-Frontend.svg?style=for-the-badge
+[contributors-url]: https://github.com/StuFleisher/Parsley-Frontend/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/StuFleisher/Parsley-Frontend.svg?style=for-the-badge
+[forks-url]: https://github.com/StuFleisher/Parsley-Frontend/network/members
+[stars-shield]: https://img.shields.io/github/stars/StuFleisher/Parsley-Frontend.svg?style=for-the-badge
+[stars-url]: https://github.com/StuFleisher/Parsley-Frontend/stargazers
+[issues-shield]: https://img.shields.io/github/issues/StuFleisher/Parsley-Frontend.svg?style=for-the-badge
+[issues-url]: https://github.com/StuFleisher/Parsley-Frontend/issues
+[license-shield]: https://img.shields.io/github/license/StuFleisher/Parsley-Frontend.svg?style=for-the-badge
+[license-url]: https://github.com/StuFleisher/Parsley-Frontend/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/stufleisher
 [product-screenshot]: images/screenshot_01.png
+[user-flow]: assets/Sitemap.png
 
 [React.js]: https://img.shields.io/badge/React-000000?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
