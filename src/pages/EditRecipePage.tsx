@@ -43,13 +43,18 @@ function EditRecipePage() {
     /** Callback to update the recipe record (including it's image) in the database */
     async function updateRecipe(formData: Recipe) {
         setSaving(true);
-        await ParsleyAPI.UpdateRecipe(formData);
-        if (recipe) {
-            if (image) {
-                await ParsleyAPI.updateRecipeImage(image, recipe.recipeId);
+        try {
+            await ParsleyAPI.UpdateRecipe(formData);
+            if (recipe) {
+                if (image) {
+                    await ParsleyAPI.updateRecipeImage(image, recipe.recipeId);
+                }
+                navigate(`/recipes/${recipe.recipeId}`);
             }
-            navigate(`/recipes/${recipe.recipeId}`);
-        } else setSaving(false);
+        } catch (err) {
+            //TODO: display error message
+            setSaving(false);
+        }
     }
 
     /** Callback to delete a recipe and update the record */

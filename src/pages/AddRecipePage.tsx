@@ -104,7 +104,7 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
     if (mode === "input") {
         pageContent = (
             <SimpleLayout src="/images/banner01.jpg">
-                <GenerateRecipeFromTextForm onSubmit={generateRecipe} />;
+                <GenerateRecipeFromTextForm onSubmit={generateRecipe} />
             </SimpleLayout>
         );
     }

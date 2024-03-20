@@ -31,7 +31,6 @@ function ImageForm ({onSubmit}:props){
   function handleSubmit(e:React.FormEvent<HTMLFormElement>){
     e.preventDefault();
     e.stopPropagation();
-    console.log("handleSubmit from ImageForm")
     onSubmit(image);
   }
 

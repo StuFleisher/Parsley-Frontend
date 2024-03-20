@@ -24,9 +24,11 @@ function RecipeBanner({ updateImage, image, imageUrl, editable = false }: props)
         setShowModal(false);
     }
 
-    function handleUpdate(file: Blob) {
+    function handleUpdate(file?: Blob|undefined) {
         closeModal();
-        updateImage(file);
+        if (file){
+            updateImage(file);
+        }
     }
 
     return (
