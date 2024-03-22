@@ -1,7 +1,6 @@
 @import "./styles/colors";
 
 .App {
-  // width: 100%;
   background-color: $muted-light;
 }
 
@@ -20,7 +19,7 @@
 .App-page {
   background-color: $muted-light;
   width:100%;
-  margin: 0px, auto;
+  margin: 0px auto;
   position: relative;
   min-height: calc(100vh - 3rem);
 }
