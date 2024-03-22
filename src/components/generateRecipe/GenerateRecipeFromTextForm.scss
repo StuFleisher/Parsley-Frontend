@@ -1,6 +1,9 @@
 @import "../../styles/colors";
 
 .RecipeFromText {
+
+    width:100%;
+    
     .MuiFormControl-root {
         width:100%;
         background-color: $bright-white;
@@ -8,9 +11,6 @@
         margin-bottom:1rem;
     }
 
-    input, textarea {
-
-    }
 
     .RecipeFromText-title {
         color:$primary;

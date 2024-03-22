@@ -6,7 +6,6 @@ import { faCutlery } from "@fortawesome/free-solid-svg-icons";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-
 import "./GenerateRecipeFromTextForm.scss";
 
 type Props = {
@@ -38,7 +37,7 @@ function GenerateRecipeFromTextForm ({onSubmit}:Props){
                 multiline
                 minRows={10}
                 onChange={evt=>handleChange(evt)}
-                placeholder={`Recipe Text
+                placeholder={`Copy/Paste your raw recipe text here.  No need to tidy it up - we'll take care of that for you.
                 `}
             />
             <Button

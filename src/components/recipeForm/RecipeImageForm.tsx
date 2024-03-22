@@ -7,7 +7,7 @@ type props = {
 function RecipeImageForm({updateRecipeImage}:props){
 
     return (
-        <ImageForm imgUrl="" onSubmit={updateRecipeImage}/>
+        <ImageForm onSubmit={updateRecipeImage}/>
     )
 
 }

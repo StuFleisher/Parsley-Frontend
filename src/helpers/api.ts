@@ -111,8 +111,21 @@ class ParsleyAPI {
   /************************ RECIPES ********************************/
   /**  CREATE  */
 
-  static async generateRecipe(formData: { recipeText: string; }): Promise<Recipe> {
+  static async generateRecipeFromText(formData: { recipeText: string; }): Promise<Recipe> {
     const response = await this.request('recipes/generate', formData, 'post');
+    return response.recipe;
+  }
+
+  static async generateRecipeFromImage(image:Blob) {
+    const formData = new FormData();
+    formData.set('image', image);
+
+    const response = await this.multipartRequest(
+      `recipes/generate`,
+      formData,
+      'post'
+    );
+
     return response.recipe;
   }
 
@@ -128,14 +141,14 @@ class ParsleyAPI {
     return response.recipe;
   }
 
-  static async getUserRecipes(username:string){
+  static async getUserRecipes(username: string) {
     const response = await this.request(
       `users/${username}/recipes`
-    )
+    );
     return response.recipes;
   }
 
-  static async getAllRecipes(query:string | null): Promise<SimpleRecipeData[]> {
+  static async getAllRecipes(query: string | null): Promise<SimpleRecipeData[]> {
 
     const response = query
       ? await this.request(`recipes?q=${query}`)
@@ -153,7 +166,7 @@ class ParsleyAPI {
     return response.recipe;
   }
 
-  static async updateRecipeImage(image:Blob, recipeId:number) {
+  static async updateRecipeImage(image: Blob, recipeId: number) {
     const formData = new FormData();
     formData.set('image', image);
 
@@ -176,43 +189,43 @@ class ParsleyAPI {
   }
 
 
-    /************************ COOKBOOK ********************************/
-  static async getCookbook(username:string){
+  /************************ COOKBOOK ********************************/
+  static async getCookbook(username: string) {
     const response = await this.request(
       `users/${username}/cookbook`
-    )
+    );
     return response.cookbook;
   }
 
 
-  static async addToCookbook(recipeId:number,username:string){
+  static async addToCookbook(recipeId: number, username: string) {
     const response = await this.request(
       `recipes/${recipeId}/addToCookbook`,
-      {recipeId, username},
+      { recipeId, username },
       'post'
-    )
-    if (response.statusCode === 201) {return true}
+    );
+    if (response.statusCode === 201) { return true; }
     return false; //is this what we want to return here?
   }
 
-  static async removeFromCookbook(recipeId:number,username:string){
+  static async removeFromCookbook(recipeId: number, username: string) {
     const response = await this.request(
       `recipes/${recipeId}/removeFromCookbook`,
-      {recipeId, username},
+      { recipeId, username },
       'post'
-    )
-    if (response.statusCode === 200) {return true}
+    );
+    if (response.statusCode === 200) { return true; }
     return false;
   }
 
-      /************************ BUG REPORTS ********************************/
+  /************************ BUG REPORTS ********************************/
 
-  static async createBugReport(reportedBy:string, reportText:string){
+  static async createBugReport(reportedBy: string, reportText: string) {
     const response = await this.request(
       `bugReports`,
-      {bugReport:{reportedBy,reportText}},
+      { bugReport: { reportedBy, reportText } },
       'post'
-    )
+    );
     return response.bugReport;
   }
 

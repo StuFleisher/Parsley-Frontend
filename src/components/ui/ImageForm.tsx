@@ -8,8 +8,7 @@ import Stack from "@mui/material/Stack";
 import "./ImageForm.scss";
 
 type props = {
-  onSubmit:Function
-  imgUrl:string
+  onSubmit:Function,
 }
 
 function ImageForm ({onSubmit}:props){

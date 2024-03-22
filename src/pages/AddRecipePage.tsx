@@ -12,7 +12,6 @@ import Modal from "@mui/material/Modal";
 
 import { RecipeFormProvider } from "../helpers/RecipeFormContext";
 import userContext from "../helpers/userContext";
-import GenerateRecipeFromTextForm from "../components/generateRecipe/GenerateRecipeFromTextForm";
 import ParsleyAPI from "../helpers/api";
 import RecipeFormDisplay from "../components/recipeForm/RecipeFormDisplay";
 import RecipeBanner from "../components/recipeForm/RecipeBanner";
@@ -20,6 +19,7 @@ import SimpleLayout from "../components/ui/SimpleLayout";
 import loadingAnimation from "../animations/loading_animation.json";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 import "./AddRecipePage.scss";
+import GenerateRecipeDisplay from "../components/generateRecipe/GenerateRecipeDisplay";
 
 type Props = {
     initialRecipe?: RecipeForCreate;
@@ -57,11 +57,16 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
      *
      * @param formData: {recipeText:string}
      */
-    async function generateRecipe(formData: { recipeText: string; }) {
+    async function generateRecipe( data:{ recipeText: string; }|Blob) {
         setError(null);
         setMode("generate");
         try {
-            const generatedRecipe: GeneratedRecipe = await ParsleyAPI.generateRecipe(formData);
+            let generatedRecipe: GeneratedRecipe
+            if ("recipeText" in data){
+                generatedRecipe = await ParsleyAPI.generateRecipeFromText(data);
+            } else {
+                generatedRecipe = await ParsleyAPI.generateRecipeFromImage(data);
+            }
 
             let recipeForCreate = {
                 ...generatedRecipe,
@@ -103,9 +108,9 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
 
     if (mode === "input") {
         pageContent = (
-            <SimpleLayout src="/images/banner01.jpg">
-                <GenerateRecipeFromTextForm onSubmit={generateRecipe} />
-            </SimpleLayout>
+            // <SimpleLayout src="/images/banner01.jpg">
+                <GenerateRecipeDisplay generateRecipe={generateRecipe} />
+            // </SimpleLayout>
         );
     }
 
@@ -122,7 +127,7 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
 
     if (mode === "display") {
         pageContent = (
-            <>
+            <Container className="Page-container" maxWidth="xl">
                 <RecipeBanner
                     image={image}
                     updateImage={updateRecipeImage}
@@ -132,7 +137,7 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
                 <RecipeFormProvider<RecipeForCreate> recipe={recipe} onSubmitCallback={saveRecipe}>
                     <RecipeFormDisplay deleteRecipe={async () => { navigate('/recipes'); }} />
                 </RecipeFormProvider>
-            </>
+            </Container>
         );
     }
 
@@ -157,10 +162,10 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
 
 
     return (
-        <Container className="Page-container" maxWidth="xl">
+        <>
             {error ? "Sorry! Our chefs weren't able to prepare that recipe for you." : ""}
             {pageContent}
-        </Container>
+        </>
     );
 
 
