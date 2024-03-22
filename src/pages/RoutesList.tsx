@@ -40,13 +40,13 @@ function RoutesList({login, register, logout}:props) {
             <Route path='/users/:username' element={<UserDetailPage initialView="recipes"/> }/>
             <Route path='/users/:username/cookbook' element={<UserDetailPage initialView="cookbook"/> }/>
             <Route path='/users/:username/recipes' element={<UserDetailPage initialView="recipes"/> }/>
+            <Route path='/demo' element={<DemoLogin login={login}/>}/>
 
             {!username
             ?
             <>
                 <Route path='/login' element={<LogInPage login={login} />}/>
                 <Route path='/register' element={<RegistrationPage register={register}/>}/>
-                <Route path='/demo' element={<DemoLogin login={login}/>}/>
                 </>
             :
             <>
