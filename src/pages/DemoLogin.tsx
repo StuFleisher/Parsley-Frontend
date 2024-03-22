@@ -4,7 +4,6 @@ import SimpleLayout from "../components/ui/SimpleLayout";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
-import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 type props = {
     login: (credentials: UserLoginData) => Promise<void>,
