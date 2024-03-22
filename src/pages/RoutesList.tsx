@@ -13,6 +13,7 @@ import userContext from "../helpers/userContext";
 import RegistrationPage from "./RegistrationPage";
 import LogInPage from "./LogInPage";
 import WelcomePage from "./WelcomePage";
+import DemoLogin from "./DemoLogin";
 
 
 type props = {
@@ -45,6 +46,7 @@ function RoutesList({login, register, logout}:props) {
             <>
                 <Route path='/login' element={<LogInPage login={login} />}/>
                 <Route path='/register' element={<RegistrationPage register={register}/>}/>
+                <Route path='/demo' element={<DemoLogin login={login}/>}/>
                 </>
             :
             <>
