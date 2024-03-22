@@ -92,11 +92,11 @@ function EditRecipePage() {
 
                     <RecipeFormProvider recipe={recipe} onSubmitCallback={updateRecipe}>
                         <RecipeFormDisplay deleteRecipe={deleteRecipe} />
-                    </RecipeFormProvider>;
+                    </RecipeFormProvider>
                 </>
             }
         </Container >
-    );
+    )
 }
 
 export default EditRecipePage;
