@@ -36,7 +36,7 @@ function GenerateRecipeFromTextForm ({onSubmit}:Props){
             <TextField
                 name='recipeText'
                 multiline
-                minRows={10}
+                rows={10}
                 onChange={evt=>handleChange(evt)}
                 placeholder={`Recipe Text
                 `}
