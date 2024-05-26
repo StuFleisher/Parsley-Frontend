@@ -22,7 +22,7 @@ import ModalButton from "./ModalButton";
 
 import userContext from "../../helpers/userContext";
 import SearchBar from "./SearchBar";
-import {ReactComponent as ParsleyLogo} from "../../ParsleyLogo.svg";
+import { ReactComponent as ParsleyLogo } from "../../ParsleyLogo.svg";
 import "./NavBar.scss";
 
 type props = {
@@ -111,14 +111,22 @@ function NavBar({ login }: props) {
                 onClose={handleCloseMenu}
             >
                 <Box className='NavBar-dropdownItems'>
-                    <Link component={RouterLink} to={`/users/${username}/recipes`}>
+                    <Link
+                        component={RouterLink}
+                        to={`/users/${username}/recipes`}
+                        onClick={() => { handleCloseMenu(); }}
+                    >
                         <MenuItem>
                             <Typography>
                                 My Recipes
                             </Typography>
                         </MenuItem>
                     </Link>
-                    <Link component={RouterLink} to={`/users/${username}/cookbook`}>
+                    <Link
+                        component={RouterLink}
+                        to={`/users/${username}/cookbook`}
+                        onClick={() => { handleCloseMenu(); }}
+                    >
                         <MenuItem>
                             <Typography>
                                 My Cookbook
@@ -147,7 +155,7 @@ function NavBar({ login }: props) {
                 <Stack className="NavBar">
                     <Stack direction="row" className="NavBar-home">
                         <Link component={RouterLink} to="/" className="NavBar-logo">
-                            <ParsleyLogo/><span>Parsley</span>
+                            <ParsleyLogo /><span>Parsley</span>
                         </Link>
                     </Stack>
 
