@@ -1,23 +1,22 @@
 @import "../../styles/colors";
 
 .NavBar {
-    display:flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 
-    padding:0 1rem 0 1rem;
+    padding: .5rem 1rem 0 1rem;
 
     background-color: $bright-white;
-    height: 50px;
-    width:100%;
+    width: 100%;
 
-    color:$charcoal;
+    color: $charcoal;
 
 }
 
-.NavBar-logo > svg {
-    height:2.5rem;
+.NavBar-logo>svg {
+    height: 2.5rem;
     max-width: 2.5rem;
     aspect-ratio: 1;
 }
@@ -25,9 +24,9 @@
 .NavBar-home {
     a {
         font-weight: 700;
-        font-size:large;
+        font-size: large;
         text-decoration: none;
-        color:$charcoal;
+        color: $charcoal;
         display: flex;
         align-items: center;
 
@@ -37,48 +36,48 @@
             color: $charcoal;
         }
     }
-
 }
 
 .NavBar-search {
 
+    margin: 1rem;
+    height: 1.5rem;
     background-color: $muted-light;
 
-    height:60%;
     border-radius: 1rem;
     box-shadow: none;
 
-    border:solid 1px charcoal;
+    border: solid 1px charcoal;
 
-    .MuiFormControl-root{
-        height:100%;
+    .MuiFormControl-root {
+        height: 100%;
     }
 
     .MuiInputBase-root {
-        height:100%;
+        height: 100%;
 
-        .MuiInputBase-input{
-            margin:0;
+        .MuiInputBase-input {
+            margin: 0;
         }
 
         & .MuiOutlinedInput-root {
-            border:none;
+            border: none;
         }
     }
 
     & svg {
-        color:$charcoal;
+        color: $charcoal;
     }
 
-    &  * {
+    & * {
         border-radius: 1rem;
-        border:none;
-        outline:none;
-        box-shadow:none;
+        border: none;
+        outline: none;
+        box-shadow: none;
     }
 
     input {
-        color:$charcoal;
+        color: $charcoal;
     }
 
 }
@@ -88,53 +87,51 @@
     font-size: larger;
     color: $charcoal;
 
-    & button {
+    & a,
+    button {
         display: flex;
-        align-items: center;
         font-size: 1rem;
-        color:$charcoal;
+        color: $charcoal;
         font-weight: 400;
-        list-style-type: none ;
+        list-style-type: none;
+        border-radius: 1rem;
+        padding: 1rem;
 
         span {
             text-decoration: none;
         }
 
         & svg {
-            color:$charcoal;
+            color: $charcoal;
         }
     }
 }
 
 .NavBar-dropdown {
 
-    & a {
+    .NavBar-menuItem {
         text-decoration: none;
-        color:$charcoal;
+        color: $charcoal;
+        width:100%;
     }
 
-    & ul {
-        background-color:$bright-white;
-
-
-        & li {
-            // margin:10px;
-            // border: solid 1px $primary;
-            font-weight: 300;
-        }
-    }
-
-    & .NavBar-dropdownItems {
-        border: solid 1px charcoal;
+    .NavBar-dropdownItems {
+        color: $charcoal;
+        width:100%;
         padding: .5rem 1rem;
     }
+
+
+    & ul {
+        background-color: $bright-white;
+    }
+
 }
 
 .loginModal {
-    height:100%;
-    width:100%;
-
-    display:flex;
+    height: 100%;
+    width: 100%;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
