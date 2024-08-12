@@ -116,11 +116,11 @@ function NavBar({ login }: props) {
                     <MenuItem
                         className="NavBar-menuItem"
                         component={RouterLink}
-                        to={`/users/${username}/cookbook`}
+                        to={`/users/${username}/favorites`}
                         onClick={() => { handleCloseMenu(); }}
                     >
                         <Typography>
-                            My Cookbook
+                            My Favorites
                         </Typography>
                     </MenuItem>
 

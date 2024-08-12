@@ -15,7 +15,7 @@ type User = IUser & {
   email:string,
   isAdmin:boolean,
   recipes:SimpleRecipeData[],
-  cookbook:SimpleRecipeData[],
+  favorites:SimpleRecipeData[],
 }
 
 type UserLoginData = {
@@ -35,8 +35,8 @@ type TokenPayload = {
   isAdmin:boolean,
 }
 
-type CookbookContextObject = {
-  cookbook:SimpleRecipeData[];
-  addToCookbook: Function | null;
-  removeFromCookbook: Function | null;
+type FavoritesContextObject = {
+  favorites:SimpleRecipeData[];
+  addToFavorites: Function | null;
+  removeFromFavorites: Function | null;
 }

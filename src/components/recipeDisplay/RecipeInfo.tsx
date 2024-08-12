@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import MuiLink from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 
-import CookbookButton from '../ui/CookbookButton';
+import FavoriteButton from '../ui/FavoriteButton';
 import './RecipeInfo.scss';
 import userContext from '../../helpers/userContext';
 import { shortenString } from '../../helpers/utilities';
@@ -67,7 +67,7 @@ function RecipeInfo({ recipe, variant }: props) {
             }
 
             {variant === "detailed" && username &&
-                <CookbookButton recipe={recipe} />
+                <FavoriteButton recipe={recipe} />
             }
         </>
     );

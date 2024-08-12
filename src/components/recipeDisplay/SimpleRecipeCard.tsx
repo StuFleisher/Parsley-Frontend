@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
 import RecipeInfo from "./RecipeInfo";
-import CookbookButton from "../ui/CookbookButton";
+import FavoriteButton from "../ui/FavoriteButton";
 import "./SimpleRecipeCard.scss";
 import userContext from "../../helpers/userContext";
 
@@ -35,7 +35,7 @@ function SimpleRecipeCard({ recipe }: props) {
                 >
                     {username &&
                         <Box className="IconBar">
-                            <CookbookButton recipe={recipe} />
+                            <FavoriteButton recipe={recipe} />
                         </Box>}
                 </Box>
             </Link>

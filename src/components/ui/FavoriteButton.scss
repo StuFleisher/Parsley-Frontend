@@ -1,8 +1,8 @@
 @import "../../styles/colors";
 
-.CookbookButton {
+.FavoriteButton {
 
-    .CookbookButton-add {
+    .FavoriteButton-add {
         color: $bright-white;
 
         & :hover {
@@ -10,7 +10,7 @@
         }
     }
 
-    .CookbookButton-remove {
+    .FavoriteButton-remove {
         color: $secondary;
 
         & :hover {

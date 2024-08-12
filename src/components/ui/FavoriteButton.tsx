@@ -1,5 +1,5 @@
 /** Handles the functionality for a button that adds/removes a recipe
- * from a cookbook.
+ * from a favorites list.
  */
 
 import React, { useState } from "react";
@@ -10,15 +10,15 @@ import { faBook, faBookBookmark } from '@fortawesome/free-solid-svg-icons';
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 
-import { useCookbook } from "../../helpers/cookbookContext";
-import "./CookbookButton.scss";
+import { useFavorites } from "../../helpers/favoritesContext";
+import "./FavoriteButton.scss";
 
 type props = {
     recipe: SimpleRecipeData | Recipe;
 };
 
-function CookbookButton({ recipe }: props) {
-    const { isInCookbook, toggleInCookbook } = useCookbook();
+function FavoriteButton({ recipe }: props) {
+    const { isInFavorites, toggleInFavorites } = useFavorites();
     const [isProcessing, setIsProcessing] = useState(false);
 
     async function handleClick(e: React.MouseEvent) {
@@ -29,26 +29,26 @@ function CookbookButton({ recipe }: props) {
 
             if (!isProcessing) {
                 setIsProcessing(true);
-                await toggleInCookbook(recipe);
+                await toggleInFavorites(recipe);
                 setIsProcessing(false);
             }
         } catch (err) {
-            console.warn("There was an error adding that recipe to your cookbook.  Was the page fully loaded?");
+            console.warn("There was an error adding that recipe to your favorites.  Was the page fully loaded?");
         }
     }
 
     return (
-        <Tooltip title={isInCookbook(recipe) ? "Remove from cookbook" : "Save to Cookbook"}>
+        <Tooltip title={isInFavorites(recipe) ? "Remove from Favorites" : "Save to Favorites"}>
             <IconButton
                 onClick={handleClick}
-                className="CookbookButton"
+                className="FavoriteButton"
             >
                 <FontAwesomeIcon
-                    icon={isInCookbook(recipe) ? faBookBookmark : faBook}
+                    icon={isInFavorites(recipe) ? faBookBookmark : faBook}
                     className={
-                        isInCookbook(recipe)
-                            ? "CookbookButton-remove"
-                            : "CookbookButton-add"
+                        isInFavorites(recipe)
+                            ? "FavoriteButton-remove"
+                            : "FavoriteButton-add"
                     }
                 />
             </IconButton>
@@ -57,4 +57,4 @@ function CookbookButton({ recipe }: props) {
 
 }
 
-export default CookbookButton;
+export default FavoriteButton;

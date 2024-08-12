@@ -7,7 +7,7 @@ import './UserRecipeNav.scss'
 
 type props = {
     username: string;
-    selected: "cookbook" | "recipes";
+    selected: "favorites" | "recipes";
 };
 
 
@@ -22,12 +22,12 @@ function UserRecipeNav({ username, selected }: props) {
         >
             <Stack justifyContent="center">
                 <Button
-                    className={selected === "cookbook" ? "UserRecipesNav-button selected" : "UserRecipesNav-button"}
+                    className={selected === "favorites" ? "UserRecipesNav-button selected" : "UserRecipesNav-button"}
                     variant="outlined"
                     component={Link}
-                    to={`/users/${username}/cookbook`}
+                    to={`/users/${username}/favorites`}
                 >
-                    {username}'s Cookbook
+                    {username}'s Favorites
                 </Button>
             </Stack>
             <Stack justifyContent="center">
