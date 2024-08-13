@@ -5,7 +5,8 @@
 import React, { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook, faBookBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -44,7 +45,7 @@ function FavoriteButton({ recipe }: props) {
                 className="FavoriteButton"
             >
                 <FontAwesomeIcon
-                    icon={isInFavorites(recipe) ? faBookBookmark : faBook}
+                    icon={isInFavorites(recipe) ? faHeartSolid : faHeart}
                     className={
                         isInFavorites(recipe)
                             ? "FavoriteButton-remove"
