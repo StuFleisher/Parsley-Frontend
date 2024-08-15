@@ -12,7 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 
 import { useFavorites } from "../../helpers/favoritesContext";
-import "./FavoriteButton.scss";
+import "./RecipeButton.scss";
 
 type props = {
     recipe: SimpleRecipeData | Recipe;
@@ -42,15 +42,10 @@ function FavoriteButton({ recipe }: props) {
         <Tooltip title={isInFavorites(recipe) ? "Remove from Favorites" : "Save to Favorites"}>
             <IconButton
                 onClick={handleClick}
-                className="FavoriteButton"
+                className="RecipeButton"
             >
                 <FontAwesomeIcon
                     icon={isInFavorites(recipe) ? faHeartSolid : faHeart}
-                    className={
-                        isInFavorites(recipe)
-                            ? "FavoriteButton-remove"
-                            : "FavoriteButton-add"
-                    }
                 />
             </IconButton>
         </Tooltip>
