@@ -93,8 +93,9 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
         const recipe = await ParsleyAPI.createRecipe(formData);
         if (image) {
             await ParsleyAPI.updateRecipeImage(image, recipe.recipeId);
+            navigate(`/recipes/${recipe.recipeId}`);
         }
-        navigate(`/recipes/${recipe.recipeId}`);
+        navigate(`/recipes/${recipe.recipeId}/image?new=true`);
     }
 
     /** Callback to update the image state for submission along with the recipeForm */
