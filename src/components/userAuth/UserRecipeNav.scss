@@ -1,12 +1,18 @@
 @import '../../styles/_colors.scss';
 
 .UserRecipesNav {
-    width:100%;
+    width: 100%;
     background-color: $muted-dark;
     padding: 1rem 0;
 
-    div{
-        width: 15rem;
+    div {
+        width: 40%;
+    }
+
+    .selected {
+        background-color: $bright-white;
+        border: 2px $primary solid;
+        color: $primary;
     }
 }
 
@@ -14,13 +20,11 @@
     width: 100%;
     margin: auto;
     color: $bright-white;
-    border: $bright-white solid 1px;
+    border: $primary solid 1px;
     border-radius: 0;
-
 }
 
-.selected {
+.UserRecipesNav-button:Hover {
     background-color: $bright-white;
-    border: none;
-    color:$primary;
+    color: $primary;
 }

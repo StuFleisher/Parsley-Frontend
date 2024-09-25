@@ -185,7 +185,7 @@ function Homepage({ register }: props) {
                         Save
                     </Typography>
                     <Typography variant='body1'>
-                        Save your favorite recipes to your cookbook for future meals.                    </Typography>
+                        Save your favorite recipes to your favorites for future meals.                    </Typography>
                 </Box>
                 <Box className="Features-feature">
                     <Box

@@ -3,17 +3,17 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 import Container from "@mui/material/Container";
 
-import { CookbookProvider } from "../helpers/cookbookContext";
+import { FavoritesProvider } from "../helpers/favoritesContext";
 import { UserRecipesProvider } from "../helpers/userRecipesContext";
 import ParsleyAPI from "../helpers/api";
 import UserRecipeNav from "../components/userAuth/UserRecipeNav";
-import CookbookRecipesList from "../components/userViews/CookbookRecipesList";
+import FavoritesRecipesList from "../components/userViews/FavoritesRecipesList";
 
 import './UserDetailPage.scss';
 import UserRecipesList from "../components/userViews/UserRecipesList";
 
 type props = {
-    initialView: "cookbook" | "recipes";
+    initialView: "favorites" | "recipes";
 };
 
 function UserDetailPage({ initialView }: props) {
@@ -22,12 +22,12 @@ function UserDetailPage({ initialView }: props) {
     const location = useLocation();
 
     const navigate = useNavigate();
-    const [view, setView] = useState<"cookbook" | "recipes">(initialView);
+    const [view, setView] = useState<"favorites" | "recipes">(initialView);
 
     useEffect(function switchViewsWithUrl() {
         const viewToShow = (
-            location.pathname.includes('/cookbook')
-                ? "cookbook"
+            location.pathname.includes('/favorites')
+                ? "favorites"
                 : "recipes"
         );
         setView(viewToShow)
@@ -52,16 +52,16 @@ function UserDetailPage({ initialView }: props) {
             {username && <UserRecipeNav username={username} selected={view} />}
             <Container className="Page-container" maxWidth="xl">
 
-                <CookbookProvider cookbookOwner={username!}>
+                <FavoritesProvider username={username!}>
                     <UserRecipesProvider owner={username!}>
-                        {view === "cookbook" &&
-                            <CookbookRecipesList />
+                        {view === "favorites" &&
+                            <FavoritesRecipesList />
                         }
                         {view === "recipes" &&
                             <UserRecipesList />
                         }
                     </UserRecipesProvider >
-                </CookbookProvider>
+                </FavoritesProvider>
             </Container>
         </>
     );

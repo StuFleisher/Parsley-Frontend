@@ -9,6 +9,8 @@ import ImageForm from "../ui/ImageForm";
 import SimpleLayout from "../ui/SimpleLayout";
 
 import "./GenerateRecipeDisplay.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera, faPencil, faRocket } from "@fortawesome/free-solid-svg-icons";
 
 type props = {
     generateRecipe: (data: { recipeText: string; } | Blob) => Promise<void>;
@@ -40,7 +42,9 @@ function GenerateRecipeDisplay({ generateRecipe }: props) {
                         setMode("text");
                     }}
                 >
-                    Generate from Text
+                    <Typography>
+                        <FontAwesomeIcon icon={faPencil} /> &nbsp; Generate from Text
+                    </Typography>
                 </Button>
                 <Button
                     className={
@@ -48,13 +52,15 @@ function GenerateRecipeDisplay({ generateRecipe }: props) {
                             ? "GenerateRecipeDisplay-button selected"
                             : "GenerateRecipeDisplay-button"
                     }
-                    variant="outlined"
+                    // variant="outlined"
                     onClick={(e) => {
                         e.preventDefault();
                         setMode("image");
                     }}
                 >
-                    Generate from Photo
+                    <Typography>
+                        <FontAwesomeIcon icon={faCamera} /> &nbsp; Generate from Photo
+                    </Typography>
                 </Button>
                 <Button
                     className={
@@ -68,7 +74,9 @@ function GenerateRecipeDisplay({ generateRecipe }: props) {
                         setMode("ai");
                     }}
                 >
-                    Generate with AI
+                    <Typography>
+                        <FontAwesomeIcon icon={faRocket} /> &nbsp; Generate with AI
+                    </Typography>
                 </Button>
             </Stack>
 
@@ -114,26 +122,26 @@ function GenerateRecipeDisplay({ generateRecipe }: props) {
                                     alignItems="center"
                                     justifyContent={"center"}
                                     className="GenerateRecipeDisplay-formContainer"
-                                    >
+                                >
                                     <ImageForm onSubmit={generateRecipe} />
                                 </Stack>
                             </>
                             : ""
-                        }
-                        {
-                            (mode === "ai")
-                                ?
-                                <>
-                                    <Typography
-                                        variant="body1"
-                                        className="RecipeFromText-title"
-                                    >
-                                        Write a description of the recipe you'd like us to make and our AI chef will build something just for you.
-                                    </Typography>
-                                    <GenerateRecipeFromTextForm onSubmit={generateRecipe} />
-                                </>
-                                : ""
-                        }
+                    }
+                    {
+                        (mode === "ai")
+                            ?
+                            <>
+                                <Typography
+                                    variant="body1"
+                                    className="RecipeFromText-title"
+                                >
+                                    Write a description of the recipe you'd like us to make and our AI chef will build something just for you.
+                                </Typography>
+                                <GenerateRecipeFromTextForm onSubmit={generateRecipe} />
+                            </>
+                            : ""
+                    }
 
                 </Stack>
             </SimpleLayout>

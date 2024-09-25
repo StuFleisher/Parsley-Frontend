@@ -189,18 +189,18 @@ class ParsleyAPI {
   }
 
 
-  /************************ COOKBOOK ********************************/
-  static async getCookbook(username: string) {
+  /************************ FAVORITES ********************************/
+  static async getFavorites(username: string) {
     const response = await this.request(
-      `users/${username}/cookbook`
+      `users/${username}/favorites`
     );
-    return response.cookbook;
+    return response.favorites;
   }
 
 
-  static async addToCookbook(recipeId: number, username: string) {
+  static async addToFavorites(recipeId: number, username: string) {
     const response = await this.request(
-      `recipes/${recipeId}/addToCookbook`,
+      `recipes/${recipeId}/addToFavorites`,
       { recipeId, username },
       'post'
     );
@@ -208,9 +208,9 @@ class ParsleyAPI {
     return false; //is this what we want to return here?
   }
 
-  static async removeFromCookbook(recipeId: number, username: string) {
+  static async removeFromFavorites(recipeId: number, username: string) {
     const response = await this.request(
-      `recipes/${recipeId}/removeFromCookbook`,
+      `recipes/${recipeId}/removeFromFavorites`,
       { recipeId, username },
       'post'
     );

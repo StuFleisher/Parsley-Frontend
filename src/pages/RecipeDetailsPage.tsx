@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 
-import { CookbookProvider } from "../helpers/cookbookContext";
+import { FavoritesProvider } from "../helpers/favoritesContext";
 import userContext from "../helpers/userContext";
 import Container from "@mui/material/Container";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
@@ -36,7 +36,7 @@ function RecipeDetailsPage() {
 
     return (
 
-        <CookbookProvider cookbookOwner={username!}>
+        <FavoritesProvider username={username!}>
             <Container className="Page-container" maxWidth="xl">
 
                 {!recipe
@@ -48,7 +48,7 @@ function RecipeDetailsPage() {
                         {username !== recipe.owner ? "" : <Link to={`/recipes/${recipe.recipeId}/edit`}> Edit this Recipe</Link>}
                     </>}
             </Container>
-        </CookbookProvider>
+        </FavoritesProvider>
     );
 
 }

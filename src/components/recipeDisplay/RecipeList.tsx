@@ -11,7 +11,7 @@ import { faKitchenSet } from "@fortawesome/free-solid-svg-icons";
 
 import SimpleRecipeCard from "./SimpleRecipeCard";
 import userContext from "../../helpers/userContext";
-import { CookbookProvider } from "../../helpers/cookbookContext";
+import { FavoritesProvider } from "../../helpers/favoritesContext";
 import "./RecipeList.scss"
 
 type props = {
@@ -61,7 +61,7 @@ function RecipeList({ recipes, pageLength = 10 }: props) {
     }
 
     return (
-        <CookbookProvider cookbookOwner={username!}>
+        <FavoritesProvider username={username!}>
             <Box justifyContent="center">
 
                 {pagination}
@@ -76,7 +76,7 @@ function RecipeList({ recipes, pageLength = 10 }: props) {
                 {pagination}
 
             </Box>
-        </CookbookProvider>
+        </FavoritesProvider>
     );
 }
 
