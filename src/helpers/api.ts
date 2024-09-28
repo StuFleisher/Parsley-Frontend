@@ -156,6 +156,12 @@ class ParsleyAPI {
     return response.recipes;
   }
 
+  static async getRecipesByTag(tagName:string): Promise<SimpleRecipeData[]> {
+    const response = await this.request(`tags/${tagName}`);
+    console.log(response.recipes)
+    return response.recipes;
+  }
+
   /**  UPDATE  */
   static async UpdateRecipe(formData: Recipe): Promise<Recipe> {
     const response = await this.request(

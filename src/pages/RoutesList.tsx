@@ -16,6 +16,7 @@ import WelcomePage from "./WelcomePage";
 import DemoLogin from "./DemoLogin";
 import DeletedMessage from "./DeletedMessage";
 import EditRecipeImagePage from "./EditRecipeImagePage";
+import TagsListPage from "./TagsListPage";
 
 
 type props = {
@@ -39,6 +40,7 @@ function RoutesList({ login, register, logout }: props) {
                 />
                 <Route path='/recipes' element={<RecipeListPage />} />
                 <Route path='/recipes/:id' element={<RecipeDetailsPage />} />
+                <Route path='/tags/:name' element={<TagsListPage/>} />
                 <Route path='/users/:username' element={<UserDetailPage initialView="recipes" />} />
                 <Route path='/users/:username/favorites' element={<UserDetailPage initialView="favorites" />} />
                 <Route path='/users/:username/recipes' element={<UserDetailPage initialView="recipes" />} />

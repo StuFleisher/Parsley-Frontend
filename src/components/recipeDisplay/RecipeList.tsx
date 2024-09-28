@@ -49,7 +49,7 @@ function RecipeList({ recipes, pageLength = 10 }: props) {
         )}
     />);
 
-    if (recipes.length === 0) {
+    if (!recipes || recipes.length === 0) {
         return (
             <Box className="RecipeList-empty">
                 <FontAwesomeIcon icon={faKitchenSet} size="lg"/>
