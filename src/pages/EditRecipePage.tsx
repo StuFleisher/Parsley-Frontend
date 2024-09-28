@@ -12,6 +12,9 @@ import ParsleyAPI from "../helpers/api";
 import RecipeBanner from "../components/recipeForm/RecipeBanner";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 
+
+const DEFAULT_IMG_URL = "https://sf-parsley.s3.amazonaws.com/recipeImage/default-sm";
+
 function EditRecipePage() {
 
     const { id } = useParams();
@@ -43,14 +46,23 @@ function EditRecipePage() {
     /** Callback to update the recipe record (including it's image) in the database */
     async function updateRecipe(formData: Recipe) {
         setSaving(true);
+        console.log("saving")
         try {
-            await ParsleyAPI.UpdateRecipe(formData);
+            const savedRecipe = await ParsleyAPI.UpdateRecipe(formData);
             if (recipe) {
                 if (image) {
                     await ParsleyAPI.updateRecipeImage(image, recipe.recipeId);
                 }
-                navigate(`/recipes/${recipe.recipeId}`);
+                navigate(`/recipes/${savedRecipe.recipeId}`)
             }
+            console.log(savedRecipe.imageSm, DEFAULT_IMG_URL)
+            navigate(
+                savedRecipe.imageSm === DEFAULT_IMG_URL
+                    ?
+                    `/recipes/${savedRecipe.recipeId}/image`
+                    :
+                    `/recipes/${savedRecipe.recipeId}`
+            );
         } catch (err) {
             //TODO: display error message
             setSaving(false);

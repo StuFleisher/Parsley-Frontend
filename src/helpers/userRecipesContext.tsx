@@ -14,7 +14,7 @@ const userRecipesContext = React.createContext<SimpleRecipeData[]|null>(null);
 */
 function useUserRecipes():SimpleRecipeData[] {
     const context = useContext(userRecipesContext);
-    if (!context) throw new Error ("useCookbook must be used inside of a CookbookProvider Component")
+    if (!context) throw new Error ("useUserRecipes must be used inside of a UserRecipesProvider Component")
     return context;
   };
 

@@ -57,12 +57,12 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
      *
      * @param formData: {recipeText:string}
      */
-    async function generateRecipe( data:{ recipeText: string; }|Blob) {
+    async function generateRecipe(data: { recipeText: string; } | Blob) {
         setError(null);
         setMode("generate");
         try {
-            let generatedRecipe: GeneratedRecipe
-            if ("recipeText" in data){
+            let generatedRecipe: GeneratedRecipe;
+            if ("recipeText" in data) {
                 generatedRecipe = await ParsleyAPI.generateRecipeFromText(data);
             } else {
                 generatedRecipe = await ParsleyAPI.generateRecipeFromImage(data);
@@ -93,8 +93,9 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
         const recipe = await ParsleyAPI.createRecipe(formData);
         if (image) {
             await ParsleyAPI.updateRecipeImage(image, recipe.recipeId);
+            navigate(`/recipes/${recipe.recipeId}`);
         }
-        navigate(`/recipes/${recipe.recipeId}`);
+        navigate(`/recipes/${recipe.recipeId}/image?new=true`);
     }
 
     /** Callback to update the image state for submission along with the recipeForm */
@@ -109,7 +110,7 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
     if (mode === "input") {
         pageContent = (
             // <SimpleLayout src="/images/banner01.jpg">
-                <GenerateRecipeDisplay generateRecipe={generateRecipe} />
+            <GenerateRecipeDisplay generateRecipe={generateRecipe} />
             // </SimpleLayout>
         );
     }

@@ -147,7 +147,7 @@ Due to rapid iteration in the early stages of development, Front End testing is 
 Here are a few additional features of the app:<br/>
 * Auth controls for user registration and login
 * CRUD access for recipes (registered users) and users (admin only)
-* Users can store their most commonly used recipes in their cookbook for easy access
+* Users can store their most commonly used recipes in their favorites for easy access
 * Supports searching and filtering recipe records via query strings
 * Handles user images by validating, minifying and resizing images for storage in S3
 * DevOps tools for reporting bugs and measuring recipe create request performance

@@ -2,12 +2,15 @@ import { Link } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
-import './UserRecipeNav.scss'
+import './UserRecipeNav.scss';
+import { faHeart, faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type props = {
     username: string;
-    selected: "cookbook" | "recipes";
+    selected: "favorites" | "recipes";
 };
 
 
@@ -22,12 +25,15 @@ function UserRecipeNav({ username, selected }: props) {
         >
             <Stack justifyContent="center">
                 <Button
-                    className={selected === "cookbook" ? "UserRecipesNav-button selected" : "UserRecipesNav-button"}
+                    className={selected === "favorites" ? "UserRecipesNav-button selected" : "UserRecipesNav-button"}
                     variant="outlined"
                     component={Link}
-                    to={`/users/${username}/cookbook`}
+                    to={`/users/${username}/favorites`}
                 >
-                    {username}'s Cookbook
+                    <Typography>
+                        <FontAwesomeIcon icon={faHeart} />&nbsp;
+                        {username}'s Favorites
+                    </Typography>
                 </Button>
             </Stack>
             <Stack justifyContent="center">
@@ -37,7 +43,10 @@ function UserRecipeNav({ username, selected }: props) {
                     component={Link}
                     to={`/users/${username}/recipes`}
                 >
-                    {username}'s Recipes
+                    <Typography>
+                        <FontAwesomeIcon icon={faUtensils} /> &nbsp;
+                        {username}'s Recipes
+                    </Typography>
                 </Button>
             </Stack>
         </Stack>

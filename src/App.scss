@@ -6,19 +6,19 @@
 
 .App-loading {
   background-color: $muted-light;
-  width:100%;
+  width: 100%;
   min-height: 100vh;
-  display:flex;
+  display: flex;
   justify-content: center;
 
   & * {
-    margin:auto;
+    margin: auto;
   }
 }
 
 .App-page {
   background-color: $muted-light;
-  width:100%;
+  width: 100%;
   margin: 0px auto;
   position: relative;
   min-height: calc(100vh - 3rem);
@@ -27,9 +27,10 @@
 .Page-container {
   background-color: mix($muted-light, white, 50);
   min-height: calc(100vh - 3rem);
-  padding:1rem 2rem;
-  @media (min-width:900){
-    padding:1rem 3rem;
+  padding: 1rem 2rem;
+
+  @media (min-width:900) {
+    padding: 1rem 3rem;
   }
 }
 
@@ -42,4 +43,18 @@
     color: $charcoal;
   }
 
+}
+
+
+/** Utility Classes */
+
+.icon-text-align {
+    transform: translateY(7%); //Adjust for super long descenders on this font
+    margin-left: .5rem;
+}
+
+.Modal-contents {
+  background-color: $bright-white;
+  border-radius: 1rem;
+  padding:1rem;
 }

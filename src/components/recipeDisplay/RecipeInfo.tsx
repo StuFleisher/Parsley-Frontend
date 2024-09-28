@@ -5,9 +5,7 @@ import Typography from '@mui/material/Typography';
 import MuiLink from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 
-import CookbookButton from '../ui/CookbookButton';
 import './RecipeInfo.scss';
-import userContext from '../../helpers/userContext';
 import { shortenString } from '../../helpers/utilities';
 
 type props = {
@@ -17,8 +15,7 @@ type props = {
 };
 
 function RecipeInfo({ recipe, variant }: props) {
-    //testing git setup
-    const { username } = useContext(userContext);
+
 
     return (
         <>
@@ -64,10 +61,6 @@ function RecipeInfo({ recipe, variant }: props) {
                     <Typography variant="subtitle1" className='RecipeInfo-sourceName'>
                         Source: {recipe.sourceName}
                     </Typography>
-            }
-
-            {variant === "detailed" && username &&
-                <CookbookButton recipe={recipe} />
             }
         </>
     );
