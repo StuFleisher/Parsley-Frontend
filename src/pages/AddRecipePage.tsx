@@ -36,6 +36,7 @@ const emptyRecipe: RecipeForCreate = {
         ingredients: [],
     }
     ],
+    tags:[],
 };
 
 const DEFAULT_IMG_BASE_URL = "https://sf-parsley.s3.amazonaws.com/recipeImage/default";

@@ -1,18 +1,18 @@
 import React from "react";
-import {FastField} from "formik"
+import { FastField } from "formik";
 import FormikMuiTextField from "../ui/FormikMuiTextField";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
-import "./RecipeInfoInput.scss"
+import "./RecipeInfoInput.scss";
 
 
 const RecipeInfoInput = React.memo(
-function RecipeInfoInput() {
+    function RecipeInfoInput() {
 
-    return (
-        <Box className="RecipeInfoInput">
+        return (
+            <Box className="RecipeInfoInput">
 
                 <FastField
                     component={FormikMuiTextField}
@@ -25,7 +25,7 @@ function RecipeInfoInput() {
                     multiline
                     minRows={1}
                     maxRows={3}
-                    />
+                />
 
                 <FastField
                     component={FormikMuiTextField}
@@ -39,6 +39,14 @@ function RecipeInfoInput() {
                     minRows={3}
                     maxRows={10}
                 />
+                <FastField
+                        component={FormikMuiTextField}
+                        placeholder='Separate your tags using commas'
+                        name="tags"
+                        id="Recipe-tags"
+                        label="Tags"
+                        fullWidth
+                    />
 
                 <Stack
                     className="RecipeInfoInput-sourceName"
@@ -61,9 +69,10 @@ function RecipeInfoInput() {
                         label="URL"
                         fullWidth
                     />
+
                 </Stack>
-        </Box>
-    );
-})
+            </Box>
+        );
+    });
 
 export default RecipeInfoInput;

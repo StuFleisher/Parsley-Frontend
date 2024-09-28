@@ -55,6 +55,7 @@ function FavoritesProvider({ username, children }: props) {
       imageSm: recipe.imageSm ? recipe.imageSm : "",
       imageMd: recipe.imageMd ? recipe.imageMd : "",
       imageLg: recipe.imageLg ? recipe.imageLg : "",
+      tags: recipe.tags,
       createdTime: recipe.createdTime,
     };
     if (isInFavorites(simpleRecipe)) {

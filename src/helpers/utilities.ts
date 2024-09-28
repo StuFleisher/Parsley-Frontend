@@ -46,3 +46,26 @@ export function shortenString(str: string, n: number) {
     })}`;
   return `${shortStr}...`;
 }
+
+/** Splits a string by commas, cleans the result, and converts each item to
+ *  a Tag object */
+export function stringToTags(tagString: string): Partial<Tag>[] {
+  if (!tagString || tagString.trim() === "") return [];
+  const splitTags = tagString.split(',');
+  const filteredTags = splitTags.filter((tag) => tag.trim().length > 0);
+  const tags = filteredTags.map((tag) => {
+    return { name: tag.trim().toLowerCase() };
+  });
+
+  return tags;
+}
+
+export function tagsToString(tags: Tag[] | undefined): string | undefined {
+  if (!tags || tags.length === 0) return "";
+
+  const tagString = tags.reduce((accumulator, current) => {
+    if (accumulator === "") return current.name;
+    return `${accumulator}, ${current.name}`;
+  }, "");
+  return tagString;
+}

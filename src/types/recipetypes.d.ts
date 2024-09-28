@@ -5,6 +5,7 @@ interface IRecipe {
   description: string;
   sourceName: string;
   steps:IStep[];
+  tags: Tag[],
 }
 
 type Recipe = IRecipe & { //full recipe record from database
@@ -31,6 +32,7 @@ type GeneratedRecipe = {
   description:string;
   sourceName:string;
   steps: IStep[];
+  tags: Tag[];
 }
 
 
@@ -46,6 +48,7 @@ type SimpleRecipeData = {
   imageMd:string;
   imageLg:string;
   createdTime: Date;
+  tags: Tag[];
 }
 
 interface IIngredient {
@@ -76,6 +79,10 @@ type StepForCreate = {
   ingredients:IngredientForCreate[];
 }
 
+type Tag = {
+  name:string,
+}
+
 //form error types
 
 type IngredientError = {
@@ -95,3 +102,4 @@ type RecipeError = {
   sourceName: string|null;
   steps:stepError[];
 }
+

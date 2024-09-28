@@ -1,0 +1,19 @@
+@import '../../styles/_recipe-mixins.scss';
+
+.Tag {
+    background-color: $muted;
+    padding: 2px .5rem;
+    margin: 5px;
+    margin-left:0;
+    width: fit-content;
+    border-radius: 1rem;
+    display:inline-block;
+    transform: skewX(-10deg);
+}
+
+.Tag-name {
+    color: $charcoal;
+    font-size: .75rem;
+    font-weight: 600;
+    // font-style: oblique;
+}
