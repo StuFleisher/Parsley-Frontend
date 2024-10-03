@@ -1,4 +1,6 @@
 @import "../../styles/colors";
+@import "../../styles/_variables";
+
 
 .NavBar {
     display: flex;
@@ -13,6 +15,7 @@
 
     color: $charcoal;
 
+    height:var(--nav-height);
 }
 
 .NavBar-logo>svg {

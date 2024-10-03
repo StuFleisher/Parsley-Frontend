@@ -120,6 +120,38 @@ function Homepage({ register }: props) {
             {/* HERO SECTION */}
             <Stack
                 component="section"
+                className="Hero1"
+                direction={{ xs: "column", sm: "row" }}
+                alignItems="center"
+                justifyContent="center"
+                sx={{
+                    backgroundImage:`url('/images/alt-banner.jpg')`
+                }}
+            >
+                <Stack
+                    className="Headline-container"
+                    direction="column"
+                    spacing={2}
+                >
+                    <Typography component="h1" variant="h1">
+                        Recipes for the home cook
+                    </Typography>
+
+                </Stack>
+                <Stack
+                    className="Hero-more"
+                    alignItems="center"
+                    justifyContent="center"
+                >
+                    <Typography>
+                        See what makes a Parsley recipe special
+                    </Typography>
+                </Stack>
+            </Stack>
+
+            {/* HERO SECTION */}
+            <Stack
+                component="section"
                 className="Hero"
                 direction={{ xs: "column", sm: "row" }}
             >

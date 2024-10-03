@@ -1,0 +1,9 @@
+:root {
+    --nav-height:8rem;
+}
+
+@media (min-width:899.99px) {
+    :root {
+        --nav-height:4.5rem;
+    }
+}

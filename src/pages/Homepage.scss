@@ -1,4 +1,7 @@
 @import '../styles/_recipe-mixins.scss';
+@import "../styles/colors";
+@import "../styles/_variables";
+
 
 section {
     height: 100vh;
@@ -75,8 +78,40 @@ section {
 }
 
 /** HERO SECTION STYLING **/
+
+.Hero1 {
+    height: calc(100vh - var(--nav-height)); //compensate for navbar
+    width: 100%;
+    background-size: cover;
+    position:relative;
+    // from css in js
+    // background-image: url('/images/hero-banner.jpg');
+
+    .Headline-container {
+        padding: 1rem;
+        color:$primary;
+        border-radius: 1rem;
+        background-color: $bright-white;
+        z-index: 1;
+        box-shadow: 0 0 15px mix($charcoal, #00000000, 50%);
+    }
+
+    .Hero-more {
+        position:absolute;
+        bottom:0;
+        left:0;
+        width:100%;
+        padding: .5rem;
+        margin: auto;
+        color: $bright-white;
+        background-color: $info;
+    }
+}
+
+
+/** HERO SECTION STYLING **/
 .Hero {
-    height: calc(100vh - 3rem); //compensate for navbar
+    height: calc(100vh - var(--nav-height)); //compensate for navbar
     width: 100%;
 }
 
