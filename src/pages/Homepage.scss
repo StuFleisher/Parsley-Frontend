@@ -79,21 +79,45 @@ section {
 
 /** HERO SECTION STYLING **/
 
-.Hero1 {
+.Hero {
     height: calc(100vh - var(--nav-height)); //compensate for navbar
     width: 100%;
-    background-size: cover;
+    background-position: center;
+    background-size:cover;
     position:relative;
+    animation: floatyBackground 20s ease-in-out infinite;
+
+    @keyframes floatyBackground {
+        0% {
+            background-size: 100%;
+        }
+        50% {
+            background-size: 110%;
+        }
+        100% {
+            background-size: 100%;
+        }
+    }
     // from css in js
     // background-image: url('/images/hero-banner.jpg');
 
     .Headline-container {
-        padding: 1rem;
-        color:$primary;
-        border-radius: 1rem;
-        background-color: $bright-white;
+        width:100%;
+        height:100%;
+        padding: 1rem 2rem;
+        background-color: mix($muted-light, #00000000, 90%);
         z-index: 1;
-        box-shadow: 0 0 15px mix($charcoal, #00000000, 50%);
+        // box-shadow: 0 0 15px mix($charcoal, #00000000, 50%);
+        text-align: center;
+        padding-bottom:0;
+        h1 {
+            padding-bottom:0;
+            max-width: 80%;
+            color:$charcoal;
+        }
+        .subtitle {
+            color:$charcoal;
+        }
     }
 
     .Hero-more {
@@ -105,25 +129,64 @@ section {
         margin: auto;
         color: $bright-white;
         background-color: $info;
+        z-index:2;
+    }
+
+    .Hero-next {
+        color: $info;
+        animation: bounce 2s infinite linear;
+    }
+
+    @keyframes bounce {
+        20% {
+            transform:translateY(0%) scale(100%);
+            animation-timing-function: ease-in-out;
+        }
+        30% {
+            transform:translateY(-20%) scale(101%, 98%);
+            animation-timing-function: ease-in-out;
+        }
+        40% {
+            animation-timing-function: ease-out;
+            transform:translateY(0%) scale(98%, 102%);
+        }
+        50% {
+            transform:translateY(-10%) scale(102%, 98%);
+            animation-timing-function: ease-out;
+        }
+        60% {
+            transform:translateY(-0%) scale(98%, 102%);
+            animation-timing-function: ease-out;
+        }
+        70% {
+            transform:translateY(-5%) scale(102%, 98%);
+            animation-timing-function: ease-out;
+        }
+        80% {
+            transform:translateY(0%) scale(100%);
+            animation-timing-function: ease-out;
+        }
     }
 }
 
 
-/** HERO SECTION STYLING **/
-.Hero {
-    height: calc(100vh - var(--nav-height)); //compensate for navbar
+/** FORMAT SECTION STYLING **/
+#format {
+    min-height: calc(120vh); //compensate for navbar
     width: 100%;
+    background-size:contain;
 }
 
-.Hero-headlinePanel {
+.Format-headlinePanel {
     background-color: $secondary;
 }
 
-.Hero-imagePanel {
+.Format-contents {
 
-    // padding:3rem;
+
+    padding:3rem;
     @media (min-width:600px) {
-        padding: 3rem;
+        padding: 2rem;
     }
 
     img {
@@ -210,37 +273,81 @@ section {
 // FEATURES SECTION
 
 .Features {
-    width: 100%;
+    min-height: 100vh;
+    color: $info;
     padding: 10%;
-    background-color: $muted-light;
+    text-align: center;
+    text-wrap: pretty;
 }
 
-.Features-feature {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    width: 45%;
-    // height:30%;
-    color: $charcoal;
+.Features-grid {
+    width: 100%;
+    padding: 3rem 0%;
+    background-color: $muted-light;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+    gap: 1rem;
+
+    height: fit-content;
+    width:fit-content;
+    align-items: start;
+
+    * {
+        margin: 0 auto;
+        text-wrap: pretty;
+    }
+
+    p {
+        max-width: 50%;
+        margin-bottom:2rem;
+        color:$charcoal;
+    }
 
     @media (min-width:600px) {
-        height: 300px;
-        width: 33%;
-        max-height: fit-content;
+        grid-template-columns: 1fr 1fr 1fr;
+        padding: 3rem 0%;
+        align-items: stretch;
+        grid-auto-flow: column;
+
+
+        p {
+            max-width: 100%;
+        }
     }
 }
 
-.Features-featureIcon {
+.Features-feature {
+    margin: 0 auto;
+    text-align: center;
+    color: $charcoal;
+    width:100%;
+    grid-column: span 1;
+    align-items: start;
 
-    max-width: 100px;
-    // max-height:100px;
-    // width:80%;
+    img {
+        margin:auto;
+        max-height: 150px;
+    }
+
+    h3 {
+        margin-top:1rem;
+        color:$info;
+    }
+
+    p {
+        margin:1.5rem auto;
+        align-self:start;
+    }
+
+}
+
+.Features-featureIcon {
     aspect-ratio: 1;
 
     @media (min-width:600px) {
         margin-bottom: 1rem;
-        max-width: 200px;
-        // max-height:200px;
         max-width: 65%;
     }
 }
