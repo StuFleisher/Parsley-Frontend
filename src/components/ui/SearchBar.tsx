@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 
 
 function SearchBar() {

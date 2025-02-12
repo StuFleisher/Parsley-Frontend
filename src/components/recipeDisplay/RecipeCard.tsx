@@ -8,7 +8,7 @@ import ShoppingList from "./ShoppingList";
 import { Accordion, AccordionDetails, AccordionSummary, Stack, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCarrot, faList } from "@fortawesome/free-solid-svg-icons";
+import { faList } from "@fortawesome/free-solid-svg-icons";
 import FavoriteButton from "../ui/FavoriteButton";
 import EditButton from "../ui/EditButton";
 import DeleteButton from "../ui/DeleteButton";

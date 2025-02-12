@@ -19,7 +19,6 @@ type props = {
 function SimpleRecipeCard({ recipe }: props) {
 
     const { username } = useContext(userContext);
-    const theme = useTheme();
 
     return (
         <Stack>
