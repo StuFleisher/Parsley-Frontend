@@ -3,12 +3,10 @@ import { useContext } from "react";
 
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-
 import RecipeInfo from "./RecipeInfo";
 import FavoriteButton from "../ui/FavoriteButton";
 import "./SimpleRecipeCard.scss";
 import userContext from "../../helpers/userContext";
-import { useTheme } from "@mui/material";
 import EditButton from "../ui/EditButton";
 import DeleteButton from "../ui/DeleteButton";
 
