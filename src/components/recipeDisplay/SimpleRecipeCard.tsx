@@ -23,27 +23,26 @@ function SimpleRecipeCard({ recipe }: props) {
 
     return (
         <Stack>
-             {username &&
-                <Stack
-                    className="IconBar"
-                    direction="row"
-                    justifyContent="flex-end"
-                    spacing={2}
-                    sx={{
-                        height: { xs: "fit-content", sm: "100%" },
-                        width: { xs: "100%", sm: "fit-content" },
-                    }}
-                >
-                    {recipe.owner === username &&
-                        <>
-                            <EditButton recipe={recipe} />
-                            <DeleteButton
-                                recipe={recipe}
-                            />
-                        </>
-                    }
-                    <FavoriteButton recipe={recipe} />
-                </Stack>}
+            <Stack
+                className="IconBar"
+                direction="row"
+                justifyContent="flex-end"
+                spacing={2}
+                sx={{
+                    height: { xs: "fit-content", sm: "100%" },
+                    width: { xs: "100%", sm: "fit-content" },
+                }}
+            >
+                {recipe.owner === username &&
+                    <>
+                        <EditButton recipe={recipe} />
+                        <DeleteButton
+                            recipe={recipe}
+                        />
+                    </>
+                }
+                {username && <FavoriteButton recipe={recipe} />}
+            </Stack>
 
             <Stack
                 className="SimpleRecipeCard"
