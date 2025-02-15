@@ -1,6 +1,6 @@
 
 import { useContext } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useCallback } from "react";
 
 import Lottie from "lottie-react";
