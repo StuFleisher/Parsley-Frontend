@@ -1,25 +1,36 @@
-import { useState } from "react";
+import { useSearchParams, Link as RouterLink } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from '@mui/material/Typography';
 
 import GenerateRecipeFromTextForm from "./GenerateRecipeFromTextForm";
+import GenerateRecipeFromUrlForm from "./GenerateRecipeFromUrlForm";
 import ImageForm from "../ui/ImageForm";
 import SimpleLayout from "../ui/SimpleLayout";
 
 import "./GenerateRecipeDisplay.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faPencil, faRocket } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faPencil, faRocket, faLink } from "@fortawesome/free-solid-svg-icons";
 
 type props = {
     generateRecipe: (data: { recipeText: string; } | Blob) => Promise<void>;
 };
 
+type GenerationMethod = "text" | "image" | "url" | "ai";
+
+function isGenerationMethod(value: string | null): value is GenerationMethod {
+    return value !== null && ["text", "image", "url", "ai"].includes(value);
+}
+
 function GenerateRecipeDisplay({ generateRecipe }: props) {
 
-    const [mode, setMode] = useState<"text" | "image" | "ai">("text");
+    const [searchParams] = useSearchParams();
+    let methodParam = searchParams.get("method");
+    const method: GenerationMethod = isGenerationMethod(methodParam) ? methodParam : "text";
 
+
+    //FIXME: buttons crammed at small sizes
     return (
 
         <Stack className="GenerateRecipeDisplay">
@@ -27,62 +38,71 @@ function GenerateRecipeDisplay({ generateRecipe }: props) {
                 className="GenerateRecipeDisplay-nav"
                 alignItems="center"
                 justifyContent="space-evenly"
-                spacing={1}
-                direction={{ xs: "column", sm: "row" }}
             >
+
                 <Button
+                    component={RouterLink}
                     className={
-                        mode === "text"
+                        method === "text"
                             ? "GenerateRecipeDisplay-button selected"
                             : "GenerateRecipeDisplay-button"
                     }
                     variant="outlined"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setMode("text");
-                    }}
+                    to = "/recipes/create?method=text"
                 >
                     <Typography>
-                        <FontAwesomeIcon icon={faPencil} /> &nbsp; Generate from Text
+                        <FontAwesomeIcon icon={faPencil} /> &nbsp; Text
                     </Typography>
                 </Button>
                 <Button
+                    component={RouterLink}
                     className={
-                        mode === "image"
-                            ? "GenerateRecipeDisplay-button selected"
-                            : "GenerateRecipeDisplay-button"
-                    }
-                    // variant="outlined"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setMode("image");
-                    }}
-                >
-                    <Typography>
-                        <FontAwesomeIcon icon={faCamera} /> &nbsp; Generate from Photo
-                    </Typography>
-                </Button>
-                <Button
-                    className={
-                        mode === "ai"
+                        method === "url"
                             ? "GenerateRecipeDisplay-button selected"
                             : "GenerateRecipeDisplay-button"
                     }
                     variant="outlined"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setMode("ai");
-                    }}
+                    to = "/recipes/create?method=url"
                 >
                     <Typography>
-                        <FontAwesomeIcon icon={faRocket} /> &nbsp; Generate with AI
+                        <FontAwesomeIcon icon={faLink} /> &nbsp; Link
                     </Typography>
                 </Button>
+                <Button
+                    component={RouterLink}
+                    className={
+                        method === "image"
+                            ? "GenerateRecipeDisplay-button selected"
+                            : "GenerateRecipeDisplay-button"
+                    }
+                    variant="outlined"
+                    to = "/recipes/create?method=image"
+                >
+                    <Typography>
+                        <FontAwesomeIcon icon={faCamera} /> &nbsp; Image
+                    </Typography>
+                </Button>
+                <Button
+                    component={RouterLink}
+                    className={
+                        method === "ai"
+                            ? "GenerateRecipeDisplay-button selected"
+                            : "GenerateRecipeDisplay-button"
+                    }
+                    variant="outlined"
+                    to = "/recipes/create?method=ai"
+                >
+                    <Typography>
+                        <FontAwesomeIcon icon={faRocket} /> &nbsp; AI
+                    </Typography>
+                </Button>
+
             </Stack>
 
             <SimpleLayout src="/images/banner01.jpg" menuHeight="7rem">
                 <Stack
                     alignItems="center"
+                    justifyContent="center"
                     className="GenerateRecipeDisplay-contents"
                     spacing={1}
                 >
@@ -95,7 +115,7 @@ function GenerateRecipeDisplay({ generateRecipe }: props) {
                         Create a new recipe
                     </Typography>
                     {
-                        (mode === "text")
+                        (method === "text")
                             ?
                             <>
                                 <Typography
@@ -109,7 +129,7 @@ function GenerateRecipeDisplay({ generateRecipe }: props) {
                             : ""
                     }
                     {
-                        (mode === "image")
+                        (method === "image")
                             ?
                             <>
                                 <Typography
@@ -129,7 +149,7 @@ function GenerateRecipeDisplay({ generateRecipe }: props) {
                             : ""
                     }
                     {
-                        (mode === "ai")
+                        (method === "ai")
                             ?
                             <>
                                 <Typography
@@ -139,6 +159,20 @@ function GenerateRecipeDisplay({ generateRecipe }: props) {
                                     Write a description of the recipe you'd like us to make and our AI chef will build something just for you.
                                 </Typography>
                                 <GenerateRecipeFromTextForm onSubmit={generateRecipe} />
+                            </>
+                            : ""
+                    }
+                    {
+                        (method === "url")
+                            ?
+                            <>
+                                <Typography
+                                    variant="body1"
+                                    className="RecipeFromText-title"
+                                >
+                                    Paste the url for your recipe below. We'll take care of the rest!
+                                </Typography>
+                                <GenerateRecipeFromUrlForm onSubmit={generateRecipe} />
                             </>
                             : ""
                     }

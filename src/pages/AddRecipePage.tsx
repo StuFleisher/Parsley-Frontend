@@ -1,6 +1,6 @@
 
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useCallback } from "react";
 
 import Lottie from "lottie-react";
@@ -25,6 +25,10 @@ type Props = {
     initialRecipe?: RecipeForCreate;
 };
 
+type GenerationData = Blob | { url: string; } | { recipeText: string; };
+
+
+
 const emptyRecipe: RecipeForCreate = {
     name: "",
     description: "",
@@ -36,12 +40,13 @@ const emptyRecipe: RecipeForCreate = {
         ingredients: [],
     }
     ],
-    tags:[],
+    tags: [],
 };
 
 const DEFAULT_IMG_BASE_URL = "https://sf-parsley.s3.amazonaws.com/recipeImage/default";
 
 function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
+
 
     const [mode, setMode] = useState<"input" | "generate" | "display" | "saving">("input");
     const [error, setError] = useState<string | null>(null);
@@ -51,28 +56,39 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
     const { username } = useContext(userContext);
     const navigate = useNavigate();
 
+
     /** Sends an API request to generate a well formatted recipe object based
      * on data from the GenerateRecipieFromTextForm component.
      *
      * Updates mode state to "generate" while working, then "display" upon success.
      *
-     * @param formData: {recipeText:string}
+     * @param data :  The data used to generate the request.  Could be an image,
+     * a url string, or recipeText
      */
-    async function generateRecipe(data: { recipeText: string; } | Blob) {
+    async function generateRecipe(data: GenerationData) {
         setError(null);
         setMode("generate");
+        let sourceUrl;
+        let sourceName;
         try {
             let generatedRecipe: GeneratedRecipe;
-            if ("recipeText" in data) {
-                generatedRecipe = await ParsleyAPI.generateRecipeFromText(data);
-            } else {
+            if (data instanceof Blob){
                 generatedRecipe = await ParsleyAPI.generateRecipeFromImage(data);
+            } else if ("recipeText" in data) {
+                generatedRecipe = await ParsleyAPI.generateRecipeFromText(data);
+            } else if ("url" in data) {
+                generatedRecipe = await ParsleyAPI.generateRecipeFromUrl(data);
+                sourceUrl = data.url;
+                sourceName = new URL(data.url).hostname;
+            } else {
+                throw new Error("Please fill out the form to generate a recipe")
             }
 
             let recipeForCreate = {
                 ...generatedRecipe,
                 owner: username!,
-                sourceUrl: "",
+                sourceUrl: sourceUrl || "",
+                sourceName: sourceName || "",
                 imageLg: `${DEFAULT_IMG_BASE_URL}-lg`,
                 imageMd: `${DEFAULT_IMG_BASE_URL}-md`,
                 imageSm: `${DEFAULT_IMG_BASE_URL}-sm`,
@@ -81,7 +97,8 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
             setRecipe(recipeForCreate);
             setMode("display");
         } catch (err: any) {
-            setError(err.message);
+            console.log(err)
+            setError(err);
             setMode("input");
         }
     }
@@ -165,7 +182,15 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
 
     return (
         <>
-            {error ? "Sorry! Our chefs weren't able to prepare that recipe for you." : ""}
+
+            {error ?
+                <Box sx={{p:"1rem"}}>
+                    <Typography variant="h5">
+                        Sorry! Our chefs weren't able to prepare that recipe for you.
+                    </Typography>
+                    <Typography> {error} </Typography>
+                </Box>
+                : ""}
             {pageContent}
         </>
     );

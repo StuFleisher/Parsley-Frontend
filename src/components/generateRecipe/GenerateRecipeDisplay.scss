@@ -11,16 +11,27 @@
 .GenerateRecipeDisplay-nav {
     width: 100%;
     background-color: $muted-dark;
-    padding: 1rem 0;
+    display: grid;
+    grid-template-columns: 10rem 10rem;
+    gap: 1rem;
+    padding:10px 0;
+
+    @media(min-width: 700px){
+        grid-template-columns: 10rem 10rem 10rem 10rem;
+    }
+    @media(min-width: 900px){
+        grid-template-columns: 10rem 10rem 10rem 10rem;
+    }
 }
 
 .GenerateRecipeDisplay-button {
-    width: 15rem;
+    width: 8rem;
     margin: auto;
     color: $bright-white;
     border: $primary solid 1px;
     border-radius: 0;
     background-color: $muted-dark;
+    grid-column: span 1 ;
 
     &.selected {
         background-color: $bright-white;

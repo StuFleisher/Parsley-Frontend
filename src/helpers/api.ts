@@ -24,7 +24,8 @@ class ParsleyAPI {
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err: any) {
-      // console.error("API Error:", err.response);
+      console.error("API Error:", err.response);
+
       let message = err.response.data.error.message;
       throw Array.isArray(message) ? message : [message];
     }
@@ -112,7 +113,12 @@ class ParsleyAPI {
   /**  CREATE  */
 
   static async generateRecipeFromText(formData: { recipeText: string; }): Promise<Recipe> {
-    const response = await this.request('recipes/generate', formData, 'post');
+    const response = await this.request('recipes/generate?method=text', formData, 'post');
+    return response.recipe;
+  }
+
+  static async generateRecipeFromUrl(formData: { url: string; }): Promise<Recipe> {
+    const response = await this.request('recipes/generate?method=url', formData, 'post');
     return response.recipe;
   }
 
@@ -121,7 +127,7 @@ class ParsleyAPI {
     formData.set('image', image);
 
     const response = await this.multipartRequest(
-      `recipes/generate`,
+      `recipes/generate?method=image`,
       formData,
       'post'
     );
