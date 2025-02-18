@@ -9,11 +9,11 @@
     border-radius: 0 0 1rem 1rem;
     align-items: stretch;
     height: fit-content;
-    height: 325px;
     flex-direction: column;
 
     @media (min-width:600px) {
         flex-direction: row;
+        height: 325px;
     }
 }
 

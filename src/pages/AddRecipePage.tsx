@@ -85,13 +85,14 @@ function AddRecipePage({ initialRecipe = emptyRecipe }: Props) {
             }
 
             let recipeForCreate = {
-                ...generatedRecipe,
-                owner: username!,
-                sourceUrl: sourceUrl || "",
-                sourceName: sourceName || "",
+                //default values
                 imageLg: `${DEFAULT_IMG_BASE_URL}-lg`,
                 imageMd: `${DEFAULT_IMG_BASE_URL}-md`,
                 imageSm: `${DEFAULT_IMG_BASE_URL}-sm`,
+                ...generatedRecipe,
+                owner: username!,
+                sourceUrl: sourceUrl || "",
+                sourceName: sourceName || generatedRecipe.sourceName,
             };
 
             setRecipe(recipeForCreate);

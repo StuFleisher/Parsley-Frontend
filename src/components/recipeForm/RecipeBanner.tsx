@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 
-import RecipeImageForm from "./RecipeImageForm";
 import "./RecipeBanner.scss"
+import ImageForm from "../ui/ImageForm";
 
 type props = {
     image: Blob | undefined;
@@ -45,7 +45,7 @@ function RecipeBanner({ updateImage, image, imageUrl, editable = false }: props)
                         onClose={closeModal}
                     >
                         <Box className="EditImageModal">
-                            <RecipeImageForm updateRecipeImage={handleUpdate} />
+                            <ImageForm onSubmit={handleUpdate} imageUrl={imageUrl}/>
                         </Box>
                     </Modal>
                     <Box  className="RecipeBanner-editButton">
@@ -57,7 +57,7 @@ function RecipeBanner({ updateImage, image, imageUrl, editable = false }: props)
                             // variant="contained"
                             color="brightWhite"
                         >
-                            <FontAwesomeIcon icon={faPencilAlt} />
+                            <FontAwesomeIcon icon={faCamera} />
                         </IconButton>
                     </Box>
                 </>

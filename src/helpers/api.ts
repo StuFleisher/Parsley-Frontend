@@ -12,17 +12,18 @@ class ParsleyAPI {
     endpoint: string,
     data = {},
     method = "get",
+    additional_args = {},
   ) {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${ParsleyAPI.token}` };
+    const headers = { Authorization: `Bearer ${ParsleyAPI.token}`};
     const params = (method === "get")
       ? data
       : {};
 
     try {
-      return (await axios({ url, method, data, params, headers })).data;
+      return (await axios({ url, method, data, params, headers, ...additional_args })).data;
     } catch (err: any) {
       console.error("API Error:", err.response);
 
@@ -129,10 +130,21 @@ class ParsleyAPI {
     const response = await this.multipartRequest(
       `recipes/generate?method=image`,
       formData,
-      'post'
+      'post',
     );
 
     return response.recipe;
+  }
+
+  static async generateRecipeImage(id:number):Promise<Blob> {
+    const response = await this.request(
+      `recipes/${id}/image/generate`,
+      {},
+      'post',
+      {"responseType":"blob"}
+    )
+    console.log(response)
+    return response
   }
 
   static async createRecipe(recipe: IRecipe): Promise<Recipe> {

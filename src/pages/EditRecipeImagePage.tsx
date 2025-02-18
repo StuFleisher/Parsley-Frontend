@@ -17,7 +17,7 @@ function EditRecipeImagePage() {
 
     const { id } = useParams();
     if (!id) {
-        throw new Error("Id is required to edit a larp");
+        throw new Error("Id is required to edit a recipe");
     }
 
     const location = useLocation();

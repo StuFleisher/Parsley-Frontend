@@ -9,6 +9,7 @@ import "./SimpleRecipeCard.scss";
 import userContext from "../../helpers/userContext";
 import EditButton from "../ui/EditButton";
 import DeleteButton from "../ui/DeleteButton";
+import EditImageButton from "../ui/EditImageButton";
 
 type props = {
     recipe: SimpleRecipeData | Recipe;
@@ -33,6 +34,7 @@ function SimpleRecipeCard({ recipe }: props) {
                 {recipe.owner === username &&
                     <>
                         <EditButton recipe={recipe} />
+                        <EditImageButton recipe={recipe}/>
                         <DeleteButton
                             recipe={recipe}
                         />

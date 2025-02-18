@@ -1,66 +1,86 @@
 import React, { useState } from "react";
 
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 
 import "./ImageForm.scss";
 
 type props = {
-  onSubmit:Function,
-}
+  onSubmit: Function,
+  imageUrl?:string,
+};
 
-function ImageForm ({onSubmit}:props){
+const DEFAULT_IMG_BASE_URL = "https://sf-parsley.s3.amazonaws.com/recipeImage/default-lg";
 
-  const [image,setImage] = useState<Blob | null>(null);
-  const [fileName, setFileName] = useState("Upload an Image")
 
-  function handleChange(e:React.ChangeEvent<HTMLInputElement>){
+function ImageForm({ onSubmit, imageUrl }: props) {
+
+  const [image, setImage] = useState<Blob | null>(null);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     const file = e.target.files![0];
-    setFileName(e.target.files![0].name)
-    setImage(file)
+    setImage(file);
   }
 
-  function handleSubmit(e:React.FormEvent<HTMLFormElement>){
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     e.stopPropagation();
     onSubmit(image);
   }
 
   return (
-      <form onSubmit={(e)=>handleSubmit(e)} className="ImageForm">
-        <Stack justifyContent="center" alignItems="center" spacing={1}>
-        <Stack direction="row" alignItems="center" justifyContent="space-evenly" spacing={2}>
+    <Stack
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      spacing={2}
+
+    >
+      <Stack
+        className="banner"
+        justifyContent="center"
+        sx={{
+          width: '80%',
+          aspectRatio: '7/3',
+          backgroundImage: image ? `url(${URL.createObjectURL(image)})` : `url(${imageUrl})`,
+          backgroundColor: "#ffffff88",
+          // backgroundBlendMode: generating ? "lighten" : "normal",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          display: "relative",
+          borderRadius: '1rem',
+          overflow: "hidden",
+        }}
+      ></Stack>
+
+      <form onSubmit={(e) => handleSubmit(e)} className="ImageForm">
+        <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
           <Button
             className="ImageForm-uploadButton"
-            variant="contained"
+            variant="outlined"
             component="label"
-            >
-              Upload File
-              <input
-                type="file"
-                accept="image"
-                name="image"
-                hidden
-                onChange={(e)=>handleChange(e)}
-                />
+          >
+            Upload File
+            <input
+              type="file"
+              accept="image"
+              name="image"
+              hidden
+              onChange={(e) => handleChange(e)}
+            />
           </Button>
-          <Box className="ImageForm-fileName">
-            <Typography>{fileName}</Typography>
-          </Box>
-        </Stack>
           <Button
             type="submit"
             className="ImageForm-uploadButton"
-
+            variant="contained"
           >
-            Done
+            Submit
           </Button>
         </Stack>
       </form>
-  )
+    </Stack>
+  );
 }
 
-export default ImageForm
+export default ImageForm;

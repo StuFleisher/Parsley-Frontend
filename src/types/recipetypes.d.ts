@@ -32,9 +32,11 @@ type GeneratedRecipe = {
   description:string;
   sourceName:string;
   steps: IStep[];
+  imageSm?: string;
+  imageMd?: string;
+  imageLg?: string;
   tags: Tag[];
 }
-
 
 //A less detailed recipe for summary views with no submodel data
 type SimpleRecipeData = {
