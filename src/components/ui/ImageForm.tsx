@@ -10,9 +10,6 @@ type props = {
   imageUrl?:string,
 };
 
-const DEFAULT_IMG_BASE_URL = "https://sf-parsley.s3.amazonaws.com/recipeImage/default-lg";
-
-
 function ImageForm({ onSubmit, imageUrl }: props) {
 
   const [image, setImage] = useState<Blob | null>(null);
