@@ -14,7 +14,7 @@ import "./IngredientInputList.scss";
 
 type props = {
     stepIndex: number;
-    ingredients:(IIngredient|IngredientForCreate)[]
+    ingredients:(IIngredient|IngredientForCreate)[] | null
 };
 
 const emptyIngredient = {
@@ -28,7 +28,7 @@ const IngredientInputList = React.memo(
         const renderIngredientInput = useCallback((arrayHelpers: FieldArrayRenderProps) =>{
             return (
                 <>
-                {ingredients.map((ingredient, i) => {
+                {ingredients && ingredients.map((ingredient, i) => {
                     return (
                         <Stack className="IngredientList" key={`step-${stepIndex}-ingredient-${i}`}
                             direction={{ xs: "column", md: "row" }}
